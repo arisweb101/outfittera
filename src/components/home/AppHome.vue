@@ -14,20 +14,38 @@
     components: {
      slideShows,
      categories
-    }
+    },
+    data() {
+      return{
+        menuLogo: require('@/assets/images/logo_black.png'),
+        isActive: '',
+        menuShow: false,
+        menu: [
+          { title: 'Home' },
+          { title: 'Fashion Mode' },
+          { title: 'Travel Miles' },
+          { title: 'Lifestyle Makers' },
+          { title: 'Technology & Machine' },
+          { title: 'Mart' },
+          { title: 'About' },
+        ],
+        }
+     },
+      mounted() {
+
+      },
+      methods: {
+        isMenuOpen() {
+          const vm = this;
+          vm.menuShow = !vm.isActive;
+          vm.isActive = !vm.isActive;
+        }
+      }
   }
 </script>
 <style lang="scss">
 .home {
   height:100%;
-}
-.logo {
-  position:absolute;
-  left:0;
-  right:0;
-  top:10px;
-  margin:0 auto;
-  z-index:2;
 }
 .height100 {
   height:100%;
@@ -39,9 +57,6 @@
   width:100%;
   display:block;
   position:relative;
-  div {
-    height:100%;
-  }
 }
 .slide-item-container {
   .slide-item {
@@ -51,7 +66,6 @@
     display: block;
   }
 }
-
 
 
 </style>

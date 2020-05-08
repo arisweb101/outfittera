@@ -1,6 +1,10 @@
 <template>
-  <v-col cols="6" sm="6" md="6" lg="6" class="slide-images">
-    <transition name="slide-burger">
+    <div class="menu-global-container" v-bind:class="{ open: isActive }" 
+   >
+      <div class="menu-logo" v-show="menuShow">
+        <v-img :src="menuLogo"></v-img>
+      </div>
+      <transition name="slide-burger">
           <div id="burger-menu" v-on:click="isMenuOpen" 
           v-bind:class="{ open: isActive }">
             <span></span>
@@ -9,12 +13,6 @@
             <span></span>
           </div>
       </transition>
-    <div class="menu-container" v-show="menuShow" v-bind:class="{ open: isActive }" 
-   >
-      <div class="menu-logo">
-        <v-img :src="menuLogo"></v-img>
-      </div>
-      
       <div class="menu-list">     
         <v-list>
           <v-list-item
@@ -29,50 +27,18 @@
         </v-list>
       </div>
     </div>
-    <img class="logo" :src="mainLogo">
-    <div class="slider-container">
-      <VueSlickCarousel v-bind="settings" class="height100">
-        <div class="slide-item-container" v-for="item in slideShows">
-          <img class="slide-item" v-bind:style="{ 'background-image': 'url(' + item.image + ')' }">
-        </div>
-      </VueSlickCarousel>
-    </div>
-  </v-col>
 </template>
 <script>
-import VueSlickCarousel from 'vue-slick-carousel'
-  import 'vue-slick-carousel/dist/vue-slick-carousel.css'
-  // optional style for arrows & dots
-  import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css'
+ import slideShows from '@/components/home/AppSlideShows.vue'
+ import categories from '@/components/home/AppCategories.vue'
   export default {
     name: 'Home',
     components: {
-     VueSlickCarousel 
+     slideShows,
+     categories
     },
     data() {
-      return {
-        mainLogo: require('@/assets/images/outfittera.png'),
-        settings: {
-          arrows: true,
-          autoplay: true,
-          dots: false,
-          adaptiveHeight: true,
-          autoplay: true
-        },
-        slideShows: [
-          {
-            image: require('@/assets/images/slideshow1.jpg'),
-          },
-          {
-            image: require('@/assets/images/slideshow1.jpg'),
-          },
-          {
-            image: require('@/assets/images/slideshow1.jpg'),
-          },
-          {
-            image: require('@/assets/images/slideshow1.jpg'),
-          }
-        ],
+      return{
         menuLogo: require('@/assets/images/logo_black.png'),
         isActive: '',
         menuShow: false,
@@ -85,9 +51,12 @@ import VueSlickCarousel from 'vue-slick-carousel'
           { title: 'Mart' },
           { title: 'About' },
         ],
-      }
-    },
-    methods: {
+        }
+     },
+      mounted() {
+
+      },
+      methods: {
         isMenuOpen() {
           const vm = this;
           vm.menuShow = !vm.isActive;
@@ -97,55 +66,20 @@ import VueSlickCarousel from 'vue-slick-carousel'
   }
 </script>
 <style lang="scss">
-.home {
-  height:100%;
-}
 .height100 {
   height:100%;
 }
-.slider-container {
-  position:fixed;
-  user-select:none;
-}
-.slick-slider {
-  z-index:1;
-}
-.slick-list {
-  position:fixed !important;
-  width:50%;
-}
-.slide-images {
-  width:100%;
-  display:block;
-  position:fixed;
-  text-align:center;
-
-  .logo {
-    position:fixed;
-    top:20px;
-    margin:0 0px 0 -40px;
-    z-index:2;
-  }
-}
-.slide-item-container {
-  height:100vh !important;
-  .slide-item {
-    background-size: cover;
-    width: 100%;
-    height: 100%;
-    display: block;
-  }
-}
 
 
-.menu-container {
+.menu-global-container {
   width:0px;
   height:100%;
-  position:fixed;
-  background:#fff;
+  position:relative;
   z-index:2;
+  display:block;
+  background:#fff;
   transition: width .3s ease;
-
+  
   &.open {
     width:300px;
     transition: width .3s ease;
@@ -159,10 +93,10 @@ import VueSlickCarousel from 'vue-slick-carousel'
   }
 
   .menu-list {
-    background:#fff;
     margin:100px 0 0 25px;
     text-transform:uppercase;
     text-align:left;
+    background:#fff;
   }
 }
 
@@ -182,7 +116,7 @@ import VueSlickCarousel from 'vue-slick-carousel'
 {
   width: 30px;
   height: 45px;
-  position: fixed;
+  position: absolute;
   z-index:3;
   left:20px;
   top:24px;
