@@ -13,15 +13,17 @@
             <span></span>
           </div>
       </transition>
-      <div class="menu-list">     
+      <div class="menu-list" v-show="menuShow">     
         <v-list>
           <v-list-item
-            v-for="item in menu"
-            :key="item.title"
-            @click=""
+            v-for="menu in menus"
+            :key="menu.title"
+            :to="menu.path"
           >
             <v-list-item-content>
-              <v-list-item-title v-text="item.title"></v-list-item-title>
+              <v-list-item-title>
+              {{ menu.title }}
+              </v-list-item-title>
             </v-list-item-content>
           </v-list-item>
         </v-list>
@@ -39,23 +41,20 @@
     },
     data() {
       return{
-        menuLogo: require('@/assets/images/logo_black.png'),
+        menuLogo: require('@/assets/images/logo-black.png'),
         isActive: '',
         menuShow: false,
-        menu: [
-          { title: 'Home' },
-          { title: 'Fashion Mode' },
-          { title: 'Travel Miles' },
-          { title: 'Lifestyle Makers' },
-          { title: 'Technology & Machine' },
-          { title: 'Mart' },
-          { title: 'About' },
+        menus: [
+          { title: 'Home', path: '/' },
+          { title: 'Fashion Mode', path: '/fashion-mode' },
+          { title: 'Travel Miles', path: '/travel-miles'},
+          { title: 'Lifestyle Makers', path: '/lifestyle-makers' },
+          { title: 'Technology & Machine', path: '/technology-and-machine' },
+          { title: 'Mart', path: '/mart' },
+          { title: 'About', path: '/about' },
         ],
         }
      },
-      mounted() {
-
-      },
       methods: {
         isMenuOpen() {
           const vm = this;
@@ -69,12 +68,10 @@
 .height100 {
   height:100%;
 }
-
-
 .menu-global-container {
   width:0px;
   height:100%;
-  position:relative;
+  position:absolute;
   z-index:2;
   display:block;
   background:#fff;

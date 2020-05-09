@@ -11,9 +11,11 @@
         <div class="previous" v-if="category.previous">Next: {{ category.previous }}</div>
       </div>
     </v-col>
-    <div no-gutters class="category-items">
-      <div cols="6" v-for="item in category.categoryItem" class="items">
+    <div no-gutters class="articles">
+      <div cols="6" v-for="item in category.articles" class="items">
         <v-img :src="item.images"></v-img>
+        <div class="source">{{ item.source }}</div>
+        <div class="title">{{ item.title }}</div>
         <div class="desc">
           {{ item.description }}
         </div>
@@ -35,7 +37,7 @@ export default {
             categoryName: "Fresh Stories",
             previous: '',
             next: 'Fashion Mode',
-            categoryItem : [
+            articles : [
               {
                 images: require('@/assets/images/cat1.png'),
                 source: 'Lifestyle Markers',
@@ -66,7 +68,7 @@ export default {
             categoryName: "Fresh Stories",
             previous: '',
             next: 'Fashion Mode',
-            categoryItem : [
+            articles : [
               {
                 images: require('@/assets/images/cat1.png'),
                 source: 'Lifestyle Markers',
@@ -97,7 +99,7 @@ export default {
             categoryName: "Fresh Stories",
             previous: '',
             next: 'Fashion Mode',
-            categoryItem : [
+            articles : [
               {
                 images: require('@/assets/images/cat1.png'),
                 source: 'Lifestyle Markers',
@@ -174,16 +176,25 @@ export default {
     }
   }
 }
-.category-items {
+.articles {
   column-count: 2;
   column-gap: 1em;
   margin-top:20px;
   width:100%;
+  .source {
+      text-transform:uppercase;
+      padding:10px 0 0;
+    }
+    .title {
+      font-weight: bold;
+      font-size: 21px;
+      line-height:24px;
+      padding:10px 0;
+    }
   .items {
-    background-color: #eee;
-  display: inline-block;
-  margin: 0 0 1em;
-  width: 100%;
+    display: inline-block;
+    margin: 0 0 1em;
+    width: 100%;
   }
 }
 </style>

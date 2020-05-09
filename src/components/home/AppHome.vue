@@ -17,18 +17,9 @@
     },
     data() {
       return{
-        menuLogo: require('@/assets/images/logo_black.png'),
+        menuLogo: require('@/assets/images/logo-black.png'),
         isActive: '',
         menuShow: false,
-        menu: [
-          { title: 'Home' },
-          { title: 'Fashion Mode' },
-          { title: 'Travel Miles' },
-          { title: 'Lifestyle Makers' },
-          { title: 'Technology & Machine' },
-          { title: 'Mart' },
-          { title: 'About' },
-        ],
         }
      },
       mounted() {

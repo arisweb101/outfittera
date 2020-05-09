@@ -14,16 +14,17 @@
       <div class="menu-logo">
         <v-img :src="menuLogo"></v-img>
       </div>
-      
       <div class="menu-list">     
         <v-list>
           <v-list-item
-            v-for="item in menu"
-            :key="item.title"
-            @click=""
+            v-for="menu in menus"
+            :key="menu.title"
+            :to="menu.path"
           >
             <v-list-item-content>
-              <v-list-item-title v-text="item.title"></v-list-item-title>
+              <v-list-item-title>
+              {{ menu.title }}
+              </v-list-item-title>
             </v-list-item-content>
           </v-list-item>
         </v-list>
@@ -73,17 +74,17 @@ import VueSlickCarousel from 'vue-slick-carousel'
             image: require('@/assets/images/slideshow1.jpg'),
           }
         ],
-        menuLogo: require('@/assets/images/logo_black.png'),
+        menuLogo: require('@/assets/images/logo-black.png'),
         isActive: '',
         menuShow: false,
-        menu: [
-          { title: 'Home' },
-          { title: 'Fashion Mode' },
-          { title: 'Travel Miles' },
-          { title: 'Lifestyle Makers' },
-          { title: 'Technology & Machine' },
-          { title: 'Mart' },
-          { title: 'About' },
+        menus: [
+          { title: 'Home', path: '/' },
+          { title: 'Fashion Mode', path: '/fashion-mode' },
+          { title: 'Travel Miles', path: '/travel-miles'},
+          { title: 'Lifestyle Makers', path: '/lifestyle-makers' },
+          { title: 'Technology & Machine', path: '/technology-and-machine' },
+          { title: 'Mart', path: '/mart' },
+          { title: 'About', path: '/about' },
         ],
       }
     },
