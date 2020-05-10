@@ -5,7 +5,7 @@
 </template>
 <script>
 // @ is an alias to /src
-import PageTemplate from '@/components/pageTemplate/AppTemplate.vue';
+import PageTemplate from '@/components/pageTemplate/PageTemplate.vue';
 export default {
   name: 'TemplateView',
   components: {

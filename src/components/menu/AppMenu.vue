@@ -2,7 +2,7 @@
     <div class="menu-global-container" v-bind:class="{ open: isActive }" 
    >
       <div class="menu-logo" v-show="menuShow">
-        <v-img :src="menuLogo"></v-img>
+        <v-img :src="menuLogo" class="menu-logo"></v-img>
       </div>
       <transition name="slide-burger">
           <div id="burger-menu" v-on:click="isMenuOpen" 
@@ -72,21 +72,22 @@
   width:0px;
   height:100%;
   position:absolute;
-  z-index:2;
+  z-index:5;
   display:block;
   background:#fff;
-  transition: width .3s ease;
+  transition: width .1s ease;
   
   &.open {
     width:300px;
-    transition: width .3s ease;
+    transition: width .1s ease;
   }
 
   .menu-logo {
     width:130px;
     position:absolute;
-    left:42px;
-    top:20px;
+    left:20px;
+    top:10px;
+    z-index:5;
   }
 
   .menu-list {
@@ -101,7 +102,7 @@
   transition: all .1s ease;
 }
 .slide-burger-leave-active {
-  transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+  transition: all .1s cubic-bezier(1.0, 0.5, 0.8, 1.0);
 }
 .slide-burger-enter, .slide-burger-leave-to
 /* .slide-menu-leave-active below version 2.1.8 */ {
@@ -121,10 +122,10 @@
   -moz-transform: rotate(0deg);
   -o-transform: rotate(0deg);
   transform: rotate(0deg);
-  -webkit-transition: .2s ease-in-out;
-  -moz-transition: .2s ease-in-out;
-  -o-transition: .2s ease-in-out;
-  transition: .2s ease-in-out;
+  -webkit-transition: .1s ease-in-out;
+  -moz-transition: .1s ease-in-out;
+  -o-transition: .1s ease-in-out;
+  transition: .1s ease-in-out;
   cursor: pointer;
 
   span {

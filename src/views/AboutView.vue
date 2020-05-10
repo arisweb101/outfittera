@@ -6,7 +6,7 @@
 
 <script>
 // @ is an alias to /src
-import PageTemplate from '@/components/pageTemplate/AppTemplate.vue';
+import PageTemplate from '@/components/pageTemplate/PageTemplate.vue';
 import Menu from '@/components/menu/AppMenu.vue';
 export default {
   name: 'PageTemplate',

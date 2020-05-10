@@ -155,8 +155,9 @@ import VueSlickCarousel from 'vue-slick-carousel'
   .menu-logo {
     width:130px;
     position:absolute;
-    left:42px;
+    left:20px;
     top:20px;
+    z-index:5;
   }
 
   .menu-list {

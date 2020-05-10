@@ -1,20 +1,17 @@
 <template>
   <v-layout>
     <v-img :src="whiteLogo" class="white-logo"></v-img>
-    <v-img :src="mainBanner" gradient="to top right, rgba(83, 18, 124, 0.44), rgba(201, 117, 255, 0.57)" class="banner"></v-img>
-    <div class="page-title">
-      {{ pageTitle }}
-    </div>
     <div class="search-icon">
       <v-img :src="searchIcon"></v-img>
     </div>
+    <v-img :src="mainBanner" gradient="to top right, rgba(83, 18, 124, 0.44), rgba(201, 117, 255, 0.57)" class="banner"></v-img>
   </v-layout>
 </template>
 <script>
 
 export default {
   props: ['pageTitle', 'mainBanner'],
-  name: 'Banner',
+  name: 'PageBanner',
   components: {
     
   },
@@ -66,7 +63,7 @@ export default {
     font-size: 39px;
   }
   .banner {
-    max-height:300px;
+    max-height:322px;
     text-align:center;
   }
 }

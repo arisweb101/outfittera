@@ -1,15 +1,15 @@
 <template>
   <div class="page-template">
-    <PageTemplate/>
+    <ArticleTemplate/>
   </div>
 </template>
 <script>
 // @ is an alias to /src
-import PageTemplate from '@/components/pageTemplate/AppTemplate.vue';
+import ArticleTemplate from '@/components/articleTemplate/ArticleTemplate.vue';
 export default {
   name: 'TemplateView',
   components: {
-    PageTemplate
+    ArticleTemplate
   }
 }
 </script>
