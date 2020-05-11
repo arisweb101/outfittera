@@ -6,6 +6,8 @@ import './registerServiceWorker'
 import vuetify from './plugins/vuetify';
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+import Tinybox from "vue-tinybox";
+Vue.use(Tinybox);
 
 Vue.use(VueAxios, axios)
 

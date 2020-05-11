@@ -1,7 +1,7 @@
 <template>
   <v-col cols="6" sm="6" md="6" lg="6" class="pa-8"
   >
-  <v-row v-for="category in categories" no-gutters>
+  <v-row v-for="category in categories" :key="category.categoryName" no-gutters>
     <v-col cols="6" class="category-title">
       <div class="title">{{ category.categoryName }}</div>
     </v-col>

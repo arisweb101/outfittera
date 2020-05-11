@@ -7,45 +7,65 @@
     :articleBannerImage="articleBanner.articleBannerImage"/>
     <socialMediaLogos class="social-logos" />
     <div class="article-content">
-      <v-row>
+      <v-row class="block">
         <v-col cols="12" md="12">
           <p class="initial">{{ contentBlock1.text }}</p>
           <p>{{ contentBlock1.text }}</p>
           <p>{{ contentBlock1.text }}</p>
         </v-col>
       </v-row >
-      <v-row>
+      <v-row class="block">
         <v-col cols="12" md="12">
-            <v-img :src="contentBlock2.image"></v-img>
+            <v-img :src="contentBlock2.image" class="main-image"></v-img>
+            <p class="block-title">{{ contentBlock2.title }}</p>
             <p>{{ contentBlock2.text }}</p>
             <p>{{ contentBlock2.text }}</p>
-            <ul>
-              <li></li>
-              <li></li>
-              <li></li>
-            </ul>
+            <div class="light-box">
+              <Tinybox v-model="contentBlock2.index" :images="contentBlock2.imageList"></Tinybox>
+                  <img v-for="(img, idx) in contentBlock2.imageList"
+                    :src="img.src"
+                    :alt="img.alt"
+                    :caption="img.caption"
+                    class="open-tinybox"
+                    @click="contentBlock2.index = idx"
+                  >
+            </div>
+        </v-col>
+      </v-row>
+      <v-row class="block">
+        <v-col cols="12" md="12">
+          <p class="block-title">{{ contentBlock3.title }}</p>
+          <p>{{ contentBlock3.text }}</p>
+          <p>{{ contentBlock3.text }}</p>
         </v-col>
       </v-row>
       <v-row>
-        <div class="block3">
-            <p class="initial">{{ contentBlock1.text }}</p>
-            <p>{{ contentBlock1.text }}</p>
-            <p>{{ contentBlock1.text }}</p>
-        </div>
+        <v-col cols="12" md="12">
+          <buyThis/>
+          <tags/>
+        </v-col>
       </v-row>
     </div>
   </v-container>
 </template>
 <script>
- import Menu from '@/components/menu/AppMenu.vue';
- import ArticleBanner from '@/components/articleTemplate/ArticleBanner.vue'
- import socialMediaLogos from '@/components/socialMedia/socialMediaLogos.vue'
-  export default {
+import Vue from 'vue'
+import Menu from '@/components/menu/AppMenu.vue';
+import ArticleBanner from '@/components/articleTemplate/ArticleBanner.vue'
+import socialMediaLogos from '@/components/socialMedia/socialMediaLogos.vue'
+import buyThis from '@/components/buyThis/BuyThis.vue'
+import tags from '@/components/tags/tags.vue'
+import Tinybox from "vue-tinybox";
+
+export default {
     name: 'Template',
     components: {
      Menu,
      ArticleBanner,
-     socialMediaLogos
+     socialMediaLogos,
+     Tinybox,
+     buyThis,
+     tags
     },
     data() {
       return{
@@ -75,8 +95,18 @@
                 "placerat ipsum, malesuada ullamcorper donec. Vitae phasellus sodales turpis aliquet. Tortor leo" +
                 "aenean lacus diam. Massa facilisis vitae lectus convallis at convallis aliquam, et facilisis. Molestie" +
                 "vitae nulla volutpat, velit. Et enim maecenas vestibulum eget pretium viverra egestas.",
+          imageList: [
+            { alt: 'Image 1', caption:"Image 1" ,src: require('@/assets/images/content-image.png'), thumbnail: require('@/assets/images/content-image.png') },
+            { alt: 'Image 2', caption:"Image 2", src: require('@/assets/images/content-image.png'), thumbnail: require('@/assets/images/content-image.png') },
+            { alt: 'Image 3', caption:"Image 3", src: require('@/assets/images/content-image.png'), thumbnail: require('@/assets/images/content-image.png') }
+          ],
+          index: null,
         },
+        imgs: '',  // Img Url , string or Array
+        visible: false,
+        index: 0,
         contentBlock3: {
+          title: "Consequat vulputate tincidunt. Faucibus morbi neque, vulputate sed.",
           text: "Lorem Tortor sapien quis justo nunc et sed. Lacus, magna tortor urna, mi." +
                 "quisque sed egestas magna nunc. Nibh pellentesque etiam felis cursus. Felis," + 
                 "praesent molestie nulla tincidunt. Feugiat mattis aliquam gravida egestas. Quam" +
@@ -84,11 +114,14 @@
                 "interdum sociis tortor sapien. praesent molestie nulla tincidunt. Feugiat mattis",
         }
       }
-     }
-    } 
+     },
+     methods: {
+        
+      },
+    }
 </script>
 <style lang="scss">
-.page-template {
+.article-template {
   .articles-lists {
     column-count: 3;
     column-gap: 2em;
@@ -125,15 +158,14 @@
     left:0;
     right:0;
     top:50px;
-    width:60%;
+    width:50%;
 
-    .v-image {
-      margin:30px 0;
+    .main-image {
+      margin:0 0 30px;
     }
     p {
       text-align:justify;
     }
-
     .initial:first-child:first-letter {
       float: left;
       font-size: 75px;
@@ -143,6 +175,26 @@
       padding-left: 3px;
     }
   }
-}
+  .block {
+    margin:0 0 0;
 
+    .block-title {
+      font-size:28px;
+      text-align:left;
+    }
+  }
+  .light-box{
+    padding: 0;
+    margin: 30px 0;
+    list-style: none;
+    display: flex;
+    justify-content:space-between;
+    .open-tinybox {
+      width: 32%;
+      text-align: center;
+      line-height: 75px;
+      font-size: 30px;
+    }
+  }
+}
 </style>

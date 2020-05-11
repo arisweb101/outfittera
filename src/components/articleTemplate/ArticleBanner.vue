@@ -49,7 +49,7 @@ export default {
 }
 </script>
 <style lang="scss" scope>
-.page-template {
+.article-template {
   .search-icon {
     position:absolute;
     z-index:2;
