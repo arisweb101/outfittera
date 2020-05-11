@@ -1,9 +1,9 @@
 <template>
     <div class="social-logos">
        <ul>
-        <li><router-link :to="facebook"><v-img class="s-logo" :src="facebook"></v-img></router-link></li>
-        <li><router-link :to="twitter"><v-img class="s-logo" :src="twitter"></v-img></router-link></li>
-        <li><router-link :to="web"><v-img class="s-logo" :src="web"></v-img></router-link></li>
+        <li><router-link :to="facebook" target="_blank"><v-img class="s-logo" :src="facebook"></v-img></router-link></li>
+        <li><router-link :to="twitter" target="_blank"><v-img class="s-logo" :src="twitter"></v-img></router-link></li>
+        <li><router-link :to="web" target="_blank"><v-img class="s-logo" :src="web"></v-img></router-link></li>
        </ul>
     </div>
 </template>
@@ -42,9 +42,9 @@
       .s-logo {
         width:30px;
         outline:none;
-        transition:0.5s;
+        transition:0.2s;
          &:hover {
-          transition: 0.5s;
+          transition: 0.2s;
           -ms-transform: scale(1.2); /* IE 9 */
           transform: scale(1.2);
         }

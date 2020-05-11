@@ -5,7 +5,7 @@
     :articleTitle="articleBanner.articleTitle" :authorName="articleBanner.authorName" 
     :authorThumbnail="articleBanner.authorThumbnail" :articleDateCreated="articleBanner.articleDateCreated" 
     :articleBannerImage="articleBanner.articleBannerImage"/>
-    <socialMediaLogos class="social-logos" />
+    <SocialMediaLogos class="social-logos" />
     <div class="article-content">
       <v-row class="block">
         <v-col cols="12" md="12">
@@ -46,15 +46,19 @@
         </v-col>
       </v-row>
     </div>
+    <NextStory/>
+    <Footer/>
   </v-container>
 </template>
 <script>
 import Vue from 'vue'
 import Menu from '@/components/menu/AppMenu.vue';
 import ArticleBanner from '@/components/articleTemplate/ArticleBanner.vue'
-import socialMediaLogos from '@/components/socialMedia/socialMediaLogos.vue'
-import buyThis from '@/components/buyThis/BuyThis.vue'
-import tags from '@/components/tags/tags.vue'
+import SocialMediaLogos from '@/components/socialMedia/socialMediaLogos.vue'
+import BuyThis from '@/components/buyThis/BuyThis.vue'
+import Tags from '@/components/tags/tags.vue'
+import NextStory from '@/components/nextStory/nextStory.vue'
+import Footer from '@/components/footer/AppFooter.vue'
 import Tinybox from "vue-tinybox";
 
 export default {
@@ -62,10 +66,12 @@ export default {
     components: {
      Menu,
      ArticleBanner,
-     socialMediaLogos,
+     SocialMediaLogos,
      Tinybox,
-     buyThis,
-     tags
+     BuyThis,
+     Tags,
+     Footer,
+     NextStory
     },
     data() {
       return{
