@@ -13,7 +13,7 @@
     name: 'Home',
     components: {
      slideShows,
-     categories
+     categories,
     },
     data() {
       return{

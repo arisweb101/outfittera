@@ -31,10 +31,15 @@
       </div>
     </div>
     <img class="logo" :src="mainLogo">
-    <div class="slider-container">
+    <div class="slider-container" v-bind:class="{ open: isActive }">
       <VueSlickCarousel v-bind="settings" class="height100">
         <div class="slide-item-container" v-for="item in slideShows">
-          <img class="slide-item" v-bind:style="{ 'background-image': 'url(' + item.image + ')' }">
+          <v-img gradient="to top right, rgba(83, 18, 124, 0), rgba(83, 18, 124, 0.47)" class="slide-item" :src="item.image">
+            <div class="slide-titles">
+            <div class="slide-title">{{ item.title }}</div>
+            <div class="slide-sub-title">{{ item.subTitle }}</div>
+          </div>
+          </v-img>
         </div>
       </VueSlickCarousel>
     </div>
@@ -42,60 +47,70 @@
 </template>
 <script>
 import VueSlickCarousel from 'vue-slick-carousel'
-  import 'vue-slick-carousel/dist/vue-slick-carousel.css'
-  // optional style for arrows & dots
-  import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css'
-  export default {
-    name: 'Home',
-    components: {
-     VueSlickCarousel 
-    },
-    data() {
-      return {
-        mainLogo: require('@/assets/images/outfittera.png'),
-        settings: {
-          arrows: true,
-          autoplay: true,
-          dots: false,
-          adaptiveHeight: true,
-          autoplay: true
+import 'vue-slick-carousel/dist/vue-slick-carousel.css'
+import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css'
+import eventBus from '@/event_bus';
+export default {
+  name: 'Home',
+  components: {
+    VueSlickCarousel,
+    eventBus
+  },
+  data() {
+    return {
+      mainLogo: require('@/assets/images/logo-white.png'),
+      settings: {
+        arrows: false,
+        autoplay: true,
+        dots: false,
+        adaptiveHeight: true,
+        autoplay: true
+      },
+      slideShows: [
+        {
+          image: require('@/assets/images/slideshow1.png'),
+          title: "The Lifestyle",
+          subTitle: "feat. July Palafox"
         },
-        slideShows: [
-          {
-            image: require('@/assets/images/slideshow1.jpg'),
-          },
-          {
-            image: require('@/assets/images/slideshow1.jpg'),
-          },
-          {
-            image: require('@/assets/images/slideshow1.jpg'),
-          },
-          {
-            image: require('@/assets/images/slideshow1.jpg'),
-          }
-        ],
-        menuLogo: require('@/assets/images/logo-black.png'),
-        isActive: '',
-        menuShow: false,
-        menus: [
-          { title: 'Home', path: '/' },
-          { title: 'Fashion Mode', path: '/fashion-mode' },
-          { title: 'Travel Miles', path: '/travel-miles'},
-          { title: 'Lifestyle Makers', path: '/lifestyle-makers' },
-          { title: 'Technology & Machine', path: '/technology-and-machine' },
-          { title: 'Mart', path: '/mart' },
-          { title: 'About', path: '/about' },
-        ],
-      }
-    },
-    methods: {
-        isMenuOpen() {
-          const vm = this;
-          vm.menuShow = !vm.isActive;
-          vm.isActive = !vm.isActive;
+        {
+          image: require('@/assets/images/slideshow1.png'),
+          title: "The Lifestyle",
+          subTitle: "feat. July Palafox"
+        },
+        {
+          image: require('@/assets/images/slideshow1.png'),
+          title: "The Lifestyle",
+          subTitle: "feat. July Palafox"
+        },
+        {
+          image: require('@/assets/images/slideshow1.png'),
+          title: "The Lifestyle",
+          subTitle: "feat. July Palafox"
         }
+      ],
+      menuLogo: require('@/assets/images/logo-black.png'),
+      isActive: '',
+      menuShow: false,
+      menus: [
+        { title: 'Home', path: '/' },
+        { title: 'Fashion Mode', path: '/fashion-mode' },
+        { title: 'Travel Miles', path: '/travel-miles'},
+        { title: 'Lifestyle Makers', path: '/lifestyle-makers' },
+        { title: 'Technology & Machine', path: '/technology-and-machine' },
+        { title: 'Mart', path: '/mart' },
+        { title: 'About', path: '/about' },
+      ],
+    }
+  },
+  methods: {
+      isMenuOpen() {
+        const vm = this;
+        vm.menuShow = !vm.isActive;
+        vm.isActive = !vm.isActive;
+        eventBus.$emit('menuOpen', vm.menuShow);
       }
-  }
+    }
+}
 </script>
 <style lang="scss">
 .home {
@@ -107,6 +122,12 @@ import VueSlickCarousel from 'vue-slick-carousel'
 .slider-container {
   position:fixed;
   user-select:none;
+  transition: 0.4s;
+  left:0;
+  &.open {
+    left:300px;
+    transition: 0.4s;
+  }
 }
 .slick-slider {
   z-index:1;
@@ -127,7 +148,6 @@ import VueSlickCarousel from 'vue-slick-carousel'
     margin:0 0px 0 -40px;
     z-index:2;
   }
-}
 .slide-item-container {
   height:100vh !important;
   .slide-item {
@@ -135,7 +155,26 @@ import VueSlickCarousel from 'vue-slick-carousel'
     width: 100%;
     height: 100%;
     display: block;
+    position:relative;
+    z-index:2;
   }
+  .slide-titles {
+    position:absolute;
+    bottom:120px;
+    color:#fff;
+    left:0;
+    right:0;
+    margin:0;
+    z-index:9;
+    .slide-title {
+      font-size:40px;
+      font-weight:bold;
+    }
+    .slide-sub-title {
+      font-size:40px;
+    }
+  }
+}
 }
 
 

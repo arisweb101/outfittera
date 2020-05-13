@@ -7,14 +7,14 @@
     :articleBannerImage="articleBanner.articleBannerImage"/>
     <SocialMediaLogos class="social-logos" />
     <div class="article-content">
-      <v-row class="block">
+      <v-row class="block" v-scrollanimation>
         <v-col cols="12" md="12">
           <p class="initial">{{ contentBlock1.text }}</p>
           <p>{{ contentBlock1.text }}</p>
           <p>{{ contentBlock1.text }}</p>
         </v-col>
       </v-row >
-      <v-row class="block">
+      <v-row class="block" v-scrollanimation>
         <v-col cols="12" md="12">
             <v-img :src="contentBlock2.image" class="main-image"></v-img>
             <p class="block-title">{{ contentBlock2.title }}</p>
@@ -32,7 +32,7 @@
             </div>
         </v-col>
       </v-row>
-      <v-row class="block">
+      <v-row class="block" v-scrollanimation>
         <v-col cols="12" md="12">
           <p class="block-title">{{ contentBlock3.title }}</p>
           <p>{{ contentBlock3.text }}</p>
@@ -40,7 +40,7 @@
         </v-col>
       </v-row>
       <v-row>
-        <v-col cols="12" md="12">
+        <v-col cols="12" md="12" v-scrollanimation>
           <buyThis/>
           <tags/>
         </v-col>
@@ -202,5 +202,14 @@ export default {
       font-size: 30px;
     }
   }
+}
+.before-enter {
+  opacity:0;
+  transform: translateY(100px);
+  transition:all 0.8s ease-out;
+}
+.enter {
+  opacity:1;
+  transform:translateY(0px);
 }
 </style>

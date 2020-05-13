@@ -7,8 +7,9 @@ import vuetify from './plugins/vuetify';
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import Tinybox from "vue-tinybox";
+import ScrollAnimation from '@/assets/js/scrollAnimation'
 Vue.use(Tinybox);
-
+Vue.directive('scrollanimation', ScrollAnimation);
 Vue.use(VueAxios, axios)
 
 Vue.config.productionTip = false
