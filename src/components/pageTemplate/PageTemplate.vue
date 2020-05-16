@@ -28,7 +28,7 @@
     },
     data() {
       return{
-        menuLogo: require('@/assets/images/logo-black.png'),
+        menuLogo: require('@/assets/images/logo-black.svg'),
         pageTitle: "Fashion Modes",
         mainBanner : require('@/assets/images/banner-image.png'),
         articles: []
@@ -121,6 +121,7 @@
       padding:10px 0 0;
     }
     .title {
+      font-family: 'Libre Baskerville', serif !important;
       font-weight: bold;
       font-size: 21px;
       line-height:24px;

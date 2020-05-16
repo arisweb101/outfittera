@@ -2,9 +2,12 @@
   <v-layout>
     <v-img :src="whiteLogo" class="white-logo"></v-img>
     <div class="search-icon">
-      <v-img :src="searchIcon"></v-img>
+      <v-img :src="searchIcon">
+      </v-img>
     </div>
-    <v-img :src="mainBanner" gradient="to top right, rgba(83, 18, 124, 0.44), rgba(201, 117, 255, 0.57)" class="banner"></v-img>
+    <v-img :src="mainBanner" gradient="to top right, rgba(83, 18, 124, 0.44), rgba(201, 117, 255, 0.57)" class="banner">
+      <div class="page-title">{{ pageTitle }}</div>
+    </v-img>
   </v-layout>
 </template>
 <script>
@@ -17,7 +20,7 @@ export default {
   },
   data() {
     return {
-      whiteLogo: require('@/assets/images/logo-white.png'),
+      whiteLogo: require('@/assets/images/logo-white.svg'),
       searchIcon: require('@/assets/images/search.png'),
     }
   },
@@ -31,6 +34,14 @@ export default {
 </script>
 <style lang="scss" scope>
 .page-template {
+  .page-title {
+    color:#fff;
+    font-size:40px;
+    font-weight:bold;
+    position:relative;
+    top:100px;
+    font-family: 'Libre Baskerville', serif;
+  }
   .search-icon {
     position:absolute;
     z-index:2;

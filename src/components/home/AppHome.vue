@@ -23,7 +23,7 @@ import eventBus from '@/event_bus';
     },
     data() {
       return{
-        menuLogo: require('@/assets/images/logo-black.png'),
+        menuLogo: require('@/assets/images/logo-black.svg'),
         isActive: '',
         menuShow: false,
         searchBarShow: false,

@@ -71,7 +71,7 @@ export default {
         dense:true,
         menuShow: false,
         searchBarShow: false,
-        blackLogo: require('@/assets/images/logo-black.png'),
+        blackLogo: require('@/assets/images/logo-black.svg'),
         icon: require('@/assets/images/search-gray.png'),
         allProducts: ['Foo', 'Bar', 'Fizz', 'Buzz'],
         items:[

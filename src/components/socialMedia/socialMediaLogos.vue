@@ -30,7 +30,7 @@
 <style lang="scss">
 .social-logos {
   position:fixed;
-  z-index:10;
+  z-index:4;
   ul {
     padding:0;
     margin:0;

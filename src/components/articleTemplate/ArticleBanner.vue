@@ -34,7 +34,7 @@ export default {
   },
   data() {
     return {
-      whiteLogo: require('@/assets/images/logo-white.png'),
+      whiteLogo: require('@/assets/images/logo-white.svg'),
       searchIcon: require('@/assets/images/search.png'),
     }
   },
@@ -86,13 +86,15 @@ export default {
           margin:0 0 10px;
         }
         .artitle-title {
+           font-family: 'Libre Baskerville', serif !important;
           font-size:45px;
-          font-size:bold;
+          font-weight:bold;
           margin:0 0 10px;
         }
         .artitle-author {
           font-size:45px;
           margin:0 0 10px;
+          font-family: 'Libre Baskerville', serif !important;
         }
       }
     }

@@ -29,7 +29,7 @@ export default {
   },
   data() {
     return {
-      footerLogo: require('@/assets/images/logo-white.png'),
+      footerLogo: require('@/assets/images/logo-white.svg'),
       facebook: require('@/assets/images/fb-white.png'),
       instagram: require('@/assets/images/ig-white.png'),
       menus: [],
@@ -60,7 +60,6 @@ export default {
   padding: 20px;
   position: absolute;
   width: 100%;
-  margin-top:50px;
   .footer-container {
     margin:0 auto;
     width:80%;

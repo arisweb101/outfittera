@@ -1,6 +1,7 @@
 <template>
   <v-container fluid no-gutters class="pa-0 height100">
      <Menu/>
+     <Tinybox v-model="contentBlock2.index" :images="contentBlock2.imageList"></Tinybox>
     <ArticleBanner :articleCategory="articleBanner.articleCategory"
     :articleTitle="articleBanner.articleTitle" :authorName="articleBanner.authorName" 
     :authorThumbnail="articleBanner.authorThumbnail" :articleDateCreated="articleBanner.articleDateCreated" 
@@ -21,7 +22,7 @@
             <p>{{ contentBlock2.text }}</p>
             <p>{{ contentBlock2.text }}</p>
             <div class="light-box">
-              <Tinybox v-model="contentBlock2.index" :images="contentBlock2.imageList"></Tinybox>
+              
                   <img v-for="(img, idx) in contentBlock2.imageList"
                     :src="img.src"
                     :alt="img.alt"
@@ -75,7 +76,7 @@ export default {
     },
     data() {
       return{
-        menuLogo: require('@/assets/images/logo-black.png'),
+        menuLogo: require('@/assets/images/logo-black.svg'),
         articleBanner: {
           articleCategory: "Lifestyle Markers",
           articleTitle: "The Lifestyle",
@@ -187,6 +188,7 @@ export default {
     .block-title {
       font-size:28px;
       text-align:left;
+      font-family: 'Libre Baskerville', serif !important;
     }
   }
   .light-box{

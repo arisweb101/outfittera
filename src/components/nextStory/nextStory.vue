@@ -52,9 +52,11 @@ export default {
       top:50px;
       left:0;
       right:0;
+       font-family: 'Libre Baskerville', serif !important;
     }
     .next-story-title {
-      width:400px;
+       font-family: 'Libre Baskerville', serif !important;
+      width:500px;
       margin:0 auto;
       font-size:40px;
       position:absolute;

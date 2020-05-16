@@ -27,6 +27,15 @@
             </v-list-item-content>
           </v-list-item>
         </v-list>
+        <div class="menu-social" v-bind:class="{ open: menuShow }">
+          <span class="connect">Connect To</span>
+          <ul>
+            <li><a href=""><v-img :src="fbGrayIcon"></v-img>
+            </a></li>
+            <li><a href=""><v-img :src="igGrayIcon"></v-img>
+            </a></li>
+          </ul>
+        </div>
       </div>
     </div>
 </template>
@@ -41,7 +50,9 @@
     },
     data() {
       return{
-        menuLogo: require('@/assets/images/logo-black.png'),
+        menuLogo: require('@/assets/images/logo-black.svg'),
+        fbGrayIcon: require('@/assets/images/fb-gray.svg'),
+        igGrayIcon: require('@/assets/images/ig-gray.svg'),
         isActive: '',
         menuShow: false,
         menus: [
@@ -96,6 +107,41 @@
     text-align:left;
     background:#fff;
   }
+  .menu-social {
+    position:absolute;
+    bottom:20px;
+    left:0;
+    right:0;
+    margin:0 auto;
+    transition:.2s;
+    text-align:center;
+    transform:translateY(0px);
+    &.open {
+      transition:.2s;
+      transform:translateY(-30px);
+    }
+    .connect {
+      color:#000;
+      position:relative;
+      top:-10px;
+      font-size:13px;
+    }
+    ul {
+      padding:0;
+      margin:0;
+      list-style:none;
+
+      li {
+        margin:0 5px;
+        display:inline-block;
+
+        .v-image {
+          width:16px;
+        }
+      }
+    }
+  }
+
 }
 
 .slide-burger-enter-active {
@@ -191,5 +237,17 @@
   &:hover {
     color:#53127C;
   }
+}
+.before-enter {
+  opacity:0;
+  transform: translateY(100px);
+  transition:0.4s ease-in;  
+  overflow-x: hidden;
+
+}
+.enter {
+  opacity:1;
+  transform:translateY(0px);
+   
 }
 </style>

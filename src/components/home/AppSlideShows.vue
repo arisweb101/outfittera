@@ -20,6 +20,15 @@
             </v-list-item-content>
           </v-list-item>
         </v-list>
+        <div class="menu-social" v-bind:class="{ open: menuShow }">
+          <span class="connect">Connect To</span>
+          <ul>
+            <li><a href=""><v-img :src="fbGrayIcon"></v-img>
+            </a></li>
+            <li><a href=""><v-img :src="igGrayIcon"></v-img>
+            </a></li>
+          </ul>
+        </div>
       </div>
     </div>
     <div class="slider-container" v-bind:class="{ open: isActive }">
@@ -69,7 +78,9 @@ export default {
   },
   data() {
     return {
-      mainLogo: require('@/assets/images/logo-white.png'),
+      mainLogo: require('@/assets/images/logo-white.svg'),
+      fbGrayIcon: require('@/assets/images/fb-gray.svg'),
+      igGrayIcon: require('@/assets/images/ig-gray.svg'),
       facebookIcon: require('@/assets/images/fb-white.png'),
       instagramIcon: require('@/assets/images/ig-white.png'),
       settings: {
@@ -101,7 +112,7 @@ export default {
           subTitle: "feat. July Palafox"
         }
       ],
-      menuLogo: require('@/assets/images/logo-black.png'),
+      menuLogo: require('@/assets/images/logo-black.svg'),
       isActive: '',
       menuShow: false,
       menus: [
@@ -247,6 +258,41 @@ export default {
     margin:100px 0 0 25px;
     text-transform:uppercase;
     text-align:left;
+  }
+
+  .menu-social {
+    position:absolute;
+    bottom:20px;
+    left:0;
+    right:0;
+    margin:0 auto;
+    transition:.2s;
+    text-align:center;
+    transform:translateY(0px);
+    &.open {
+      transition:.2s;
+      transform:translateY(-30px);
+    }
+    .connect {
+      color:#000;
+      position:relative;
+      top:-10px;
+      font-size:13px;
+    }
+    ul {
+      padding:0;
+      margin:0;
+      list-style:none;
+
+      li {
+        margin:0 5px;
+        display:inline-block;
+
+        .v-image {
+          width:16px;
+        }
+      }
+    }
   }
 }
 
