@@ -8,7 +8,10 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 import Tinybox from "vue-tinybox";
 import ScrollAnimation from '@/assets/js/scrollAnimation'
+import VueScrollTo from 'vue-scrollto';
+ 
 Vue.use(Tinybox);
+Vue.use(VueScrollTo)
 Vue.directive('scrollanimation', ScrollAnimation);
 Vue.use(VueAxios, axios)
 

@@ -1,13 +1,18 @@
 <template>
   <v-col cols="6" sm="6" md="6" lg="6" class="pa-8 categories" v-bind:class="{ open: isMenuOpen }" >
-    <v-row v-if="categories" v-for="category in categories" :key="category.categoryName" no-gutters class="category">
+    <v-row v-if="categories" v-for="(category, index) in categories" :key="index" no-gutters class="category">
       <v-col cols="6" class="category-title" >
         <div class="title">{{ category.categoryName }}</div>
+        <div :id="category.id"></div>
       </v-col>
       <v-col cols="6">
         <div class="actions">
-          <div class="next" v-if="category.previous">Previous: {{ category.previous }}</div>
-          <div class="previous" v-if="category.next">Next: {{ category.next }}</div>
+          <div class="next" v-if="category.previousId">
+          <a href="#" v-scroll-to="category.previousId">Previous: {{ category.previous }}
+          </a>
+          </div>
+          <div class="previous" v-if="category.nextId">
+            <a href="#" v-scroll-to="category.nextId">Next: {{ category.next }}</a></div>
         </div>
       </v-col>
       <v-col cols="12" no-gutters class="articles">
@@ -24,14 +29,17 @@
       </v-col>
     </v-row>
   </v-col>
+
 </template>
 <script>
 import eventBus from '@/event_bus';
 import '@/assets/js/scrollAnimation.js'
+import VueScrollTo from 'vue-scrollto';
 export default {
   name: 'FreshStories',
   components: {
-    eventBus
+    eventBus,
+    VueScrollTo
   },
   data() {
     return {
@@ -54,9 +62,11 @@ export default {
      initialize() {
        let vm = this;
        vm.categories = [ { 
+            id: "freshstories",
             categoryName: "Fresh Stories",
             previous: '',
             next: 'Fashion Mode',
+            nextId: '#fashionmode',
             articles : [
               {
                 id: 'article-1',
@@ -67,7 +77,7 @@ export default {
               },
               {
                 id: 'article-2',
-                images: require('@/assets/images/cat4.png'),
+                images: require('@/assets/images/cat3.png'),
                 source: 'Lifestyle Markers',
                 title: 'Grand Ferdinand New Viennese Elegance',
                 description: "Aliquam velit imperdiet pellente tristique integer scelerisque purus scelerisque quis libero potenti pellentesque quam est dignissim",
@@ -88,34 +98,37 @@ export default {
               }
             ]
           },
-          {
+          { 
+            id: "fashionmode",
             categoryName: "Fashion Mode",
             previous: 'Fresh Stories',
-            next: 'Fashion Mode',
+            previousId: '#freshstories',
+            next:'Technology & Machine',
+            nextId: '#technologyandmachine',
             articles : [
               {
                 id: 'article-5',
-                images: require('@/assets/images/cat1.png'),
+                images: require('@/assets/images/cat5.png'),
                 source: 'Lifestyle Markers',
                 title: 'Grand Ferdinand New Viennese Elegance',
                 description: "Aliquam velit imperdiet pellente tristique integer scelerisque purus scelerisque quis libero potenti pellentesque quam est dignissim",
               },
               {id: 'article-6',
-                images: require('@/assets/images/cat4.png'),
+                images: require('@/assets/images/cat6.png'),
                 source: 'Lifestyle Markers',
                 title: 'Grand Ferdinand New Viennese Elegance',
                 description: "Aliquam velit imperdiet pellente tristique integer scelerisque purus scelerisque quis libero potenti pellentesque quam est dignissim",
               },
               {
                 id: 'article-7',
-                images: require('@/assets/images/cat2.png'),
+                images: require('@/assets/images/cat8.png'),
                 source: 'Lifestyle Markers',
                 title: 'Grand Ferdinand New Viennese Elegance',
                 description: " Aliquam velit imperdiet pellente tristique integer scelerisque purus scelerisque quis libero potenti pellentesque quam est dignissim",
               },
               {
                 id: 'article-8',
-                images: require('@/assets/images/cat4.png'),
+                images: require('@/assets/images/cat7.png'),
                 source: 'Lifestyle Markers',
                 title: 'Grand Ferdinand New Viennese Elegance',
                 description: "Aliquam velit imperdiet pellente tristique integer scelerisque purus scelerisque quis libero potenti pellentesque quam est dignissim",
@@ -123,7 +136,12 @@ export default {
             ]
           },
         ]
-     }
+     },
+     scrollTo(refName) {
+      var element = this.$refs[refName];
+      var top = element.offsetTop;
+      window.scrollTo(0, top);
+    }
    }
 }
 </script>
@@ -142,6 +160,8 @@ export default {
   .category-title {
     position:relative;
     .title {
+      font-family: 'Libre Baskerville', serif !important;
+      font-weight:bold;
       position:absolute;
       bottom:0;
       color:#53127C;
@@ -151,9 +171,20 @@ export default {
     font-size:12px;
     text-align:right;
     position:relative;
+    a:{
+      color:#000;
+    }
     .next {
       margin:8px 0;
       position:relative;
+      a {
+        color:#000;
+        text-decoration:none;
+        font-family: 'Libre Baskerville', serif !important;
+        &:hover {
+          opacity:0.8;
+        }
+      }
       &:after {
         content: "";
         position:relative;
@@ -169,6 +200,14 @@ export default {
     }
     .previous {
       position:relative;
+      font-family: 'Libre Baskerville', serif !important;
+      a {
+        color:#000;
+        text-decoration:none;
+        &:hover {
+          opacity:0.8;
+        }
+      }
       &:after {
         content: "";
         top:-2px;
@@ -188,7 +227,6 @@ export default {
     margin-top:20px;
     width:100%;
     height:50% !important;
-
     a {
       color:#000;
       text-decoration:none;
@@ -211,6 +249,7 @@ export default {
       font-size: 21px;
       line-height:24px;
       padding:10px 0;
+      font-family: 'Libre Baskerville', serif !important;
     }
     .items {
       display: inline-table;

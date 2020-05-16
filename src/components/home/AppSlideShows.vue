@@ -1,14 +1,6 @@
 <template>
   <v-col cols="6" sm="6" md="6" lg="6" class="slide-images">
-    <transition name="slide-burger">
-          <div id="burger-menu" v-on:click="isMenuOpen" 
-          v-bind:class="{ open: isActive }">
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-          </div>
-      </transition>
+    
     <div class="menu-container" v-show="menuShow" v-bind:class="{ open: isActive }" 
    >
       <div class="menu-logo">
@@ -30,8 +22,24 @@
         </v-list>
       </div>
     </div>
-    <img class="logo" :src="mainLogo">
     <div class="slider-container" v-bind:class="{ open: isActive }">
+      <transition name="slide-burger">
+          <div id="hp-burger-menu" v-on:click="isMenuOpen" 
+          v-bind:class="{ open: isActive }">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+      </transition>
+      <img class="logo" :src="mainLogo">
+      <searchIcon class="search-icon"/>
+      <div class="slide-social-icons">
+       <ul>
+         <li><a href=""><v-img class="facebook" :src="facebookIcon"></v-img></a></li>
+         <li><a href=""><v-img class="instagram" :src="instagramIcon"></v-img></a></v-img></li>
+       </ul>
+      </div>
       <VueSlickCarousel v-bind="settings" class="height100">
         <div class="slide-item-container" v-for="item in slideShows">
           <v-img gradient="to top right, rgba(83, 18, 124, 0), rgba(83, 18, 124, 0.47)" class="slide-item" :src="item.image">
@@ -49,18 +57,23 @@
 import VueSlickCarousel from 'vue-slick-carousel'
 import 'vue-slick-carousel/dist/vue-slick-carousel.css'
 import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css'
+import searchIcon from '@/components/search/searchIcon.vue'
 import eventBus from '@/event_bus';
+const vm = this;
 export default {
   name: 'Home',
   components: {
     VueSlickCarousel,
-    eventBus
+    eventBus,
+    searchIcon,
   },
   data() {
     return {
       mainLogo: require('@/assets/images/logo-white.png'),
+      facebookIcon: require('@/assets/images/fb-white.png'),
+      instagramIcon: require('@/assets/images/ig-white.png'),
       settings: {
-        arrows: false,
+        arrows: true,
         autoplay: true,
         dots: false,
         adaptiveHeight: true,
@@ -102,12 +115,31 @@ export default {
       ],
     }
   },
+  mounted() {
+     const vm = this;
+     vm.eventPass()
+  },
   methods: {
+      eventPass() {
+         const vm = this;
+         eventBus.$on('isSearchBarOpen', val => {
+           vm.menuShow = val
+         })
+         eventBus.$on('menuOpen', val => {
+           vm.menuShow = val
+           vm.isActive = val
+         })
+      },
       isMenuOpen() {
         const vm = this;
         vm.menuShow = !vm.isActive;
         vm.isActive = !vm.isActive;
         eventBus.$emit('menuOpen', vm.menuShow);
+      },
+      openSearchBar() {
+        let vm = this;
+        vm.searchOpen = !vm.searchOpen;
+        eventBus.$emit('isSearchBarOpen', vm.searchOpen)
       }
     }
 }
@@ -124,6 +156,9 @@ export default {
   user-select:none;
   transition: 0.4s;
   left:0;
+  height:100%;
+  width:50%;
+  z-index:3;
   &.open {
     left:300px;
     transition: 0.4s;
@@ -141,9 +176,16 @@ export default {
   display:block;
   position:fixed;
   text-align:center;
-
+  .search-icon {
+    position:absolute;
+    right:20px;
+    top:22px;
+    z-index:2;
+    width:20px;
+    cursor:pointer;
+  }
   .logo {
-    position:fixed;
+    position:absolute;
     top:20px;
     margin:0 0px 0 -40px;
     z-index:2;
@@ -165,6 +207,7 @@ export default {
     left:0;
     right:0;
     margin:0;
+    font-family: 'Libre Baskerville', serif;
     z-index:9;
     .slide-title {
       font-size:40px;
@@ -219,11 +262,11 @@ export default {
   opacity: 0;
 }
 
-#burger-menu 
+#hp-burger-menu 
 {
   width: 30px;
   height: 45px;
-  position: fixed;
+  position: absolute;
   z-index:3;
   left:20px;
   top:24px;
@@ -267,7 +310,7 @@ export default {
   }
 
   &.open {
-    transform: translateX(230px);
+    transform: translateX(-60px) !important;
     span {
       background:#404040;
     }
@@ -295,7 +338,55 @@ export default {
     }
   }
 }
-
+.slide-social-icons {
+  position: absolute;
+  bottom: 35px;
+  z-index: 3;
+  right: 30px;
+  ul {
+    padding:0;
+    margin:0;
+    list-style:none;
+    li {
+      display:inline-block;
+      margin:0 5px;
+    }
+  }
+}
+.slick-arrow {
+  &.slick-next {
+    position: absolute;
+    top: 92%;
+    left: 50px;
+    z-index: 5;
+    &:before {
+      content:'';
+      border: solid white;
+      border-width: 0 2px 2px 0;
+      display: inline-block;
+      padding: 4px;
+      color:#fff;
+      transform: rotate(-45deg);
+      -webkit-transform: rotate(-45deg);
+    }
+  }
+  &.slick-prev {
+    position:absolute;
+    top:92%;
+    left:30px;
+    z-index:5;
+    &:before {
+      content:'';
+      color:#fff;
+      border: solid white;
+      border-width: 0 2px 2px 0;
+      display: inline-block;
+      padding: 4px;
+      transform: rotate(135deg);
+      -webkit-transform: rotate(135deg);
+    }
+  }
+}
 .v-list-item__content {
   &:hover {
     color:#53127C;

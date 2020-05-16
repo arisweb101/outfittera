@@ -4,7 +4,6 @@
     <div class="search-icon"><v-img :src="searchIcon"></v-img></div>
     <v-img :src="articleBannerImage" gradient="to top right, rgba(83, 18, 124, 0.44), rgba(201, 117, 255, 0.57)"
      class="banner">
-     
      </v-img>
     <v-row class="banner-desc" no-gutters >
       <v-col cols="6" md="6">
@@ -32,7 +31,6 @@ export default {
           'articleTitle', 'authorName', 'authorThumbnail', 'articleDateCreated' ],
   name: 'ArticleBanner',
   components: {
-    
   },
   data() {
     return {
@@ -41,10 +39,8 @@ export default {
     }
   },
   mounted() {
-
   },
   methods: {
-
   }
 }
 </script>
