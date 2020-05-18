@@ -1,13 +1,13 @@
 <template>
   <v-container fluid no-gutters class="pa-0 height100 mart">
+  <searchBar/>
   <div class="black-screen" @click="closeWindow" v-show="menuShow || 
      searchBarShow" v-bind:class="{ 'open-menu': menuShow, 'open-search': searchBarShow }"></div>
-     <searchBar/>
+     <Menu class="menu-mart"/>
     <div no-gutters class="page-content height100" v-bind:class="{ 'open-menu': menuShow, 'open-search': searchBarShow }">
       <v-row class="header">
         <v-img :src="blackLogo" class="logo-center"></v-img>
         <searchIcon :icon="icon" class="search-icon"/>
-        <Menu class="menu-mart"/>
       </v-row>
       <v-row class="content">
         <v-row cols="12" class="filter">
@@ -112,7 +112,7 @@ export default {
         eventPass() {
           const vm = this;
           eventBus.$on('isSearchBarOpen', val => {
-            vm.menuShow = val
+            vm.searchBarShow = val
           })
           eventBus.$on('menuOpen', val => {
             vm.menuShow = val

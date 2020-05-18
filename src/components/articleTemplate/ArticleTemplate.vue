@@ -1,59 +1,65 @@
 <template>
   <v-container fluid no-gutters class="pa-0 height100">
+     <div class="black-screen" @click="closeWindow" v-show="menuShow || 
+     searchBarShow" v-bind:class="{ 'open-menu': menuShow, 'open-search': searchBarShow }"></div>
+     <SearchBar/>
      <Menu/>
-     <Tinybox v-model="contentBlock2.index" :images="contentBlock2.imageList"></Tinybox>
-    <ArticleBanner :articleCategory="articleBanner.articleCategory"
-    :articleTitle="articleBanner.articleTitle" :authorName="articleBanner.authorName" 
-    :authorThumbnail="articleBanner.authorThumbnail" :articleDateCreated="articleBanner.articleDateCreated" 
-    :articleBannerImage="articleBanner.articleBannerImage"/>
-    <SocialMediaLogos class="social-logos" />
-    <div class="article-content">
-      <v-row class="block" v-scrollanimation>
-        <v-col cols="12" md="12">
-          <p class="initial">{{ contentBlock1.text }}</p>
-          <p>{{ contentBlock1.text }}</p>
-          <p>{{ contentBlock1.text }}</p>
-        </v-col>
-      </v-row >
-      <v-row class="block" v-scrollanimation>
-        <v-col cols="12" md="12">
-            <v-img :src="contentBlock2.image" class="main-image"></v-img>
-            <p class="block-title">{{ contentBlock2.title }}</p>
-            <p>{{ contentBlock2.text }}</p>
-            <p>{{ contentBlock2.text }}</p>
-            <div class="light-box">
-              
-                  <img v-for="(img, idx) in contentBlock2.imageList"
-                    :src="img.src"
-                    :alt="img.alt"
-                    :caption="img.caption"
-                    class="open-tinybox"
-                    @click="contentBlock2.index = idx"
-                  >
-            </div>
-        </v-col>
-      </v-row>
-      <v-row class="block" v-scrollanimation>
-        <v-col cols="12" md="12">
-          <p class="block-title">{{ contentBlock3.title }}</p>
-          <p>{{ contentBlock3.text }}</p>
-          <p>{{ contentBlock3.text }}</p>
-        </v-col>
-      </v-row>
-      <v-row>
-        <v-col cols="12" md="12" v-scrollanimation>
-          <buyThis/>
-          <tags/>
-        </v-col>
-      </v-row>
-    </div>
-    <NextStory/>
+     <div no-gutters class="page-content height100" v-bind:class="{ 'open-menu': menuShow, 'open-search': searchBarShow }">
+       <Tinybox v-model="contentBlock2.index" :images="contentBlock2.imageList"></Tinybox>
+       <ArticleBanner :articleCategory="articleBanner.articleCategory"
+       :articleTitle="articleBanner.articleTitle" :authorName="articleBanner.authorName" 
+       :authorThumbnail="articleBanner.authorThumbnail" :articleDateCreated="articleBanner.articleDateCreated" 
+       :articleBannerImage="articleBanner.articleBannerImage"/>
+       <SocialMediaLogos class="social-logos" />
+       <div class="article-content">
+          <v-row class="block" v-scrollanimation>
+            <v-col cols="12" md="12">
+              <p class="initial">{{ contentBlock1.text }}</p>
+              <p>{{ contentBlock1.text }}</p>
+              <p>{{ contentBlock1.text }}</p>
+            </v-col>
+          </v-row >
+          <v-row class="block" v-scrollanimation>
+            <v-col cols="12" md="12">
+                <v-img :src="contentBlock2.image" class="main-image"></v-img>
+                <p class="block-title">{{ contentBlock2.title }}</p>
+                <p>{{ contentBlock2.text }}</p>
+                <p>{{ contentBlock2.text }}</p>
+                <div class="light-box">
+                  
+                      <img v-for="(img, idx) in contentBlock2.imageList"
+                        :src="img.src"
+                        :alt="img.alt"
+                        :caption="img.caption"
+                        class="open-tinybox"
+                        @click="contentBlock2.index = idx"
+                      >
+                </div>
+            </v-col>
+          </v-row>
+          <v-row class="block" v-scrollanimation>
+            <v-col cols="12" md="12">
+              <p class="block-title">{{ contentBlock3.title }}</p>
+              <p>{{ contentBlock3.text }}</p>
+              <p>{{ contentBlock3.text }}</p>
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col cols="12" md="12" v-scrollanimation>
+              <buyThis/>
+              <tags/>
+            </v-col>
+          </v-row>
+        </div>
+        <NextStory/>
+      </div>
     <Footer/>
   </v-container>
 </template>
 <script>
 import Vue from 'vue'
 import Menu from '@/components/menu/AppMenu.vue';
+import SearchBar from '@/components/search/AppSearchBar.vue'
 import ArticleBanner from '@/components/articleTemplate/ArticleBanner.vue'
 import SocialMediaLogos from '@/components/socialMedia/socialMediaLogos.vue'
 import BuyThis from '@/components/buyThis/BuyThis.vue'
@@ -61,12 +67,13 @@ import Tags from '@/components/tags/tags.vue'
 import NextStory from '@/components/nextStory/nextStory.vue'
 import Footer from '@/components/footer/AppFooter.vue'
 import Tinybox from "vue-tinybox";
-
+import eventBus from '@/event_bus';
 export default {
     name: 'Template',
     components: {
      Menu,
      ArticleBanner,
+     SearchBar,
      SocialMediaLogos,
      Tinybox,
      BuyThis,
@@ -76,6 +83,8 @@ export default {
     },
     data() {
       return{
+        menuShow: false,
+        searchBarShow: false,
         menuLogo: require('@/assets/images/logo-black.svg'),
         articleBanner: {
           articleCategory: "Lifestyle Markers",
@@ -122,8 +131,27 @@ export default {
         }
       }
      },
+     created(){
+       const vm = this;
+       vm.eventPass();
+     },
      methods: {
-        
+       eventPass() {
+        let vm = this;
+        eventBus.$on('menuOpen', val => {
+          vm.menuShow = val;
+        })
+        eventBus.$on('isSearchBarOpen', val => {
+          vm.searchBarShow = val;
+        })
+      },
+      closeWindow() {
+        let vm = this;
+        eventBus.$emit('menuOpen', false) 
+        eventBus.$emit('isSearchBarOpen', false)
+        vm.searchBarShow = false;
+        vm.menuShow = false;
+        }
       },
     }
 </script>

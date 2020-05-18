@@ -2,7 +2,7 @@
   <v-container fluid no-gutters class="pa-0 height100">
     <div class="black-screen" @click="closeWindow" v-show="menuShow || 
      searchBarShow" v-bind:class="{ 'open-menu': menuShow, 'open-search': searchBarShow }"></div>
-     <searchBar/>
+     <SearchBar/>
      <Menu/>
      <div no-gutters class="page-content height100" v-bind:class="{ 'open-menu': menuShow, 'open-search': searchBarShow }">
         <Banner :pageTitle="pageTitle" :mainBanner="mainBanner"/>
@@ -23,7 +23,7 @@
 <script>
  import Menu from '@/components/menu/AppMenu.vue';
  import Banner from '@/components/pageTemplate/PageBanner.vue'
- import searchBar from '@/components/search/AppSearchBar.vue'
+ import SearchBar from '@/components/search/AppSearchBar.vue'
  import Footer from '@/components/footer/AppFooter.vue'
  import eventBus from '@/event_bus';
   export default {
@@ -33,7 +33,7 @@
      Menu,
      Footer,
      eventBus,
-     searchBar
+     SearchBar
     },
     data() {
       return{
@@ -47,7 +47,7 @@
      }
     },
     created() {
-      let vm = this;
+      const vm = this;
       vm.initialize();
       vm.eventPass();
     },

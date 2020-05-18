@@ -1,7 +1,7 @@
 <template>
   <v-layout>
     <v-img :src="whiteLogo" class="white-logo"></v-img>
-    <div class="search-icon"><v-img :src="searchIcon"></v-img></div>
+    <SearchIcon :icon="icon" class="search-icon"/>
     <v-img :src="articleBannerImage" gradient="to top right, rgba(83, 18, 124, 0.44), rgba(201, 117, 255, 0.57)"
      class="banner">
      </v-img>
@@ -25,17 +25,18 @@
   </v-layout>
 </template>
 <script>
-
+import SearchIcon from '@/components/search/searchIcon.vue'
 export default {
   props: ['pageTitle', 'mainBanner', 'articleBannerImage' , 'articleCategory',
           'articleTitle', 'authorName', 'authorThumbnail', 'articleDateCreated' ],
   name: 'ArticleBanner',
   components: {
+    SearchIcon
   },
   data() {
     return {
       whiteLogo: require('@/assets/images/logo-white.svg'),
-      searchIcon: require('@/assets/images/search.png'),
+      icon: require('@/assets/images/search.png'),
     }
   },
   mounted() {
@@ -48,7 +49,7 @@ export default {
 .article-template {
   .search-icon {
     position:absolute;
-    z-index:2;
+    z-index:5;
     right:30px;
     top:30px;
     cursor:pointer;

@@ -74,9 +74,6 @@
       methods: {
         eventPass() {
           const vm = this;
-          eventBus.$on('isSearchBarOpen', val => {
-            vm.menuShow = val
-          })
           eventBus.$on('menuOpen', val => {
             vm.menuShow = val
             vm.isActive = val

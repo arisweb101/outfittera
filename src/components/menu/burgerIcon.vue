@@ -1,5 +1,13 @@
 <template>
- <v-img :src="icon" v-on:click="openSearchBar"></v-img>
+ <transition name="slide-burger">
+    <div id="burger-menu" v-on:click="isMenuOpen" 
+    v-bind:class="{ open: isActive }">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </transition>
 </template>
 <script>
 import eventBus from '@/event_bus';
@@ -31,46 +39,79 @@ export default {
   opacity: 0;
   transition: opacity 0.4s;
 }
-.search-bar {
-  width:100%;
-  height:0px;
-  opacity:0;
-  padding:0 !important;
-  margin:0 !important;
-  transition: height 0.2s ease-out;
+#burger-menu 
+{
+  width: 30px;
+  height: 45px;
+  position: absolute;
+  z-index:3;
+  left:20px;
+  top:24px;
+  -webkit-transform: rotate(0deg);
+  -moz-transform: rotate(0deg);
+  -o-transform: rotate(0deg);
+  transform: rotate(0deg);
+  -webkit-transition: .1s ease-in-out;
+  -moz-transition: .1s ease-in-out;
+  -o-transition: .1s ease-in-out;
+  transition: .1s ease-in-out;
+  cursor: pointer;
+
+  span {
+    display: block;
+    position: absolute;
+    height: 2px;
+    width: 100%;
+    background: #fff;
+    border-radius: 9px;
+    opacity: 1;
+    left: 0;
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+    -webkit-transition: .25s ease-in-out;
+    -moz-transition: .25s ease-in-out;
+    -o-transition: .25s ease-in-out;
+    transition: .25s ease-in-out;
+  }
+
+  span:nth-child(1) {
+    top: 0px;
+  }
+  span:nth-child(2), span:nth-child(3) {
+    top: 8px;
+  }
+  span:nth-child(4) {
+    top: 16px;
+  }
+
   &.open {
-    opacity:1;
-    height:60px;
-    transition: 0.2s height;
-  }
-  .search-field {
-    width:100%;
-    border:none;
-    text-align:center;
-    font-size:20px;
-    padding:0;
-    height:100%;
-    .v-input__slot:before {
-      border:none !important;
-      &.focus {
-        border-color: #ff9800;
-      }
+    transform: translateX(230px);
+    span {
+      background:#404040;
     }
-    input {
-      text-align:center;
-      height:100%;
-      min-height:55px;
+    span:nth-child(1) {
+      top: 18px;
+      width: 0%;
+      left: 50%;
     }
-  }
-  .submit {
-    position:absolute;
-    right:10px;
-    top:22px;
-    cursor:pointer;
-    transition: 0.2s;
-    &:hover {
-      transform:scale(1.2);
-      transition: 0.2s;
+    span:nth-child(2) {
+      -webkit-transform: rotate(45deg);
+      -moz-transform: rotate(45deg);
+      -o-transform: rotate(45deg);
+      transform: rotate(45deg);
+    }
+    span:nth-child(3) {
+      -webkit-transform: rotate(-45deg);
+      -moz-transform: rotate(-45deg);
+      -o-transform: rotate(-45deg);
+      transform: rotate(-45deg);
+    }
+    span:nth-child(4) {
+      top: 18px;
+      width: 0%;
+      left: 50%;
     }
   }
 }

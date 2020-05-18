@@ -1,7 +1,7 @@
 <template>
   <v-layout>
     <v-img :src="whiteLogo" class="white-logo"></v-img>
-   <searchIcon :icon="icon" class="search-icon"/>
+    <searchIcon :icon="icon" class="search-icon"/>
     <v-img :src="mainBanner" gradient="to top right, rgba(83, 18, 124, 0.44), rgba(201, 117, 255, 0.57)" class="banner">
       <div class="page-title">{{ pageTitle }}</div>
     </v-img>
