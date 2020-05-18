@@ -156,6 +156,20 @@ export default {
     }
 </script>
 <style lang="scss">
+.page-content {
+  position:relative;
+  min-height:600px;
+  transition: .2s;
+  transition:.2s;
+  left:0;
+  &.open-search {
+    transition:.2s;
+  }
+  &.open-menu {
+    transition:.2s;
+    left:300px;
+  }
+}
 .article-template {
   .articles-lists {
     column-count: 3;

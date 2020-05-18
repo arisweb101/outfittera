@@ -120,6 +120,19 @@
   }
 </script>
 <style lang="scss">
+.page-content {
+    position:relative;
+    min-height:600px;
+    transition: .2s;
+    margin-bottom:50px;
+    &.open-search {
+      transition:.2s;
+    }
+    &.open-menu {
+      transition:.2s;
+      left:300px;
+    }
+}
 .page-template {
   .articles-lists {
     column-count: 3;

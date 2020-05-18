@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid no-gutters class="pa-0 height100 mart">
+  <v-container fluid no-gutters class="pa-0 mart">
   <searchBar/>
   <div class="black-screen" @click="closeWindow" v-show="menuShow || 
      searchBarShow" v-bind:class="{ 'open-menu': menuShow, 'open-search': searchBarShow }"></div>
@@ -141,6 +141,13 @@ export default {
     min-height:600px;
     transition: .2s;
     margin-bottom:50px;
+    &.open-search {
+      transition:.2s;
+    }
+    &.open-menu {
+      transition:.2s;
+      left:300px;
+    }
     .header {
       height:60px;
     }
