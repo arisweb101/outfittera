@@ -106,14 +106,19 @@ export default {
      },
      mounted() {
        let vm = this;
-        eventBus.$on('menuOpen', val => {
-          vm.menuShow = val;
-        })
-        eventBus.$on('isSearchBarOpen', val => {
-          vm.searchBarShow = val;
-        })
+       vm.eventPass();
      },
      methods: {
+        eventPass() {
+          const vm = this;
+          eventBus.$on('isSearchBarOpen', val => {
+            vm.menuShow = val
+          })
+          eventBus.$on('menuOpen', val => {
+            vm.menuShow = val
+            vm.isActive = val
+          })
+        },
         closeWindow() {
           let vm = this;
           eventBus.$emit('menuOpen', false) 
@@ -257,7 +262,7 @@ export default {
   }
   .read {
     width:80%;
-    margin:0 auto;
+    margin:50px auto;
   }
   .search-icon {
     position:absolute;

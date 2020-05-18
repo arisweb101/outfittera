@@ -1,8 +1,6 @@
 <template>
   <v-col cols="6" sm="6" md="6" lg="6" class="slide-images">
-    
-    <div class="menu-container" v-show="menuShow" v-bind:class="{ open: isActive }" 
-   >
+    <div class="menu-container" v-show="menuShow" v-bind:class="{ open: isActive }">
       <div class="menu-logo">
         <v-img :src="menuLogo"></v-img>
       </div>
@@ -42,7 +40,7 @@
           </div>
       </transition>
       <img class="logo" :src="mainLogo">
-      <searchIcon class="search-icon"/>
+      <searchIcon class="search-icon" :icon="searchIcon"/>
       <div class="slide-social-icons">
        <ul>
          <li><a href=""><v-img class="facebook" :src="facebookIcon"></v-img></a></li>
@@ -78,6 +76,7 @@ export default {
   },
   data() {
     return {
+      searchIcon: require('@/assets/images/search.png'),
       mainLogo: require('@/assets/images/logo-white.svg'),
       fbGrayIcon: require('@/assets/images/fb-gray.svg'),
       igGrayIcon: require('@/assets/images/ig-gray.svg'),

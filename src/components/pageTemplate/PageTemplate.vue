@@ -1,33 +1,45 @@
 <template>
   <v-container fluid no-gutters class="pa-0 height100">
+    <div class="black-screen" @click="closeWindow" v-show="menuShow || 
+     searchBarShow" v-bind:class="{ 'open-menu': menuShow, 'open-search': searchBarShow }"></div>
+     <searchBar/>
      <Menu/>
-    <Banner :pageTitle="pageTitle" :mainBanner="mainBanner"/>
-      <div no-gutters class="articles-lists">
-        <div v-scrollanimation v-for="(item, index) in articles" :key="item.id" class="items">
-          <router-link :to="'/article/'+item.id">
-            <v-img :src="item.images" eager="true" class="article-image"></v-img>
-            <div class="source">{{ item.source }}</div>
-            <div class="title">{{ item.title }}</div>
-            <div class="desc">{{ item.description }}</div>
-          </router-link>
+     <div no-gutters class="page-content height100" v-bind:class="{ 'open-menu': menuShow, 'open-search': searchBarShow }">
+        <Banner :pageTitle="pageTitle" :mainBanner="mainBanner"/>
+          <div no-gutters class="articles-lists">
+            <div v-scrollanimation v-for="(item, index) in articles" :key="item.id" class="items">
+              <router-link :to="'/article/'+item.id">
+                <v-img :src="item.images" :eager="forceImages" class="article-image"></v-img>
+                <div class="source">{{ item.source }}</div>
+                <div class="title">{{ item.title }}</div>
+                <div class="desc">{{ item.description }}</div>
+              </router-link>
+            </div>
         </div>
-    </div>
+      </div>
     <Footer/>
   </v-container>
 </template>
 <script>
  import Menu from '@/components/menu/AppMenu.vue';
  import Banner from '@/components/pageTemplate/PageBanner.vue'
+ import searchBar from '@/components/search/AppSearchBar.vue'
  import Footer from '@/components/footer/AppFooter.vue'
+ import eventBus from '@/event_bus';
   export default {
     name: 'Template',
     components: {
      Banner,
      Menu,
-     Footer
+     Footer,
+     eventBus,
+     searchBar
     },
     data() {
       return{
+        forceImages: true,
+        menuShow: false,
+        searchBarShow: false,
         menuLogo: require('@/assets/images/logo-black.svg'),
         pageTitle: "Fashion Modes",
         mainBanner : require('@/assets/images/banner-image.png'),
@@ -37,9 +49,7 @@
     created() {
       let vm = this;
       vm.initialize();
-    },
-    mounted() {
-      this.initialize()
+      vm.eventPass();
     },
     methods: {
       initialize() {
@@ -88,7 +98,23 @@
                 description: " Aliquam velit imperdiet pellente tristique integer scelerisque purus scelerisque quis libero potenti pellentesque quam est dignissim",
               },
         ]
-      }
+      },
+      eventPass() {
+        let vm = this;
+        eventBus.$on('menuOpen', val => {
+          vm.menuShow = val;
+        })
+        eventBus.$on('isSearchBarOpen', val => {
+          vm.searchBarShow = val;
+        })
+      },
+      closeWindow() {
+          let vm = this;
+          eventBus.$emit('menuOpen', false) 
+          eventBus.$emit('isSearchBarOpen', false)
+          vm.searchBarShow = false;
+          vm.menuShow = false;
+        }
     } 
 
   }

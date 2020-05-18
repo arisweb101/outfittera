@@ -1,6 +1,5 @@
 <template>
-    <div class="menu-global-container" v-bind:class="{ open: isActive }" 
-   >
+    <div class="menu-global-container" v-bind:class="{ open: isActive }" >
       <div class="menu-logo" v-show="menuShow">
         <v-img :src="menuLogo" class="menu-logo"></v-img>
       </div>
@@ -42,10 +41,12 @@
 <script>
  import slideShows from '@/components/home/AppSlideShows.vue'
  import categories from '@/components/home/AppCategories.vue'
+ import eventBus from '@/event_bus';
   export default {
     name: 'Home',
     components: {
      slideShows,
+     eventBus,
      categories
     },
     data() {
@@ -66,12 +67,27 @@
         ],
         }
      },
+      mounted() {
+        const vm = this;
+        vm.eventPass()
+      },
       methods: {
+        eventPass() {
+          const vm = this;
+          eventBus.$on('isSearchBarOpen', val => {
+            vm.menuShow = val
+          })
+          eventBus.$on('menuOpen', val => {
+            vm.menuShow = val
+            vm.isActive = val
+          })
+        },
         isMenuOpen() {
           const vm = this;
           vm.menuShow = !vm.isActive;
           vm.isActive = !vm.isActive;
-        }
+          eventBus.$emit('menuOpen', vm.menuShow);
+        },
       }
   }
 </script>

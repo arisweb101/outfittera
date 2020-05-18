@@ -1,27 +1,24 @@
 <template>
   <v-layout>
     <v-img :src="whiteLogo" class="white-logo"></v-img>
-    <div class="search-icon">
-      <v-img :src="searchIcon">
-      </v-img>
-    </div>
+   <searchIcon :icon="icon" class="search-icon"/>
     <v-img :src="mainBanner" gradient="to top right, rgba(83, 18, 124, 0.44), rgba(201, 117, 255, 0.57)" class="banner">
       <div class="page-title">{{ pageTitle }}</div>
     </v-img>
   </v-layout>
 </template>
 <script>
-
+import searchIcon from '@/components/search/searchIcon.vue'
 export default {
   props: ['pageTitle', 'mainBanner'],
   name: 'PageBanner',
   components: {
-    
+    searchIcon
   },
   data() {
     return {
       whiteLogo: require('@/assets/images/logo-white.svg'),
-      searchIcon: require('@/assets/images/search.png'),
+      icon: require('@/assets/images/search.png'),
     }
   },
   mounted() {
