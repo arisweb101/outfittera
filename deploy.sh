@@ -11,3 +11,4 @@ git commit -m 'deploy'
 git push -f git@github.com:arisweb101/outfittera.git master:gh-pages
 
 cd -
+
