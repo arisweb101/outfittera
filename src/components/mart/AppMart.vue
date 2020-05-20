@@ -73,7 +73,7 @@ export default {
         searchBarShow: false,
         blackLogo: require('@/assets/images/logo-black.svg'),
         icon: require('@/assets/images/search-gray.png'),
-        allProducts: ['Foo', 'Bar', 'Fizz', 'Buzz'],
+        allProducts: ['Product A', 'Product B', 'Product C', 'Product D'],
         items:[
            {
             itemImage: require('@/assets/images/buy-this-item.png'),
@@ -197,6 +197,8 @@ export default {
         top:10px;
         border:1px solid #53127C;
         border-radius:0;
+        min-height:50px;
+        max-height:50px;
         width:180px;     
       }
     }

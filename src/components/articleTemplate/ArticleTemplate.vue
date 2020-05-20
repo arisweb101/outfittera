@@ -4,7 +4,7 @@
      searchBarShow" v-bind:class="{ 'open-menu': menuShow, 'open-search': searchBarShow }"></div>
      <SearchBar/>
      <Menu/>
-     <div no-gutters class="page-content height100" v-bind:class="{ 'open-menu': menuShow, 'open-search': searchBarShow }">
+     <div no-gutters class="page-content" v-bind:class="{ 'open-menu': menuShow, 'open-search': searchBarShow }">
        <Tinybox v-model="contentBlock2.index" :images="contentBlock2.imageList"></Tinybox>
        <ArticleBanner :articleCategory="articleBanner.articleCategory"
        :articleTitle="articleBanner.articleTitle" :authorName="articleBanner.authorName" 
@@ -51,8 +51,8 @@
             </v-col>
           </v-row>
         </div>
-        <NextStory/>
       </div>
+       <NextStory/>
     <Footer/>
   </v-container>
 </template>

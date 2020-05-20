@@ -2,7 +2,7 @@
   <v-container fluid no-gutters class="pa-0 height100 read-articles">
   <div class="page-title">{{ title }}</div>
    <v-row cols="6" md="6" class="">
-     <v-col col="2" md="6" class="article" v-for="article in articles">
+     <v-col col="2" md="6" class="article" v-for="article in articles" :key="article.id">
      <v-list-item  :to="article.path">
      <v-list-item-content v-scrollanimation>
       <v-img :src="article.image" class="article-images"> 
@@ -16,50 +16,44 @@
   </v-container>
 </template>
 <script>
-import Vue from 'vue'
 export default {
-    name: 'Template',
-    components: {
-
-    },
+    name: 'ReadArticles',
     data() {
       return{
         title: "Read Articles",
         articles: [
-          {  
+          { 
+            id:1,
             image: require('@/assets/images/art-1.png'),
             label1:"Fashion",
             label2:"Mode",
             path: '/fashion-mode'
           },
           {  
+            id:2,
             image: require('@/assets/images/art-2.png'),
             label1:"Travel",
             label2:"Miles",
             path: '/travel-miles'
           },
           {  
+            id:3,
             image: require('@/assets/images/art-3.png'),
             label1:"Lifestyle",
             label2:"Makers",
             path: '/lifestyle-makers'
           },
           {  
+            id:4,
             image: require('@/assets/images/art-4.png'),
             label1:"Technology",
             label2:"Machine",
             path: '/technology-and-machine'
           },
         ]
-      }
-     },
-     mounted() {
-       
-     },
-     methods: {
-        
-      },
+     }
     }
+}
 </script>
 <style lang="scss">
 .read-articles {
@@ -69,6 +63,7 @@ export default {
     font-size:42px;
     margin:20px auto;
     text-align:center;
+    font-family: 'Libre Baskerville', serif !important;
   }
   .article {
     .article-images {

@@ -1,14 +1,17 @@
 <template>
   <v-container fluid no-gutters class="pa-0 height100">
-    <v-row no-gutters class="height100">
-    <div class="black-screen" @click="closeWindow" v-show="menuShow || searchBarShow" v-bind:class="{ 'open-menu': menuShow, 'open-search': searchBarShow }"></div>
+    <div class="black-screen" @click="closeWindow" v-show="menuShow || 
+     searchBarShow" v-bind:class="{ 'open-menu': menuShow, 'open-search': searchBarShow }"></div>
      <searchBar/>
-     <slideShows/>
-     <categories/>
+     <Menu/>
+     <v-row no-gutters class="page-content height100" v-bind:class="{ 'open-menu': menuShow, 'open-search': searchBarShow }">
+       <slideShows/>
+       <categories/>
     </v-row>
   </v-container>
 </template>
 <script>
+import Menu from '@/components/menu/AppMenu.vue';
 import searchBar from '@/components/search/AppSearchBar.vue'
 import slideShows from '@/components/home/AppSlideShows.vue'
 import categories from '@/components/home/AppCategories.vue'
@@ -17,6 +20,7 @@ import eventBus from '@/event_bus';
     name: 'Home',
     components: {
      searchBar,
+     Menu,
      slideShows,
      categories,
      eventBus
@@ -29,7 +33,12 @@ import eventBus from '@/event_bus';
         searchBarShow: false,
         }
      },
-      mounted() {
+     created() {
+       const vm = this;
+       vm.eventPass();
+     },
+    methods: {
+      eventPass() {
         let vm = this;
         eventBus.$on('menuOpen', val => {
           vm.menuShow = val;
@@ -38,18 +47,31 @@ import eventBus from '@/event_bus';
           vm.searchBarShow = val;
         })
       },
-      methods: {
-        closeWindow() {
-          let vm = this;
-          eventBus.$emit('menuOpen', false) 
-          eventBus.$emit('isSearchBarOpen', false)
-          vm.searchBarShow = false;
-          vm.menuShow = false;
-        }
+      closeWindow() {
+        let vm = this;
+        eventBus.$emit('menuOpen', false) 
+        eventBus.$emit('isSearchBarOpen', false)
+        vm.searchBarShow = false;
+        vm.menuShow = false;
+      }
       }
   }
 </script>
 <style lang="scss">
+.page-content {
+  position:relative;
+  min-height:600px;
+  transition: .2s;
+  margin-bottom:50px;
+  left:0;
+  &.open-search {
+    transition:.2s;
+  }
+  &.open-menu {
+    transition:.2s;
+    left:300px;
+  }
+}
 .home {
   height:100%;
 }

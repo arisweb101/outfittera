@@ -1,44 +1,6 @@
 <template>
   <v-col cols="6" sm="6" md="6" lg="6" class="slide-images">
-    <div class="menu-container" v-show="menuShow" v-bind:class="{ open: isActive }">
-      <div class="menu-logo">
-        <v-img :src="menuLogo"></v-img>
-      </div>
-      <div class="menu-list">     
-        <v-list>
-          <v-list-item
-            v-for="menu in menus"
-            :key="menu.title"
-            :to="menu.path"
-          >
-            <v-list-item-content>
-              <v-list-item-title>
-              {{ menu.title }}
-              </v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-        </v-list>
-        <div class="menu-social" v-bind:class="{ open: menuShow }">
-          <span class="connect">Connect To</span>
-          <ul>
-            <li><a href=""><v-img :src="fbGrayIcon"></v-img>
-            </a></li>
-            <li><a href=""><v-img :src="igGrayIcon"></v-img>
-            </a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
     <div class="slider-container" v-bind:class="{ open: isActive }">
-      <transition name="slide-burger">
-          <div id="hp-burger-menu" v-on:click="isMenuOpen" 
-          v-bind:class="{ open: isActive }">
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-          </div>
-      </transition>
       <img class="logo" :src="mainLogo">
       <searchIcon class="search-icon" :icon="searchIcon"/>
       <div class="slide-social-icons">
@@ -164,14 +126,14 @@ export default {
 .slider-container {
   position:fixed;
   user-select:none;
-  transition: 0.4s;
+  transition: 0.3s;
   left:0;
   height:100%;
   width:50%;
   z-index:3;
   &.open {
     left:300px;
-    transition: 0.4s;
+    transition: 0.3s;
   }
 }
 .slick-slider {
@@ -236,7 +198,7 @@ export default {
   height:100%;
   position:fixed;
   background:#fff;
-  z-index:2;
+  z-index:5;
   transition: width .3s ease;
 
   &.open {
@@ -312,7 +274,7 @@ export default {
   width: 30px;
   height: 45px;
   position: absolute;
-  z-index:3;
+  z-index:6;
   left:20px;
   top:24px;
   -webkit-transform: rotate(0deg);

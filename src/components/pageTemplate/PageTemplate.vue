@@ -125,6 +125,7 @@
     min-height:600px;
     transition: .2s;
     margin-bottom:50px;
+    left:0;
     &.open-search {
       transition:.2s;
     }

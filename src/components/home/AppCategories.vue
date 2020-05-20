@@ -148,11 +148,11 @@ export default {
 <style lang="scss">
 .categories {
   position:relative;
-  transition: 0.4s;
+  transition: 0.3s;
   left:0;
     &.open {
       left:300px;
-      transition: 0.4s;
+      transition: 0.3s;
     }
   .category {
     position:relative;
