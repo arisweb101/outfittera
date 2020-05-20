@@ -1,9 +1,9 @@
 <template>
-  <v-container fluid no-gutters class="pa-0 height100">
+  <v-container fluid no-gutters class="pa-0 height100 home">
     <div class="black-screen" @click="closeWindow" v-show="menuShow || 
      searchBarShow" v-bind:class="{ 'open-menu': menuShow, 'open-search': searchBarShow }"></div>
      <searchBar/>
-     <Menu/>
+     <Menu class="menu"/>
      <v-row no-gutters class="page-content height100" v-bind:class="{ 'open-menu': menuShow, 'open-search': searchBarShow }">
        <slideShows/>
        <categories/>
@@ -74,6 +74,10 @@ import eventBus from '@/event_bus';
 }
 .home {
   height:100%;
+
+  .menu {
+    position:fixed;
+  }
 }
 .height100 {
   height:100%;

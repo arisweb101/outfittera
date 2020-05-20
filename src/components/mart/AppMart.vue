@@ -271,7 +271,7 @@ export default {
   }
   .read {
     width:80%;
-    margin:50px auto;
+    margin:150px auto;
   }
   .search-icon {
     position:absolute;
