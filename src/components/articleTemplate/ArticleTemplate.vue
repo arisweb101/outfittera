@@ -212,16 +212,15 @@ export default {
     .main-image {
       margin:0 0 30px;
     }
-    p {
-      text-align:justify;
-    }
     .initial:first-child:first-letter {
       float: left;
       font-size: 75px;
       line-height: 60px;
-      padding-top: 4px;
+      padding-top: 12px;
       padding-right: 12px;
       padding-left: 3px;
+      font-family: 'Libre Baskerville', serif !important;
+      font-weight:normal;
     }
   }
   .block {
@@ -230,7 +229,9 @@ export default {
     .block-title {
       font-size:28px;
       text-align:left;
+      line-height:40px;
       font-family: 'Libre Baskerville', serif !important;
+      font-weight:bold;
     }
   }
   .light-box{

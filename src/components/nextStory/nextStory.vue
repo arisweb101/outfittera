@@ -1,11 +1,13 @@
 <template>
   <v-row class="next-story" no-gutters>
     <v-col cols="12">
+     <router-link :to="nextStory">
       <v-img gradient="to top right, rgba(83, 18, 124, 0.20), rgba(201, 117, 255, 0.20)" class="next-story-bg" :src="nextStoryImg">
         <div class="next-story-label">Next Story</div>
         <div class="next-story-title">{{ nextStoryTitle }}</div>
         <div class="next-story-category">{{ nextStoryCategory}}</div>
       </v-img>
+      </router-link>
     </v-col>
   </v-row>
 </template>
@@ -18,6 +20,7 @@ export default {
   },
   data() {
     return {
+      nextStory: '/article/article-2',
       nextStoryImg: '',
       nextStoryTitle: '',
       nextStoryCategory: ''
@@ -31,8 +34,16 @@ export default {
       this.nextStoryImg = require('@/assets/images/next-story-img.png')
       this.nextStoryTitle = 'Grand Ferdinand New Viennese Elegance'
       this.nextStoryCategory = "Lifestyle Markers"
+    },
+    goToNextStory() {
+
     }
   },
+  computed: {
+    currentRouteName() {
+        return this.$route.path;
+    }
+  }
 }
 </script>
 <style lang="scss" scope>

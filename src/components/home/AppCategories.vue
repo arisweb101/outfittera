@@ -1,11 +1,11 @@
 <template>
-  <v-col cols="6" sm="6" md="6" lg="6" class="pa-8 categories" v-bind:class="{ open: isMenuOpen }" >
+  <v-col cols="6" sm="12" md="6" lg="6" class="categories" v-bind:class="{ open: isMenuOpen }" >
     <v-row v-if="categories" v-for="(category, index) in categories" :key="index" no-gutters class="category">
       <v-col cols="6" class="category-title" >
         <div class="title">{{ category.categoryName }}</div>
         <div :id="category.id"></div>
       </v-col>
-      <v-col cols="6">
+      <v-col cols="6" class="category-actions">
         <div class="actions">
           <div class="next" v-if="category.previousId">
           <a href="#" v-scroll-to="category.previousId">Previous: {{ category.previous }}
@@ -150,6 +150,7 @@ export default {
   position:relative;
   transition: 0.3s;
   left:0;
+  padding:47px 60px !important;
   .category {
     position:relative;
   }
@@ -173,6 +174,8 @@ export default {
     .next {
       margin:8px 0;
       position:relative;
+      font-family: 'Poppins', sans-serif;
+      font-weight:normal;
       a {
         color:#000;
         text-decoration:none;
@@ -196,7 +199,8 @@ export default {
     }
     .previous {
       position:relative;
-      font-family: 'Libre Baskerville', serif !important;
+      font-family: 'Poppins', sans-serif;
+      font-weight:normal;
       a {
         color:#000;
         text-decoration:none;
@@ -221,6 +225,7 @@ export default {
   .articles {
     column-count: 2;
     margin-top:20px;
+    column-gap: 40px;
     width:100%;
     height:50% !important;
     a {
@@ -238,19 +243,26 @@ export default {
     }
     .source {
         text-transform:uppercase;
-        padding:10px 0 0;
+        padding:20px 0 0;
+        letter-spacing:0.5em;
+        font-family: 'Poppins', sans-serif;
+        font-weight:600;
       }
     .title {
-      font-weight: bold;
+      font-weight: 700;
       font-size: 21px;
-      line-height:24px;
-      padding:10px 0;
+      line-height:30px;
+      padding:15px 0;
       font-family: 'Libre Baskerville', serif !important;
     }
     .items {
-      display: inline-table;
-      margin: 0 0 1em;
+      display: inline-block;
+      margin: 0 0 2em;
       width:100%;
+
+      .desc {
+         font-family: 'Libre Baskerville', serif !important;
+      }
     }
   }
 }

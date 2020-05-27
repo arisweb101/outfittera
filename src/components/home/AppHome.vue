@@ -15,11 +15,13 @@ import Menu from '@/components/menu/AppMenu.vue';
 import searchBar from '@/components/search/AppSearchBar.vue'
 import slideShows from '@/components/home/AppSlideShows.vue'
 import categories from '@/components/home/AppCategories.vue'
+import searchIcon from '@/components/search/searchIcon.vue'
 import eventBus from '@/event_bus';
   export default {
     name: 'Home',
     components: {
      searchBar,
+     searchIcon,
      Menu,
      slideShows,
      categories,
@@ -27,6 +29,7 @@ import eventBus from '@/event_bus';
     },
     data() {
       return{
+        searchIcon: require('@/assets/images/search.png'),
         menuLogo: require('@/assets/images/logo-black.svg'),
         isActive: '',
         menuShow: false,
@@ -74,7 +77,9 @@ import eventBus from '@/event_bus';
 }
 .home {
   height:100%;
-
+  .search {
+    position:fixed;
+  }
   .menu {
     position:fixed;
   }
@@ -98,6 +103,14 @@ import eventBus from '@/event_bus';
     display: block;
   }
 }
+.search-icon {
+    position:absolute;
+    right:20px;
+    top:50px;
+    z-index:4;
+    width:20px;
+    cursor:pointer;
+  }
 .black-screen {
   position:fixed;
   width:100%;

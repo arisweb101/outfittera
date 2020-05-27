@@ -82,9 +82,12 @@ export default {
         color:#fff;
         line-height:40px;
         .artitle-category{
-          font-size:12px;
+          font-size:14px;
           text-transform:uppercase;
           margin:0 0 10px;
+          letter-spacing:0.5em;
+          font-family: 'Poppins', sans-serif;
+          font-weight:600;
         }
         .artitle-title {
            font-family: 'Libre Baskerville', serif !important;
@@ -112,11 +115,11 @@ export default {
       }
       .author-name {
         margin-top:10px;
-        font-size:12px;
+        font-size:14px;
         text-transform:uppercase;
       }
       .date-created {
-        font-size:10px;
+        font-size:12px;
       }
     }
   }

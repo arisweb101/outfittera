@@ -158,19 +158,27 @@
     }
     .source {
       text-transform:uppercase;
-      padding:10px 0 0;
+      padding:20px 0 0;
+      letter-spacing:0.5em;
+      font-family: 'Poppins', sans-serif;
+      font-weight:600;
     }
     .title {
       font-family: 'Libre Baskerville', serif !important;
-      font-weight: bold;
+      font-weight:bold;
       font-size: 21px;
-      line-height:24px;
-      padding:10px 0;
+      line-height:30px;
+      padding:15px 0;
     }
     .items {
       display: inline-block;
       margin: 0 20px 1em;
       width: 100%;
+
+      .desc {
+        font-family: 'Libre Baskerville', serif !important;
+        padding-bottom:2em;
+      }
     }
   }
 }

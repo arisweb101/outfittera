@@ -347,7 +347,7 @@ export default {
 }
 .slide-social-icons {
   position: absolute;
-  bottom: 35px;
+  bottom: 5%;
   z-index: 3;
   right: 30px;
   ul {

@@ -27,7 +27,7 @@
           </v-list-item>
         </v-list>
         <div class="menu-social" v-bind:class="{ open: menuShow }">
-          <span class="connect">Connect To</span>
+          <span class="connect">Connect To asdfa</span>
           <ul>
             <li><a href=""><v-img :src="fbGrayIcon"></v-img>
             </a></li>
@@ -119,6 +119,24 @@
     text-transform:uppercase;
     text-align:left;
     background:#fff;
+  }
+  .v-list-item .v-list-item__title, .v-list-item .v-list-item__subtitle {
+    font-family: 'Poppins', sans-serif !important;
+    font-weight:600;
+  }
+  .v-list-item--active {
+    color:#53127C !important;
+  }
+  .v-ripple__container {
+    display:none;
+  }
+  .v-list-item--link:before, .v-list-item--link:focus:before {
+    background:none !important;
+  }
+  .v-list-item--link:focus {
+     &:active, &:before {
+      background:none;
+    }
   }
   .menu-social {
     position:absolute;
