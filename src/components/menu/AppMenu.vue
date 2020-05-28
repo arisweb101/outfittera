@@ -104,6 +104,7 @@
   &.open {
     width:300px;
     transition: width .1s ease;
+    z-index:10;
   }
 
   .menu-logo {

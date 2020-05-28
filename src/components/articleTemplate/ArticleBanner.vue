@@ -6,10 +6,10 @@
      class="banner">
      </v-img>
     <v-row class="banner-desc" no-gutters >
-      <v-col cols="6" md="6">
+      <v-col cols="12" md="12" lg="6" sm="12">
         <v-img :src="articleBannerImage" class="article-image"></v-img>
       </v-col>
-      <v-col col="6" clas="mb-6" class="article-desc">
+      <v-col cols="12" md="12" lg="6" sm="12" class="article-desc">
         <div class="artitle-titles">
           <div class="artitle-category">{{ articleCategory }}</div>
           <div class="artitle-title">{{ articleTitle }}</div>

@@ -10,7 +10,7 @@
        :articleTitle="articleBanner.articleTitle" :authorName="articleBanner.authorName" 
        :authorThumbnail="articleBanner.authorThumbnail" :articleDateCreated="articleBanner.articleDateCreated" 
        :articleBannerImage="articleBanner.articleBannerImage"/>
-       <SocialMediaLogos class="social-logos" />
+       <SocialMediaLogos class="social-logos-float" />
        <div class="article-content">
           <v-row class="block" v-scrollanimation>
             <v-col cols="12" md="12">
@@ -52,7 +52,7 @@
           </v-row>
         </div>
       </div>
-       <NextStory/>
+    <NextStory/>
     <Footer/>
   </v-container>
 </template>
@@ -194,6 +194,12 @@ export default {
       margin: 0 20px 1em;
       width: 100%;
     }
+  }
+  .social-logos-float {
+    width:100px;
+    position:relative;
+    left:70px;
+    top:160px;
   }
   .social-logos {
     width:100px;

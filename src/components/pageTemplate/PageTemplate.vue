@@ -172,7 +172,7 @@
     }
     .items {
       display: inline-block;
-      margin: 0 20px 1em;
+      margin: 0;
       width: 100%;
 
       .desc {
