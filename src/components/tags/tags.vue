@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div class="tags">
     <v-row>
-      <v-col cols="12" class="tags">
+      <v-col cols="12" >
         <span class="tag-cat">Tags</span>
         <span class="tag-items" v-for="tag in tagItems">
         {{ tag }}
@@ -144,5 +144,36 @@ export default {
       }
     }
   }
-  
+  @media screen and (max-width:480px) { 
+    .tags { 
+      .tag-items {
+        padding:6px 8px;
+      }
+      .like {
+        flex: 0 0 100%;
+        max-width: 100%;
+        width:100%;
+        text-align:center;
+        .heart {
+          float:none;
+          margin:0 auto;
+        }
+        .like-quantity {
+          float:none;
+          margin:0 auto;
+        }
+      }
+      .tag-social {
+        width:100%;
+        flex: 0 0 100%;
+        max-width: 100%;
+        text-align:center;
+
+        .social-logos {
+          margin:0 auto;
+          float:none;
+        }
+      }
+    }
+  }
 </style>

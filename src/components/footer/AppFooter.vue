@@ -136,5 +136,57 @@ export default {
     }
   }
 }
-  
+
+
+
+@media screen and (max-width:992px){
+
+  .footer {
+    min-height: 200px;
+    .footer-container {
+      padding:0;
+      .footer-logo {
+        margin:0 auto;
+        width:100px;
+      }
+      .footer-menu {
+        padding:0;
+        ul {
+          margin:0;
+          padding:0;
+          text-align: center !important;
+
+          li {
+            margin:0 10px 0 10px !important;
+          }
+        }
+      }
+      .get-in-touch {
+        top:12px;
+      }
+      .copyright {
+        left: 0;
+        right: 0;
+        bottom:10px !important;
+        margin: 0 auto;
+        width: fit-content;
+      }
+    }
+  } 
+}
+
+@media screen and (max-width:767px){ 
+  .footer {
+    .footer-container {
+      .footer-menu {
+        padding:0;
+        ul.menu {
+          li {
+            display: block !important;
+          }
+        }
+      }
+    }
+  }
+}
 </style>

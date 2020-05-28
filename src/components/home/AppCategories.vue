@@ -280,7 +280,48 @@ export default {
 }
 .enter {
   opacity:1;
-  transform:translateY(0px);
-   
+  transform:translateY(0px);  
+}
+
+@media screen and (max-width:992px){
+  .categories {
+    width:100% !important;
+    max-width: 100%;
+    height:100% !important;
+    max-height:500px !important;
+    flex: 0 0 100% !important;
+    padding:20px !important;
+    text-align:center;
+    margin-top:70px;
+
+    .category-title {
+      width: 100% !important;
+      flex: 0 0 100%;
+      max-width: 100%;
+      div {
+      clear: both;
+      margin:10px 0;
+      width:100%;
+     }
+    }
+    .category-actions {
+      width: 100% !important;
+      flex: 0 0 100%;
+      max-width: 100%;
+      div {
+      clear: both;
+      margin:10px 0;
+      width:100%;
+      text-align: center;
+     }
+    }
+
+    .articles {
+      column-count: 1 !important;
+    }
+    .previous {
+      top:-6px;
+    }
+  }
 }
 </style>

@@ -191,4 +191,48 @@
   opacity:1;
   transform:translateY(0px);
 }
+
+
+@media screen and (max-width:992px){
+  .page-template  {
+    .articles-lists {
+      column-count: 2 !important;
+    }
+  }
+}
+
+@media screen and (max-width:767px){ 
+  // Page Template
+
+  .page-template  {
+    .page-title {
+      font-size:26px;
+    }
+    .articles-lists {
+      column-count: 1 !important;
+    }
+  }
+
+  // Article 
+
+  .article-template {
+    .article-content {
+      width:80% !important;
+    }
+  }
+
+  // Footer
+  .footer {
+    .footer-container {
+      .footer-menu {
+        padding:0;
+        ul.menu {
+          li {
+            display: block !important;
+          }
+        }
+      }
+    }
+  }
+}
 </style>

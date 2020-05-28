@@ -1,10 +1,10 @@
 <template>
   <v-layout>
-    <v-row>
-      <v-col cols="6">
+    <v-row class="buy-this">
+      <v-col cols="12" sm="12" xs="12" lg="6" md="6">
         <v-img :src="itemImage" class="item-image"></v-img>
       </v-col>
-      <v-col cols="6" class="item-desc">
+      <v-col cols="12" sm="12" lg="6" md="6" class="item-desc">
         <div class="item-name">{{ itemName }}</div>
         <button type="button" class="buy-this-bt">Buy This</button>
       </v-col>
@@ -35,6 +35,7 @@ export default {
 }
 </script>
 <style lang="scss" scope>
+
 .item-image {
   width:100%;
 }
@@ -60,6 +61,11 @@ export default {
     &:after {
 
     }
+  }
+}
+@media screen and (max-width:767px) {  
+  .item-desc {
+
   }
 }
 </style>

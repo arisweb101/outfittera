@@ -86,5 +86,30 @@ export default {
     }
   }  
 }
-  
+@media screen and (max-width:767px){ 
+  .next-story {
+  .next-story-bg {
+    .next-story-label {
+      font-size:22px;
+      top:10%;
+      display:none;
+    }
+    .next-story-title {
+      width:100%;
+      margin:0 auto;
+      font-size:16px;
+      top:10%;
+    }
+    .next-story-category {
+      text-transform:uppercase;
+      margin:0 auto;
+      font-size:14px;
+      position:absolute;
+      bottom:10%;
+      left:0;
+      right:0;
+    }
+  }  
+}
+}
 </style>

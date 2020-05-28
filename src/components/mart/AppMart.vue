@@ -5,17 +5,17 @@
      searchBarShow" v-bind:class="{ 'open-menu': menuShow, 'open-search': searchBarShow }"></div>
      <Menu class="menu-mart"/>
     <div no-gutters class="page-content height100" v-bind:class="{ 'open-menu': menuShow, 'open-search': searchBarShow }">
-      <v-row class="header">
+      <v-row class="header" gutter>
         <v-img :src="blackLogo" class="logo-center"></v-img>
         <searchIcon :icon="icon" class="search-icon"/>
       </v-row>
       <v-row class="content">
-        <v-row cols="12" class="filter">
-          <v-col col="6">
+        <v-row cols="12" class="filter" gutter>
+          <v-col col="6" class="filter-title" gutter>
             <span class="content-title">Mart</span>
             <span class="mart-items">{{ quantity }} items</span>
           </v-col>
-          <v-col col="6">
+          <v-col col="6" class="filter-options" gutter>
             <span class="filter-by">
             <span class="filter-label">Filter By</span>
             <v-select class="select-product" :items="allProducts" label="All Products" filled
@@ -149,6 +149,7 @@ export default {
       left:300px;
     }
     .header {
+      margin:0 !important;
       height:60px;
     }
     .content {
@@ -315,5 +316,81 @@ export default {
 .enter {
   opacity:1;
   transform:translateY(0px);
+}
+
+@media screen and (max-width:1080px) { 
+  .mart .page-content .all-products ul li {
+    flex: 0 0 47%;
+  }
+}
+@media screen and (max-width:820px) { 
+  .mart .page-content .all-products ul li {
+    flex: 0 0 100%;
+  }
+  .filter{
+    margin:0;
+
+    .filter-title {
+     width:100%;
+     clear:both;
+     flex:auto;
+     padding:0;
+   }
+    .filter-options {
+     width:100%;
+     clear:both;
+     flex:auto;
+     padding:0;
+    }
+  }
+}
+
+@media screen and (max-width:480px) { 
+  .mart .page-content .all-products ul li {
+    flex: 0 0 100%;
+  }
+  .read-articles .article .article-images .article-label {
+    font-weight: bold;
+    font-size: 30px;
+    color: #fff;
+    position: absolute;
+    top: calc(55% - 6px);
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+  }
+}
+@media screen and (max-width:360px) { 
+  .filter-by {
+    text-align:center;
+    height:100px !important;
+
+    .v-input__slot {
+      position: absolute;
+      /* right: 20px; */
+      top: 10px;
+      border: 1px solid #53127C;
+      border-radius: 0;
+      min-height: 50px;
+      max-height: 50px;
+      width: 80% !important;
+      margin: 0 auto;
+      left: 0 !important;
+      right: 0 !important;
+    }
+  }
+  .select-product {
+    width:100%;
+  }
+  .filter-label {
+    position: relative !important;
+    left: 0 !important;
+    font-size: 12px !important;;
+    top: 6px !important;;
+    color: #53127C;
+    text-transform: uppercase;
+    right: 0;
+    margin: 0 auto;
+  }
 }
 </style>

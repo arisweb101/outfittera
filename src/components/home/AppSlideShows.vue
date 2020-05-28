@@ -399,4 +399,21 @@ export default {
     color:#53127C;
   }
 }
+
+@media screen and (max-width:992px) {
+  .slide-images {
+    width:100% !important;
+    max-width: 100%;
+    height:100% !important;
+    flex: 0 0 100% !important;
+  }
+  .slider-container {
+    width:100%;
+    position: relative !important;
+  }
+  .slick-list {
+    width:100%;
+    position: relative !important;
+  }
+}
 </style>

@@ -130,4 +130,16 @@ import eventBus from '@/event_bus';
   }
 }
 
+@media screen and (max-width:992px){
+// Home
+  .home {
+    .menu {
+      position: absolute !important;
+      
+    } 
+    .height100 {
+      height:auto !important;
+    }
+  }
+}
 </style>
