@@ -324,4 +324,15 @@ export default {
     }
   }
 }
+@media screen and (max-width:767px){
+  .actions {
+    .previous {
+      display:none;
+    }
+    .next {
+      display:none;
+    }
+  }
+}
 </style>
+
