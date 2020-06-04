@@ -13,7 +13,7 @@
           </div>
       </transition>
       <div class="menu-list" v-show="menuShow">     
-        <v-list>
+        <v-list >
           <v-list-item
             v-for="menu in menus"
             :key="menu.title"
@@ -27,7 +27,7 @@
           </v-list-item>
         </v-list>
         <div class="menu-social" v-bind:class="{ open: menuShow }">
-          <span class="connect">Connect To asdfa</span>
+          <span class="connect">Connect To</span>
           <ul>
             <li><a href=""><v-img :src="fbGrayIcon"></v-img>
             </a></li>
@@ -42,6 +42,7 @@
  import slideShows from '@/components/home/AppSlideShows.vue'
  import categories from '@/components/home/AppCategories.vue'
  import eventBus from '@/event_bus';
+ import $ from "jquery";
   export default {
     name: 'Home',
     components: {
@@ -84,6 +85,24 @@
           vm.menuShow = !vm.isActive;
           vm.isActive = !vm.isActive;
           eventBus.$emit('menuOpen', vm.menuShow);
+          if(vm.menuShow) {
+            var loop = 0;
+            $('.v-list a').each(function(){
+              var $this = $(this);
+              $this.delay(loop).animate({top:'0',left:'0'},{duration:loop});
+              loop = loop + 30;
+            });
+            $('.menu-social').animate({bottom:'20',left:'0'},{duration:300});
+            $('.menu-global-container').css({position:'fixed'});
+          }else {
+            $('.v-list a').each(function(){
+              var $this = $(this);
+              $this.delay(loop).animate({top:'1000',left:'-100'},{duration:loop});
+              loop = loop + 30;
+            });
+            $('.menu-social').animate({bottom:'1000',left:'-100'},{duration:300});
+             $('.menu-global-container').css({position:'absolute'});
+          }
         },
       }
   }
@@ -94,17 +113,29 @@
 }
 .menu-global-container {
   width:0px;
-  height:100%;
+  height:100vh;
   position:absolute;
   z-index:5;
   display:block;
   background:#fff;
-  transition: width .1s ease;
+  transition: .1s ease;
+
+   .v-list {
+    margin:100px 0 0 25px;
+    text-transform:uppercase;
+    text-align:left;
+    background:#fff;
+    a {
+     left:-100px;
+     top:1000px;
+     transition: 0.2s;
+    }
+  }
   
   &.open {
     width:300px;
-    transition: width .1s ease;
     z-index:10;
+    transition: 0.2s;
   }
 
   .menu-logo {
@@ -113,13 +144,6 @@
     left:20px;
     top:10px;
     z-index:5;
-  }
-
-  .menu-list {
-    margin:100px 0 0 25px;
-    text-transform:uppercase;
-    text-align:left;
-    background:#fff;
   }
   .v-list-item .v-list-item__title, .v-list-item .v-list-item__subtitle {
     font-family: 'Poppins', sans-serif !important;
@@ -141,8 +165,8 @@
   }
   .menu-social {
     position:absolute;
-    bottom:20px;
-    left:0;
+    bottom:1000px;
+    left:-100px;
     right:0;
     margin:0 auto;
     transition:.2s;
@@ -271,15 +295,20 @@
   }
 }
 .before-enter {
-  opacity:0;
-  transform: translateY(100px);
-  transition:0.4s ease-in;  
+  transition:0.1s ease-in;  
   overflow-x: hidden;
-
+  transform: translateX(-100px);
+  transform: translateY(500px);
+  @for $i from 0 through 10 {
+    &:nth-child(#{$i + 1}) {
+      transition-delay: 0.1s * $i;
+    }
+  }
 }
 .enter {
-  opacity:1;
+  top:0;
+  left:0;
+  transform: translateX(0px);
   transform:translateY(0px);
-   
 }
 </style>

@@ -246,20 +246,49 @@ export default {
                 position:relative;
                 width: 122px;
                 height: 40px;
-                border: 1px solid #53127C;
                 box-sizing: border-box;
                 transition: 0.2s;
                 margin:20px 0;
                 outline:none;
-              &:hover {
-                background:#53127C;
-                transition: 0.2s;
-                color:#fff;
+                text-align:left;
+                &:before {
+                  content: "";    
+                  border: solid black;
+                  border-width: 0 3px 3px 0;
+                  display: inline-block;
+                  padding: 3px;
+                  position:absolute;
+                  right:5px;
+                  top:15px;
+                  transform: rotate(-45deg);
+                  -webkit-transform: rotate(-45deg);
+                  &:hover:before {
+                    background: #53127C;
+                  }
+                }
+                &:after {
+                  content: "";    
+                  position: absolute;
+                  width: 100%; 
+                  height: 1px;
+                  display: block;
+                  margin-top: 5px;
+                  right:0;
+                  background: #53127C;
+                  transition-delay: 0.3s;
+                  transition: width .5s ease;
+                  -webkit-transition: width .5s ease;
+                }
+                &:hover:after{
+                  width: 0;
+                  left: 1000;
+                  background: #53127C;
+                }
+                &:hover {
+                  transition: 0.2s;
+                  color:#53127C;
+                }
               }
-              &:after {
-
-              }
-            }
             }
             .item-name {
               font-size:18px;
