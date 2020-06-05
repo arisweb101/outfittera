@@ -18,6 +18,7 @@
         </div>
       </div>
     <Footer/>
+     <cursor-fx color="#000" config outside-size="100" color-hover="#ffffff"/>
   </v-container>
 </template>
 <script>

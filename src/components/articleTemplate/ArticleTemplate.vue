@@ -53,6 +53,7 @@
       </div>
     <NextStory/>
     <Footer/>
+     <cursor-fx color="#000" config outside-size="100" color-hover="#ffffff"/>
   </v-container>
 </template>
 <script>
@@ -158,6 +159,9 @@ export default {
     }
 </script>
 <style lang="scss">
+#cursor-fx {
+  z-index: 999999px;
+}
 .page-content {
   position:relative;
   min-height:600px;
