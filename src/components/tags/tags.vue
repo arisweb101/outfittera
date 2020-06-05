@@ -10,8 +10,9 @@
     </v-row>
     <v-row>
       <v-col cols="6" class="like">
-      <div class="heart">
-        <v-img :src="heart" ></v-img>
+      <div class="heart" v-on:click="animateButton()" 
+        v-bind:class="{heartClick : isHeartClicked}">
+        <v-img :src="heart"></v-img>
         </div>
         <span class="like-quantity">{{ likeQuantity }}k Hearts</span>
       </v-col>
@@ -30,6 +31,7 @@ export default {
   },
   data() {
     return {
+      isHeartClicked: false,
       heart: require('@/assets/images/heart.png'),
       likeQuantity: 44,
       convertion: '',
@@ -40,7 +42,13 @@ export default {
     
   },
   methods: {
-
+    animateButton(el) {
+      let vm = this;
+      vm.isHeartClicked = true;
+      setTimeout(function () { 
+        vm.isHeartClicked = false;
+      },300)
+    }
   },
   filters: {
     convertNumber: function(val) {
@@ -83,45 +91,122 @@ export default {
   .heart {
     width: 50px;
     height: 50px;
-    border: 1px solid #ddd;
+    border-radius: 50%;
     box-sizing: border-box;
-    border-radius:50px;
+    opacity: 1;
     float:left;
     margin-right:10px;
     cursor:pointer;
+    position: relative;
+    display: inline-block;
+    overflow: visible;
+    -webkit-transition: color 0.7s;
+    transition: color 0.7s;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 
-    @keyframes animateHeart {
-      0%   {
-        border: 1px solid #ddd;
+    &:before {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin: -35px 0 0 -35px;
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      content: '';
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    &:active {
+      transition:0.2s;
+      transform:scale(1.2);
+    }
+
+    &:after {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin: -35px 0 0 -35px;
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      content: '';
+      opacity: 0;
+      pointer-events: none;
+    }
+    &:after, &:before {
+      opacity: 0;
+	    box-shadow: 0 0 0 2px rgba(96, 38,134, 1);
+    }
+
+    &:after {}
+
+    &.heartClick:before {
+      -webkit-animation: anim-effect-ivana-1 0.5s forwards;
+      animation: anim-effect-ivana-1 0.5s forwards;
+    }
+
+    &.heartClick:after {
+      -webkit-animation: anim-effect-ivana-2 0.5s forwards;
+      animation: anim-effect-ivana-2 0.5s forwards;
+    }
+
+   @-webkit-keyframes anim-effect-ivana-1 {
+      0% {
+        opacity: 1;
+        -webkit-transform: scale3d(0.5, 0.5, 1);
+        transform: scale3d(0.5, 0.5, 1);
       }
-      5% {
-          border: 1px solid #999;
-          -webkit-box-shadow: 0px 0px 1px 1px rgba(0,0,0,0.5);
-          -moz-box-shadow: 0px 0px 1px 1px rgba(0,0,0,0.5);
-          box-shadow: 0px 0px 1px 1px rgba(0,0,0,0.5);
-        }
-      25% {
-          border: 1px solid #999;
-          -webkit-box-shadow: 0px 0px 5px 5px rgba(0,0,0,0.25);
-          -moz-box-shadow: 0px 0px 5px 5px rgba(0,0,0,0.25);
-          box-shadow: 0px 0px 5px 5px rgba(0,0,0,0.25);
-        }
       100% {
-          border: 1px solid #999;
-          -webkit-box-shadow: 0px 0px 0px 0px rgba(0,0,0,0.0);
-          -moz-box-shadow: 0px 0px 0px 0px rgba(0,0,0,0.0);
-          box-shadow: 0px 0px 0px 0px rgba(0,0,0,0.0);
-        }
+        opacity: 0;
+        -webkit-transform: scale3d(1.1, 1.1, 1);
+        transform: scale3d(1.1, 1.1, 1);
+      }
+    }
+
+    @keyframes anim-effect-ivana-1 {
+      0% {
+        opacity: 1;
+        -webkit-transform: scale3d(0.5, 0.5, 1);
+        transform: scale3d(0.5, 0.5, 1);
+      }
+      100% {
+        opacity: 0;
+        -webkit-transform: scale3d(1.1, 1.1, 1);
+        transform: scale3d(1.1, 1.1, 1);
+      }
+    }
+
+    @-webkit-keyframes anim-effect-ivana-2 {
+      0% {
+        opacity: 1;
+        -webkit-transform: scale3d(0.5, 0.5, 1);
+        transform: scale3d(0.5, 0.5, 1);
+      }
+      50%, 100% {
+        opacity: 0;
+        -webkit-transform: scale3d(1.2, 1.2, 1);
+        transform: scale3d(1.2, 1.2, 1);
+      }
+    }
+
+    @keyframes anim-effect-ivana-2 {
+      0% {
+        opacity: 1;
+        -webkit-transform: scale3d(0.5, 0.5, 1);
+        transform: scale3d(0.5, 0.5, 1);
+      }
+      50%, 100% {
+        opacity: 0;
+        -webkit-transform: scale3d(1.2, 1.2, 1);
+        transform: scale3d(1.2, 1.2, 1);
+      }
     }
     .v-image {
       width: 55%;
-      margin: 13px auto;
+      margin: 16px auto 0;
     }
-    &:hover {
-      border: 1px solid #000;
-      animation-name: animateHeart;
-      animation: animateHeart 2s infinite; 
-    }
+ 
   }
   .like-quantity {
       float:left;
