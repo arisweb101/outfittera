@@ -2,7 +2,7 @@
   <v-layout>
     <v-row class="buy-this">
       <v-col cols="12" sm="12" xs="12" lg="6" md="6">
-        <v-img :src="itemImage" class="item-image"></v-img>
+        <v-img data-cursor-hover :src="itemImage" class="item-image"></v-img>
       </v-col>
       <v-col cols="12" sm="12" lg="6" md="6" class="item-desc">
         <div class="item-name">{{ itemName }}</div>
@@ -12,12 +12,13 @@
   </v-layout>
 </template>
 <script>
-
+import { CursorFx } from '@luxdamore/vue-cursor-fx';
+import '@luxdamore/vue-cursor-fx/dist/CursorFx.css';
 export default {
   props: ['pageTitle'],
   name: 'BuyThis',
   components: {
-    
+    CursorFx
   },
   data() {
     return {

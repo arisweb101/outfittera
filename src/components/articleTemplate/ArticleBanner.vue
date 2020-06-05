@@ -2,12 +2,12 @@
   <v-layout>
     <v-img :src="whiteLogo" class="white-logo"></v-img>
     <SearchIcon :icon="icon" class="search-icon"/>
-    <v-img :src="articleBannerImage" gradient="to top right, rgba(83, 18, 124, 0.44), rgba(201, 117, 255, 0.57)"
+    <v-img data-cursor-hover :src="articleBannerImage" gradient="to top right, rgba(83, 18, 124, 0.44), rgba(201, 117, 255, 0.57)"
      class="banner">
      </v-img>
     <v-row class="banner-desc" no-gutters >
       <v-col cols="12" md="12" lg="6" sm="12">
-        <v-img :src="articleBannerImage" class="article-image"></v-img>
+        <v-img data-cursor-hover  :src="articleBannerImage" data-cursor-hover class="article-image"></v-img>
       </v-col>
       <v-col cols="12" md="12" lg="6" sm="12" class="article-desc">
         <div class="artitle-titles">
@@ -16,7 +16,7 @@
           <div class="artitle-author">feat. {{ authorName }}</div>
         </div>
         <div class="author">
-          <v-img :src="authorThumbnail" class="article-thumbnail"></v-img>
+          <v-img data-cursor-hover  :src="authorThumbnail" class="article-thumbnail"></v-img>
           <div class="author-name">{{ authorName }}</div>
           <div class="date-created">{{ articleDateCreated }}</div>
         </div>
@@ -26,12 +26,15 @@
 </template>
 <script>
 import SearchIcon from '@/components/search/searchIcon.vue'
+import { CursorFx } from '@luxdamore/vue-cursor-fx';
+import '@luxdamore/vue-cursor-fx/dist/CursorFx.css';
 export default {
   props: ['pageTitle', 'mainBanner', 'articleBannerImage' , 'articleCategory',
           'articleTitle', 'authorName', 'authorThumbnail', 'articleDateCreated' ],
   name: 'ArticleBanner',
   components: {
-    SearchIcon
+    SearchIcon,
+    CursorFx
   },
   data() {
     return {

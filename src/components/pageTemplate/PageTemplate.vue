@@ -9,7 +9,7 @@
           <div no-gutters class="articles-lists">
             <div v-scrollanimation v-for="(item, index) in articles" :key="item.id" class="items">
               <router-link :to="'/article/'+item.id">
-                <v-img :src="item.images" :eager="forceImages" class="article-image"></v-img>
+                <v-img data-cursor-hover :src="item.images" :eager="forceImages" class="article-image"></v-img>
                 <div class="source">{{ item.source }}</div>
                 <div class="title">{{ item.title }}</div>
                 <div class="desc">{{ item.description }}</div>
@@ -21,6 +21,8 @@
   </v-container>
 </template>
 <script>
+import { CursorFx } from '@luxdamore/vue-cursor-fx';
+import '@luxdamore/vue-cursor-fx/dist/CursorFx.css';
  import Menu from '@/components/menu/AppMenu.vue';
  import Banner from '@/components/pageTemplate/PageBanner.vue'
  import SearchBar from '@/components/search/AppSearchBar.vue'
@@ -29,6 +31,7 @@
   export default {
     name: 'Template',
     components: {
+     CursorFx,
      Banner,
      Menu,
      Footer,

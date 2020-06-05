@@ -28,7 +28,7 @@
           <li v-for="item in items" v-scrollanimation>
            <v-row>
               <v-col cols="12">
-                <v-img :src="item.itemImage" class="item-image"></v-img>
+                <v-img data-cursor-hover :src="item.itemImage" class="item-image"></v-img>
               </v-col>
               <v-col cols="12" class="item-desc">
                 <div class="item-name">{{ item.itemName }}</div>
@@ -55,10 +55,12 @@ import searchIcon from '@/components/search/searchIcon.vue'
 import ReadArticles from '@/components/readArticles/readArticles.vue'
 import Footer from '@/components/footer/AppFooter.vue'
 import eventBus from '@/event_bus';
-
+import { CursorFx } from '@luxdamore/vue-cursor-fx';
+import '@luxdamore/vue-cursor-fx/dist/CursorFx.css';
 export default {
     name: 'Template',
     components: {
+    CursorFx,
      Menu,
      searchIcon,
      searchBar,

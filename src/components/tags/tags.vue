@@ -23,11 +23,14 @@
   </div>
 </template>
 <script>
+import { CursorFx } from '@luxdamore/vue-cursor-fx';
+import '@luxdamore/vue-cursor-fx/dist/CursorFx.css';
 import socialMediaLogos from '@/components/socialMedia/socialMediaLogos.vue'
 export default {
   name: 'Tags',
   components: {
-    socialMediaLogos
+    socialMediaLogos,
+    CursorFx
   },
   data() {
     return {
@@ -116,12 +119,10 @@ export default {
       opacity: 0;
       pointer-events: none;
     }
-
     &:active {
       transition:0.2s;
       transform:scale(1.2);
     }
-
     &:after {
       position: absolute;
       top: 50%;

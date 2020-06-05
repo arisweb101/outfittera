@@ -7,7 +7,7 @@ export default {
     props: ['icon'],
     name: 'search',
     components: {
-      eventBus
+      eventBus,
     },
     data() {
       return{

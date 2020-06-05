@@ -16,11 +16,14 @@
   </v-container>
 </template>
 <script>
+import { CursorFx } from '@luxdamore/vue-cursor-fx';
+import '@luxdamore/vue-cursor-fx/dist/CursorFx.css';
 import eventBus from '@/event_bus';
 export default {
     name: 'search',
     components: {
-      eventBus
+      eventBus,
+      CursorFx
     },
     data() {
       return{

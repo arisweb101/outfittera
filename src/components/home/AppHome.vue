@@ -8,6 +8,7 @@
        <slideShows/>
        <categories/>
     </v-row>
+     <cursor-fx color-hover="#ffffff"/>
   </v-container>
 </template>
 <script>
@@ -17,9 +18,12 @@ import slideShows from '@/components/home/AppSlideShows.vue'
 import categories from '@/components/home/AppCategories.vue'
 import searchIcon from '@/components/search/searchIcon.vue'
 import eventBus from '@/event_bus';
+import { CursorFx } from '@luxdamore/vue-cursor-fx';
+import '@luxdamore/vue-cursor-fx/dist/CursorFx.css';
   export default {
     name: 'Home',
     components: {
+      CursorFx,
      searchBar,
      searchIcon,
      Menu,
@@ -61,6 +65,9 @@ import eventBus from '@/event_bus';
   }
 </script>
 <style lang="scss">
+#cursor-fx {
+  z-index:999999;
+}
 .page-content {
   position:relative;
   min-height:600px;

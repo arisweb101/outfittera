@@ -1,5 +1,5 @@
 <template>
-  <v-row class="footer" no-gutters>
+  <v-row class="footer" data-cursor-hover no-gutters>
    <v-row class="footer-container mb-8" align="center" justify="center">
       <v-col cols="12" sm="12" xl="2" lg="2" md="2">
         <v-img :src="footerLogo" class="footer-logo"></v-img>
@@ -8,7 +8,7 @@
       <v-col xl="7" lg="7" md="10" sm="12"  class="footer-menu">
         <ul class="menu">
           <li v-for="menu in menus">
-            <router-link :to="menu.path">{{ menu.title }}</router-link>
+            <router-link  :to="menu.path">{{ menu.title }}</router-link>
           </li>
         </ul>
         <div class="get-in-touch">
@@ -23,9 +23,12 @@
   </v-row>
 </template>
 <script>
+import { CursorFx } from '@luxdamore/vue-cursor-fx';
+import '@luxdamore/vue-cursor-fx/dist/CursorFx.css';
 export default {
   name: 'Tags',
   components: {
+    CursorFx
   },
   data() {
     return {

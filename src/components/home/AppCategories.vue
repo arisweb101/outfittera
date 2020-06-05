@@ -18,7 +18,7 @@
       <v-col cols="12" no-gutters class="articles">
         <div v-for="item in category.articles" class="items" v-scrollanimation>
           <router-link :to="'/article/'+item.id">
-            <v-img :src="item.images" :eager="showImages" class="article-image"></v-img>
+            <v-img :src="item.images" :eager="showImages" data-cursor-hover class="article-image"></v-img>
             <div class="source">{{ item.source }}</div>
             <div class="title">{{ item.title }}</div>
             <span class="desc">
@@ -34,12 +34,15 @@
 <script>
 import eventBus from '@/event_bus';
 import '@/assets/js/scrollAnimation.js'
+import { CursorFx } from '@luxdamore/vue-cursor-fx';
+import '@luxdamore/vue-cursor-fx/dist/CursorFx.css';
 import VueScrollTo from 'vue-scrollto';
 export default {
   name: 'FreshStories',
   components: {
     eventBus,
-    VueScrollTo
+    VueScrollTo,
+    CursorFx
   },
   data() {
     return {

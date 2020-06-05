@@ -3,3 +3,6 @@
 body {
   scroll-behavior: smooth;  
 }
+#cursor-fx {
+	z-index:999999 !important;
+}

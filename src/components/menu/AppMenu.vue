@@ -39,6 +39,8 @@
     </div>
 </template>
 <script>
+import { CursorFx } from '@luxdamore/vue-cursor-fx';
+import '@luxdamore/vue-cursor-fx/dist/CursorFx.css';
  import slideShows from '@/components/home/AppSlideShows.vue'
  import categories from '@/components/home/AppCategories.vue'
  import eventBus from '@/event_bus';
@@ -46,6 +48,7 @@
   export default {
     name: 'Home',
     components: {
+      CursorFx,
      slideShows,
      eventBus,
      categories

@@ -5,7 +5,7 @@
      <v-col col="2" md="6" class="article" v-for="article in articles" :key="article.id">
      <v-list-item  :to="article.path">
      <v-list-item-content v-scrollanimation>
-      <v-img :src="article.image" class="article-images"> 
+      <v-img data-cursor-hover :src="article.image" class="article-images"> 
         <div class="article-title">{{ article.label1 }}</div>
         <div class="article-label">{{ article.label1 }}</div>
       </v-img>
@@ -16,8 +16,13 @@
   </v-container>
 </template>
 <script>
+import { CursorFx } from '@luxdamore/vue-cursor-fx';
+import '@luxdamore/vue-cursor-fx/dist/CursorFx.css';
 export default {
     name: 'ReadArticles',
+    components: {
+      CursorFx
+    },
     data() {
       return{
         title: "Read Articles",

@@ -2,7 +2,7 @@
   <v-row class="next-story" no-gutters>
     <v-col cols="12">
      <router-link :to="nextStory">
-      <v-img gradient="to top right, rgba(83, 18, 124, 0.20), rgba(201, 117, 255, 0.20)" class="next-story-bg" :src="nextStoryImg">
+      <v-img data-cursor-hover gradient="to top right, rgba(83, 18, 124, 0.20), rgba(201, 117, 255, 0.20)" class="next-story-bg" :src="nextStoryImg">
         <div class="next-story-label">Next Story</div>
         <div class="next-story-title">{{ nextStoryTitle }}</div>
         <div class="next-story-category">{{ nextStoryCategory}}</div>
@@ -12,10 +12,13 @@
   </v-row>
 </template>
 <script>
+import { CursorFx } from '@luxdamore/vue-cursor-fx';
+import '@luxdamore/vue-cursor-fx/dist/CursorFx.css';
 import socialMediaLogos from '@/components/socialMedia/socialMediaLogos.vue'
 export default {
   name: 'Tags',
   components: {
+    CursorFx,
     socialMediaLogos
   },
   data() {

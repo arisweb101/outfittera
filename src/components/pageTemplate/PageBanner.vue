@@ -5,15 +5,19 @@
     <v-img :src="mainBanner" gradient="to top right, rgba(83, 18, 124, 0.44), rgba(201, 117, 255, 0.57)" class="banner">
       <div class="page-title">{{ pageTitle }}</div>
     </v-img>
+    <cursor-fx color-hover="#ffffff"/>
   </v-layout>
 </template>
 <script>
+import { CursorFx } from '@luxdamore/vue-cursor-fx';
+import '@luxdamore/vue-cursor-fx/dist/CursorFx.css';
 import searchIcon from '@/components/search/searchIcon.vue'
 export default {
   props: ['pageTitle', 'mainBanner'],
   name: 'PageBanner',
   components: {
-    searchIcon
+    searchIcon,
+    CursorFx
   },
   data() {
     return {

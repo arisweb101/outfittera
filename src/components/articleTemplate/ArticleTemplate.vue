@@ -6,7 +6,7 @@
      <Menu/>
      <div no-gutters class="page-content" v-bind:class="{ 'open-menu': menuShow, 'open-search': searchBarShow }">
        <Tinybox v-model="contentBlock2.index" :images="contentBlock2.imageList"></Tinybox>
-       <ArticleBanner :articleCategory="articleBanner.articleCategory"
+       <ArticleBanner  :articleCategory="articleBanner.articleCategory"
        :articleTitle="articleBanner.articleTitle" :authorName="articleBanner.authorName" 
        :authorThumbnail="articleBanner.authorThumbnail" :articleDateCreated="articleBanner.articleDateCreated" 
        :articleBannerImage="articleBanner.articleBannerImage"/>
@@ -21,13 +21,12 @@
           </v-row >
           <v-row class="block" v-scrollanimation>
             <v-col cols="12" md="12">
-                <v-img :src="contentBlock2.image" class="main-image"></v-img>
+                <v-img   :src="contentBlock2.image" class="main-image"></v-img>
                 <p class="block-title">{{ contentBlock2.title }}</p>
                 <p>{{ contentBlock2.text }}</p>
                 <p>{{ contentBlock2.text }}</p>
                 <div class="light-box">
-                  
-                      <img v-for="(img, idx) in contentBlock2.imageList"
+                      <img data-cursor-hover v-for="(img, idx) in contentBlock2.imageList"
                         :src="img.src"
                         :alt="img.alt"
                         :caption="img.caption"
@@ -68,9 +67,12 @@ import NextStory from '@/components/nextStory/nextStory.vue'
 import Footer from '@/components/footer/AppFooter.vue'
 import Tinybox from "vue-tinybox";
 import eventBus from '@/event_bus';
+import { CursorFx } from '@luxdamore/vue-cursor-fx';
+import '@luxdamore/vue-cursor-fx/dist/CursorFx.css';
 export default {
     name: 'Template',
     components: {
+     CursorFx,
      Menu,
      ArticleBanner,
      SearchBar,
