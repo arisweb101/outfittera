@@ -16,9 +16,10 @@
         </div>
       </v-col>
       <v-col cols="12" no-gutters class="articles">
-        <div v-for="item in category.articles" class="items" v-scrollanimation>
+        <div v-for="(item, index) in category.articles" :key="index" class="items" >
           <router-link :to="'/article/'+item.id">
-            <v-img :src="item.images" :eager="showImages" data-cursor-hover class="article-image"></v-img>
+            <v-img :src="item.images" data-cursor-hover :class="item.id" 
+            class="article-image"></v-img>
             <div class="source">{{ item.source }}</div>
             <div class="title">{{ item.title }}</div>
             <span class="desc">
@@ -29,7 +30,6 @@
       </v-col>
     </v-row>
   </v-col>
-
 </template>
 <script>
 import eventBus from '@/event_bus';
@@ -37,6 +37,7 @@ import '@/assets/js/scrollAnimation.js'
 import { CursorFx } from '@luxdamore/vue-cursor-fx';
 import '@luxdamore/vue-cursor-fx/dist/CursorFx.css';
 import VueScrollTo from 'vue-scrollto';
+import hoverEffect from 'hover-effect';
 export default {
   name: 'FreshStories',
   components: {
@@ -51,20 +52,19 @@ export default {
         categories: []
      }
    },
-   created(){
-     
-   },
-   mounted() {
+   async mounted() {
      let vm = this;
      eventBus.$on('menuOpen', val => {
        vm.isMenuOpen = val;
      })
-     this.initialize()
+     await vm.initialize();
+     await vm.hoverEffects();
    },
    methods: {
      initialize() {
        let vm = this;
-       vm.categories = [ { 
+       vm.categories = [ 
+          { 
             id: "freshstories",
             categoryName: "Fresh Stories",
             previous: '',
@@ -139,6 +139,24 @@ export default {
             ]
           },
         ]
+     },
+     hoverEffects() {
+      let vm = this;
+      setTimeout(function() {
+         vm.categories.forEach((item) => {
+        for(let i = 0; i < item.articles.length; i++) {
+          let selector = '.' + item.articles[i].id;
+          new hoverEffect({
+              parent: document.querySelector(selector),
+              intensity: 0.3,
+              image1: item.articles[i].images,
+              image2: item.articles[i].images,
+              displacementImage: require('@/assets/images/displacement/4.png'),
+          });
+        }
+      })
+      },2000)
+     
      },
      scrollTo(refName) {
       var element = this.$refs[refName];
@@ -237,6 +255,8 @@ export default {
     }
     .article-image {
       transition:.2s;
+      width:100%;
+      max-height:300px;
       &:hover {
         transition:0.2s;
         transform: translate3d(0,-6px,0);

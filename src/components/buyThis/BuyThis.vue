@@ -14,21 +14,31 @@
 <script>
 import { CursorFx } from '@luxdamore/vue-cursor-fx';
 import '@luxdamore/vue-cursor-fx/dist/CursorFx.css';
+import hoverEffect from 'hover-effect';
 export default {
   props: ['pageTitle'],
   name: 'BuyThis',
   components: {
-    CursorFx
+    CursorFx,
+    hoverEffect
   },
   data() {
     return {
       itemImage: require('@/assets/images/buy-this-item.png'),
       itemName: "Winter Set Clothes NY",
-
     }
   },
   mounted() {
-
+    setTimeout(function() {
+      new hoverEffect({
+        parent: document.querySelector('.item-image'),
+        intensity: 0.3,
+        image1: require('@/assets/images/buy-this-item.png'),
+        image2: require('@/assets/images/buy-this-item.png'),
+        imagesRatio: 1,
+        displacementImage: require('@/assets/images/displacement/4.png'),
+      })
+    },1500)
   },
   methods: {
 

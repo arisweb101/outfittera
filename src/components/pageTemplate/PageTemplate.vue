@@ -7,9 +7,9 @@
      <div no-gutters class="page-content height100" v-bind:class="{ 'open-menu': menuShow, 'open-search': searchBarShow }">
         <Banner :pageTitle="pageTitle" :mainBanner="mainBanner"/>
           <div no-gutters class="articles-lists">
-            <div v-scrollanimation v-for="(item, index) in articles" :key="item.id" class="items">
+            <div v-for="(item, index) in articles" :key="item.id" class="items">
               <router-link :to="'/article/'+item.id">
-                <v-img data-cursor-hover :src="item.images" :eager="forceImages" class="article-image"></v-img>
+                <v-img :src="item.images" :class="item.id" :eager="forceImages" class="article-image"></v-img>
                 <div class="source">{{ item.source }}</div>
                 <div class="title">{{ item.title }}</div>
                 <div class="desc">{{ item.description }}</div>
@@ -29,6 +29,7 @@ import '@luxdamore/vue-cursor-fx/dist/CursorFx.css';
  import SearchBar from '@/components/search/AppSearchBar.vue'
  import Footer from '@/components/footer/AppFooter.vue'
  import eventBus from '@/event_bus';
+ import hoverEffect from 'hover-effect';
   export default {
     name: 'Template',
     components: {
@@ -50,10 +51,11 @@ import '@luxdamore/vue-cursor-fx/dist/CursorFx.css';
         articles: []
      }
     },
-    created() {
+   async mounted() {
       const vm = this;
-      vm.initialize();
       vm.eventPass();
+      await vm.initialize();
+      await vm.hoverEffects();
     },
     methods: {
       initialize() {
@@ -112,6 +114,22 @@ import '@luxdamore/vue-cursor-fx/dist/CursorFx.css';
           vm.searchBarShow = val;
         })
       },
+      hoverEffects() {
+        let vm = this;
+        setTimeout(function() {
+          vm.articles.forEach((item, i) => {
+              let selector = '.' + item.id;
+              new hoverEffect({
+                  parent: document.querySelector(selector),
+                  intensity: 0.5,
+                  image1: item.images,
+                  image2: item.images,
+                  imagesRatio: 0.6,
+                  displacementImage: require('@/assets/images/displacement/4.png'),
+              });
+          })
+        },2000)
+      },
       closeWindow() {
           let vm = this;
           eventBus.$emit('menuOpen', false) 
@@ -124,6 +142,7 @@ import '@luxdamore/vue-cursor-fx/dist/CursorFx.css';
   }
 </script>
 <style lang="scss">
+
 .page-content {
     position:relative;
     min-height:600px;
@@ -147,8 +166,16 @@ import '@luxdamore/vue-cursor-fx/dist/CursorFx.css';
     margin:0 auto;
     position:relative;
     top:-80px;
+   
     .article-image {
         transition:.2s;
+        canvas {
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%,-50%);
+          background-color: #fff;
+        }
         &:hover {
           transition:0.2s;
           transform: translate3d(0,-6px,0);
