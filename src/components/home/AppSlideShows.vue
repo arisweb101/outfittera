@@ -49,7 +49,12 @@ export default {
         autoplay: true,
         dots: false,
         adaptiveHeight: true,
-        autoplay: true
+        autoplay: true,
+        fade:true,
+        autoplaySpeed:3000,
+        speed:1000,
+        useCSS: true,
+        useTransform: true,
       },
       slideShows: [
         {
@@ -58,18 +63,18 @@ export default {
           subTitle: "feat. July Palafox"
         },
         {
-          image: require('@/assets/images/slideshow1.png'),
-          title: "The Lifestyle",
+          image: require('@/assets/images/slideshow2.jpg'),
+          title: "The Lifestyle 2",
           subTitle: "feat. July Palafox"
         },
         {
-          image: require('@/assets/images/slideshow1.png'),
-          title: "The Lifestyle",
+          image: require('@/assets/images/slideshow3.jpg'),
+          title: "The Lifestyle 3",
           subTitle: "feat. July Palafox"
         },
         {
-          image: require('@/assets/images/slideshow1.png'),
-          title: "The Lifestyle",
+          image: require('@/assets/images/slideshow4.jpg'),
+          title: "The Lifestyle 4",
           subTitle: "feat. July Palafox"
         }
       ],
@@ -136,6 +141,7 @@ export default {
     transition: 0.3s;
   }
 }
+
 .slick-slider {
   z-index:1;
 }
@@ -174,10 +180,11 @@ export default {
   }
   .slide-titles {
     position:absolute;
-    bottom:120px;
+    bottom:0px;
     color:#fff;
     left:0;
     right:0;
+    opacity:0;
     margin:0;
     font-family: 'Libre Baskerville', serif;
     z-index:9;
@@ -192,6 +199,14 @@ export default {
 }
 }
 
+ .slick-active.slick-current {
+  transition: 1.5s;
+    .slide-titles {
+    transition:1.5s;
+    opacity:1;
+    bottom:120px;
+    }
+  }
 
 .menu-container {
   width:0px;
