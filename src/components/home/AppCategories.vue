@@ -143,14 +143,17 @@ export default {
      hoverEffects() {
       let vm = this;
       setTimeout(function() {
-         vm.categories.forEach((item) => {
+        vm.categories.forEach((item) => {
         for(let i = 0; i < item.articles.length; i++) {
           let selector = '.' + item.articles[i].id;
           new hoverEffect({
               parent: document.querySelector(selector),
               intensity: 0.3,
+              intensity1: 1,
+              intensity2: 2,
               image1: item.articles[i].images,
               image2: item.articles[i].images,
+              imagesRation:1,
               displacementImage: require('@/assets/images/displacement/4.png'),
           });
         }
