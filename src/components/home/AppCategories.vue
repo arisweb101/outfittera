@@ -16,10 +16,11 @@
         </div>
       </v-col>
       <v-col cols="12" no-gutters class="articles">
-        <div v-for="(item, index) in category.articles" :key="index" class="items" >
+        <div v-for="(item, index) in category.articles" data-aos="zoom-in-up" :key="index" class="items" >
           <router-link :to="'/article/'+item.id">
-            <v-img :src="item.images" data-cursor-hover :class="item.id" 
-            class="article-image"></v-img>
+            <div :src="item.images" data-cursor-hover :class="item.id" 
+            class="article-image">
+            </div>
             <div class="source">{{ item.source }}</div>
             <div class="title">{{ item.title }}</div>
             <span class="desc">
@@ -90,7 +91,7 @@ export default {
                 images: require('@/assets/images/cat2.png'),
                 source: 'Lifestyle Markers',
                 title: 'Grand Ferdinand New Viennese Elegance',
-                description: " Aliquam velit imperdiet pellente tristique integer scelerisque purus scelerisque quis libero potenti pellentesque quam est dignissim",
+                description: "sa fasdsadfasd asdfasdfasdf adsfasdfasdfasdfasdfasfasdfasdfsad Aliquam velit imperdiet pellente tristique integer scelerisque purus scelerisque quis libero potenti pellentesque quam est dignissim",
               },
               {
                 id: 'article-4',
@@ -142,7 +143,6 @@ export default {
      },
      hoverEffects() {
       let vm = this;
-      setTimeout(function() {
         vm.categories.forEach((item) => {
         for(let i = 0; i < item.articles.length; i++) {
           let selector = '.' + item.articles[i].id;
@@ -153,13 +153,11 @@ export default {
               intensity2: 2,
               image1: item.articles[i].images,
               image2: item.articles[i].images,
-              imagesRation:1,
+              imagesRatio:0.6,
               displacementImage: require('@/assets/images/displacement/4.png'),
           });
         }
-      })
-      },2000)
-     
+      })     
      },
      scrollTo(refName) {
       var element = this.$refs[refName];
@@ -256,10 +254,11 @@ export default {
       color:#000;
       text-decoration:none;
     }
+
     .article-image {
       transition:.2s;
       width:100%;
-      max-height:300px;
+      height:300px;
       &:hover {
         transition:0.2s;
         transform: translate3d(0,-6px,0);

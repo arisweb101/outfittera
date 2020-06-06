@@ -7,9 +7,9 @@
      <div no-gutters class="page-content height100" v-bind:class="{ 'open-menu': menuShow, 'open-search': searchBarShow }">
         <Banner :pageTitle="pageTitle" :mainBanner="mainBanner"/>
           <div no-gutters class="articles-lists">
-            <div v-for="(item, index) in articles" :key="item.id" class="items">
+            <div v-for="(item, index) in articles" :key="item.id" class="items" data-aos="zoom-in-up">
               <router-link :to="'/article/'+item.id">
-                <v-img :src="item.images" :class="item.id" :eager="forceImages" class="article-image"></v-img>
+                <div :class="item.id" :eager="forceImages" class="article-image"></div>
                 <div class="source">{{ item.source }}</div>
                 <div class="title">{{ item.title }}</div>
                 <div class="desc">{{ item.description }}</div>
@@ -62,7 +62,7 @@ import '@luxdamore/vue-cursor-fx/dist/CursorFx.css';
         let vm = this;
         vm.articles = [
             { 
-                id: 'article-1',
+              id: 'article-1',
                 images: require('@/assets/images/cat1.png'),
                 source: 'Lifestyle Markers',
                 title: 'Grand Ferdinand New Viennese Elegance',
@@ -116,7 +116,6 @@ import '@luxdamore/vue-cursor-fx/dist/CursorFx.css';
       },
       hoverEffects() {
         let vm = this;
-        setTimeout(function() {
           vm.articles.forEach((item, i) => {
               let selector = '.' + item.id;
               new hoverEffect({
@@ -128,7 +127,6 @@ import '@luxdamore/vue-cursor-fx/dist/CursorFx.css';
                   displacementImage: require('@/assets/images/displacement/4.png'),
               });
           })
-        },2000)
       },
       closeWindow() {
           let vm = this;
@@ -168,12 +166,11 @@ import '@luxdamore/vue-cursor-fx/dist/CursorFx.css';
     top:-80px;
    
     .article-image {
-        transition:.2s;
+      transition:.2s;
+      width:100%;
+      height:300px;
         canvas {
           position: absolute;
-          left: 50%;
-          top: 50%;
-          transform: translate(-50%,-50%);
           background-color: #fff;
         }
         &:hover {
