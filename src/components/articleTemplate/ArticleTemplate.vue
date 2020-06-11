@@ -165,14 +165,13 @@ export default {
 .page-content {
   position:relative;
   min-height:600px;
-  transition: .2s;
-  transition:.2s;
+  transition: 0.6s ease;
   left:0;
   &.open-search {
-    transition:.2s;
+    transition: 0.6s ease;
   }
   &.open-menu {
-    transition:.2s;
+    transition: 0.6s ease;
     left:300px;
   }
 }

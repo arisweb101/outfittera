@@ -61,7 +61,7 @@ import '@luxdamore/vue-cursor-fx/dist/CursorFx.css';
         vm.searchBarShow = false;
         vm.menuShow = false;
       }
-      }
+    },
   }
 </script>
 <style lang="scss">
@@ -71,14 +71,14 @@ import '@luxdamore/vue-cursor-fx/dist/CursorFx.css';
 .page-content {
   position:relative;
   min-height:600px;
-  transition: .2s;
+  transition: 0.6s ease;
   margin-bottom:50px;
   left:0;
   &.open-search {
-    transition:.2s;
+    transition: 0.6s ease;
   }
   &.open-menu {
-    transition:.2s;
+    transition:0.6s ease;
     left:300px;
   }
 }
@@ -120,19 +120,25 @@ import '@luxdamore/vue-cursor-fx/dist/CursorFx.css';
   }
 .black-screen {
   position:fixed;
-  width:100%;
+  width:0;
   height:100%;
   display:block;
   z-index:10;
-  transition: .2s;
+  opacity:0;
+  left:0;
+  transition: 0.6 ease;
   &.open-menu {
+    width:100%;
     left:300px;
-    transition: .2s;
+    opacity:1;
     background: rgba(0,0,0,.7);
+    transition: 0.6s ease;
   }
   &.open-search {
+    width:100%;
     top:60px;
-    transition: .2s;
+    opacity:1;
+    transition: 0.6s ease;
     background: rgba(0,0,0,.7);
   }
 }

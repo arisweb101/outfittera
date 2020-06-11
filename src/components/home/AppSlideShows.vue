@@ -118,7 +118,7 @@ export default {
         vm.searchOpen = !vm.searchOpen;
         eventBus.$emit('isSearchBarOpen', vm.searchOpen)
       }
-    }
+    },
 }
 </script>
 <style lang="scss">
@@ -131,14 +131,14 @@ export default {
 .slider-container {
   position:fixed;
   user-select:none;
-  transition: 0.3s;
+  transition: 0.6s ease;
   left:0;
   height:100%;
   width:50%;
   z-index:3;
   &.open {
     left:300px;
-    transition: 0.3s;
+    transition: 0.6s ease;
   }
 }
 
@@ -207,70 +207,6 @@ export default {
     bottom:120px;
     }
   }
-
-.menu-container {
-  width:0px;
-  height:100%;
-  position:fixed;
-  background:#fff;
-  z-index:5;
-  transition: width .3s ease;
-
-  &.open {
-    width:300px;
-    transition: width .3s ease;
-  }
-
-  .menu-logo {
-    width:130px;
-    position:absolute;
-    left:20px;
-    top:20px;
-    z-index:5;
-  }
-
-  .menu-list {
-    background:#fff;
-    margin:100px 0 0 25px;
-    text-transform:uppercase;
-    text-align:left;
-  }
-
-  .menu-social {
-    position:absolute;
-    bottom:20px;
-    left:0;
-    right:0;
-    margin:0 auto;
-    transition:.2s;
-    text-align:center;
-    transform:translateY(0px);
-    &.open {
-      transition:.2s;
-      transform:translateY(-30px);
-    }
-    .connect {
-      color:#000;
-      position:relative;
-      top:-10px;
-      font-size:13px;
-    }
-    ul {
-      padding:0;
-      margin:0;
-      list-style:none;
-
-      li {
-        margin:0 5px;
-        display:inline-block;
-
-        .v-image {
-          width:16px;
-        }
-      }
-    }
-  }
-}
 
 .slide-burger-enter-active {
   transition: all .1s ease;

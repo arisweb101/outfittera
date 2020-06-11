@@ -61,7 +61,7 @@ export default {
     width: 122px;
     height: 40px;
     box-sizing: border-box;
-    transition: 0.2s;
+    transition: 0.6s ease;
     margin:20px 0;
     outline:none;
     text-align:left;

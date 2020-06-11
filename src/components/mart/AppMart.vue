@@ -133,6 +133,7 @@ export default {
 </script>
 <style lang="scss">
 .mart {
+  transition: 0.6 ease;
   .menu-mart {
     #burger-menu span {
       background:#000 !important;
@@ -141,13 +142,13 @@ export default {
   .page-content {
     position:relative;
     min-height:600px;
-    transition: .2s;
+    transition: 0.6s ease;
     margin-bottom:50px;
     &.open-search {
-      transition:.2s;
+      transition: 0.6s ease;
     }
     &.open-menu {
-      transition:.2s;
+      transition: 0.6s ease;
       left:300px;
     }
     .header {
@@ -326,15 +327,15 @@ export default {
   height:100%;
   display:block;
   z-index:10;
-  transition: .2s;
+  transition: 0.6s ease;
   &.open-menu {
     left:300px;
-    transition: .2s;
+    transition: 0.6s ease;
     background: rgba(0,0,0,.7);
   }
   &.open-search {
     top:60px;
-    transition: .2s;
+    transition: 0.6s ease;
     background: rgba(0,0,0,.7);
   }
 }

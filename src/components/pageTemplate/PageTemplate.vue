@@ -135,8 +135,7 @@ import '@luxdamore/vue-cursor-fx/dist/CursorFx.css';
           vm.searchBarShow = false;
           vm.menuShow = false;
         }
-    } 
-
+    },
   }
 </script>
 <style lang="scss">
@@ -144,21 +143,21 @@ import '@luxdamore/vue-cursor-fx/dist/CursorFx.css';
 .page-content {
     position:relative;
     min-height:600px;
-    transition: .2s;
+    transition: 0.6s ease;
     margin-bottom:50px;
     left:0;
     &.open-search {
-      transition:.2s;
+      transition: 0.6s ease;
     }
     &.open-menu {
-      transition:.2s;
+      transition: 0.6s ease;
       left:300px;
     }
 }
 .page-template {
   .articles-lists {
     column-count: 3;
-    column-gap: 2em;
+    column-gap: 4em;
     margin-top:20px;
     width:80%;
     margin:0 auto;
@@ -187,7 +186,7 @@ import '@luxdamore/vue-cursor-fx/dist/CursorFx.css';
     .source {
       text-transform:uppercase;
       padding:20px 0 0;
-      letter-spacing:0.5em;
+      letter-spacing:0.05em;
       font-family: 'Poppins', sans-serif;
       font-weight:600;
     }
@@ -200,12 +199,13 @@ import '@luxdamore/vue-cursor-fx/dist/CursorFx.css';
     }
     .items {
       display: inline-block;
-      margin: 0;
+      margin: 30px 0;
       width: 100%;
 
       .desc {
         font-family: 'Libre Baskerville', serif !important;
         padding-bottom:2em;
+        height:100px;
       }
     }
   }

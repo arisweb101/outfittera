@@ -164,13 +164,13 @@ export default {
       var top = element.offsetTop;
       window.scrollTo(0, top);
     }
-   }
+   },
 }
 </script>
 <style lang="scss">
 .categories {
   position:relative;
-  transition: 0.3s;
+  transition: 0.6s ease;
   left:0;
   padding:47px 60px !important;
   .category {
@@ -269,7 +269,7 @@ export default {
     .source {
         text-transform:uppercase;
         padding:20px 0 0;
-        letter-spacing:0.5em;
+        letter-spacing:0.05em;
         font-family: 'Poppins', sans-serif;
         font-weight:600;
       }
@@ -282,11 +282,15 @@ export default {
     }
     .items {
       display: inline-block;
-      margin: 0 0 2em;
+      margin: 0 0 4em;
       width:100%;
 
       .desc {
          font-family: 'Libre Baskerville', serif !important;
+         height: 100px; 
+         display:block;
+         overflow: hidden;
+         text-overflow: ellipsis; 
       }
     }
   }

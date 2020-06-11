@@ -26,7 +26,7 @@
             </v-list-item-content>
           </v-list-item>
         </v-list>
-        <div class="menu-social" v-bind:class="{ open: menuShow }">
+        <div class="menu-social">
           <span class="connect">Connect To</span>
           <ul>
             <li><a href=""><v-img :src="fbGrayIcon"></v-img>
@@ -95,7 +95,7 @@ import '@luxdamore/vue-cursor-fx/dist/CursorFx.css';
               $this.delay(loop).animate({top:'0',left:'0'},{duration:loop});
               loop = loop + 30;
             });
-            $('.menu-social').animate({bottom:'20',left:'0'},{duration:300});
+            //$('.menu-social').animate({bottom:'20'},{duration:300});
             $('.menu-global-container').css({position:'fixed'});
           }else {
             $('.v-list a').each(function(){
@@ -103,11 +103,11 @@ import '@luxdamore/vue-cursor-fx/dist/CursorFx.css';
               $this.delay(loop).animate({top:'1000',left:'-100'},{duration:loop});
               loop = loop + 30;
             });
-            $('.menu-social').animate({bottom:'1000',left:'-100'},{duration:300});
+           // $('.menu-social').animate({bottom:'-300'},{duration:300});
              $('.menu-global-container').css({position:'absolute'});
           }
         },
-      }
+      },
   }
 </script>
 <style lang="scss">
@@ -121,8 +121,7 @@ import '@luxdamore/vue-cursor-fx/dist/CursorFx.css';
   z-index:5;
   display:block;
   background:#fff;
-  transition: .1s ease;
-
+  transition: .6s width;
    .v-list {
     margin:100px 0 0 25px;
     text-transform:uppercase;
@@ -131,14 +130,14 @@ import '@luxdamore/vue-cursor-fx/dist/CursorFx.css';
     a {
      left:-100px;
      top:1000px;
-     transition: 0.2s;
+     transition: 0.6s ease;
     }
   }
   
   &.open {
     width:300px;
+    transition: .6s width;
     z-index:10;
-    transition: 0.2s;
   }
 
   .menu-logo {
@@ -168,17 +167,11 @@ import '@luxdamore/vue-cursor-fx/dist/CursorFx.css';
   }
   .menu-social {
     position:absolute;
-    bottom:1000px;
-    left:-100px;
+    left:0;
     right:0;
     margin:0 auto;
-    transition:.2s;
     text-align:center;
-    transform:translateY(0px);
-    &.open {
-      transition:.2s;
-      transform:translateY(-30px);
-    }
+    bottom:20px;
     .connect {
       color:#000;
       position:relative;
@@ -193,7 +186,6 @@ import '@luxdamore/vue-cursor-fx/dist/CursorFx.css';
       li {
         margin:0 5px;
         display:inline-block;
-
         .v-image {
           width:16px;
         }
