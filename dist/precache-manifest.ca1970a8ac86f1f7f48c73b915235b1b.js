@@ -1,11 +1,11 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "514bc5e35e99c5102ae5",
-    "url": "/outfittera/css/about.56c49702.css"
+    "revision": "bacfcb6e64915a8e65b8",
+    "url": "/outfittera/css/about.fec7f361.css"
   },
   {
-    "revision": "f5b02c58269f170094cc",
-    "url": "/outfittera/css/app.98bd372b.css"
+    "revision": "22d3effa50333d297b7c",
+    "url": "/outfittera/css/app.2ac7aa1b.css"
   },
   {
     "revision": "b961d1d57202aaf35c6c",
@@ -116,16 +116,16 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/outfittera/img/thumbnail.0d06f1cd.png"
   },
   {
-    "revision": "1d4160c0950d51ef8f139fcc76ed1c43",
+    "revision": "75598cd82c31e46de29664de1096f5f1",
     "url": "/outfittera/index.html"
   },
   {
-    "revision": "514bc5e35e99c5102ae5",
-    "url": "/outfittera/js/about.6c27fcae.js"
+    "revision": "bacfcb6e64915a8e65b8",
+    "url": "/outfittera/js/about.715c0918.js"
   },
   {
-    "revision": "f5b02c58269f170094cc",
-    "url": "/outfittera/js/app.292cfb7b.js"
+    "revision": "22d3effa50333d297b7c",
+    "url": "/outfittera/js/app.d5061fdf.js"
   },
   {
     "revision": "b961d1d57202aaf35c6c",

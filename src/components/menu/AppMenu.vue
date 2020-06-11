@@ -104,7 +104,7 @@ import '@luxdamore/vue-cursor-fx/dist/CursorFx.css';
               loop = loop + 30;
             });
            // $('.menu-social').animate({bottom:'-300'},{duration:300});
-             $('.menu-global-container').css({position:'absolute'});
+             $('.menu-global-container').css({position:'fixed'});
           }
         },
       },
@@ -219,10 +219,10 @@ import '@luxdamore/vue-cursor-fx/dist/CursorFx.css';
   -moz-transform: rotate(0deg);
   -o-transform: rotate(0deg);
   transform: rotate(0deg);
-  -webkit-transition: .1s ease-in-out;
-  -moz-transition: .1s ease-in-out;
-  -o-transition: .1s ease-in-out;
-  transition: .1s ease-in-out;
+  -webkit-transition: .6s ease-in-out;
+  -moz-transition: .6s ease-in-out;
+  -o-transition: .6s ease-in-out;
+  transition: .6s ease-in-out;
   cursor: pointer;
 
   span {
@@ -238,10 +238,10 @@ import '@luxdamore/vue-cursor-fx/dist/CursorFx.css';
     -moz-transform: rotate(0deg);
     -o-transform: rotate(0deg);
     transform: rotate(0deg);
-    -webkit-transition: .25s ease-in-out;
-    -moz-transition: .25s ease-in-out;
-    -o-transition: .25s ease-in-out;
-    transition: .25s ease-in-out;
+    -webkit-transition: .6s ease-in-out;
+    -moz-transition: .6s ease-in-out;
+    -o-transition: .6s ease-in-out;
+    transition: .6s ease-in-out;
   }
 
   span:nth-child(1) {
