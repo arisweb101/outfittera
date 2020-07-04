@@ -1,18 +1,15 @@
 <template>
-  <div class="home">
-    <PageTemplate/>
+  <div class="page-template">
+    <AboutUs />
   </div>
 </template>
-
 <script>
 // @ is an alias to /src
-import PageTemplate from '@/components/pageTemplate/PageTemplate.vue';
-import Menu from '@/components/menu/AppMenu.vue';
+import AboutUs from '@/components/about/About.vue';
 export default {
-  name: 'PageTemplate',
+  name: 'About',
   components: {
-    PageTemplate,
-    Menu
+    AboutUs
   }
 }
 </script>
