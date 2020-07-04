@@ -1,15 +1,15 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "bacfcb6e64915a8e65b8",
-    "url": "/outfittera/css/about.fec7f361.css"
+    "revision": "7c85da7c2d2209d5a6e4",
+    "url": "/outfittera/css/about.a288c147.css"
   },
   {
-    "revision": "6a72c53db97b25576922",
+    "revision": "e27e16f71b080fb96c70",
     "url": "/outfittera/css/app.830492b0.css"
   },
   {
-    "revision": "b961d1d57202aaf35c6c",
-    "url": "/outfittera/css/chunk-vendors.5c27d7a4.css"
+    "revision": "cabc8cf9200c318a2908",
+    "url": "/outfittera/css/chunk-vendors.9c1565a4.css"
   },
   {
     "revision": "3408054e5f083993c59b1b92204fbc12",
@@ -116,19 +116,19 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/outfittera/img/thumbnail.0d06f1cd.png"
   },
   {
-    "revision": "8c5899ed20e97598dd1c78638ba7176c",
+    "revision": "2052c7b1e75f83ea43cff4382b01ce53",
     "url": "/outfittera/index.html"
   },
   {
-    "revision": "bacfcb6e64915a8e65b8",
-    "url": "/outfittera/js/about.715c0918.js"
+    "revision": "7c85da7c2d2209d5a6e4",
+    "url": "/outfittera/js/about.45e13899.js"
   },
   {
-    "revision": "6a72c53db97b25576922",
-    "url": "/outfittera/js/app.0686fa81.js"
+    "revision": "e27e16f71b080fb96c70",
+    "url": "/outfittera/js/app.86c16943.js"
   },
   {
-    "revision": "b961d1d57202aaf35c6c",
+    "revision": "cabc8cf9200c318a2908",
     "url": "/outfittera/js/chunk-vendors.ab0455a5.js"
   },
   {
