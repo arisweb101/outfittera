@@ -2,9 +2,11 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
-
   const routes = [
-  { path: '*', redirect:'/', component: () => import(/* webpackChunkName: "about" */ '../views/Home.vue')
+  {
+    path: '*',
+    redirect: '/',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Home.vue')
   },
   {
     path: '/',
@@ -72,8 +74,9 @@ Vue.use(VueRouter)
 
 
 const router = new VueRouter({
-  routes,
   mode: 'history',
+  routes,
+  
   scrollBehavior (to, from, savedPosition) {
     return { x: 0, y: 0 };
   }

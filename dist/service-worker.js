@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/outfittera/precache-manifest.8c314902a67b84e796bc2dbb93cbd4dc.js"
+  "/outfittera/precache-manifest.dac332e053c563eece4e64cacabda298.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "oufittera"});
