@@ -8,12 +8,12 @@
        <Banner :pageTitle="pageTitle" :mainBanner="mainBanner"/>
      </div>
      <Footer/>
-     <cursor-fx color="#000" outside-size="100" color-hover="#ffffff"/>
   </v-container>
 </template>
 <script>
-import { CursorFx } from '@luxdamore/vue-cursor-fx';
-import '@luxdamore/vue-cursor-fx/dist/CursorFx.css';
+// <cursor-fx color="#000" outside-size="100" color-hover="#ffffff"/>
+// import { CursorFx } from '@luxdamore/vue-cursor-fx';
+// import '@luxdamore/vue-cursor-fx/dist/CursorFx.css';
  import Menu from '@/components/menu/AppMenu.vue';
  import Banner from '@/components/pageTemplate/PageBanner.vue'
  import SearchBar from '@/components/search/AppSearchBar.vue'
@@ -23,7 +23,6 @@ import '@luxdamore/vue-cursor-fx/dist/CursorFx.css';
   export default {
     name: 'Template',
     components: {
-     CursorFx,
      Banner,
      Menu,
      Footer,
