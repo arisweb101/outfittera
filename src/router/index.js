@@ -1,8 +1,8 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
+import Vue from 'vue';
+import VueRouter from 'vue-router';
 
-Vue.use(VueRouter)
-  const routes = [
+Vue.use(VueRouter);
+const routes = [
   {
     path: '*',
     redirect: '/',
@@ -19,7 +19,8 @@ Vue.use(VueRouter)
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/PageTemplateView.vue')
+    component: () =>
+      import(/* webpackChunkName: "about" */ '../views/PageTemplateView.vue')
   },
   {
     path: '/travel-miles',
@@ -27,7 +28,8 @@ Vue.use(VueRouter)
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/PageTemplateView.vue')
+    component: () =>
+      import(/* webpackChunkName: "about" */ '../views/PageTemplateView.vue')
   },
   {
     path: '/lifestyle-makers',
@@ -35,7 +37,8 @@ Vue.use(VueRouter)
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/PageTemplateView.vue')
+    component: () =>
+      import(/* webpackChunkName: "about" */ '../views/PageTemplateView.vue')
   },
   {
     path: '/technology-and-machine',
@@ -43,7 +46,8 @@ Vue.use(VueRouter)
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/PageTemplateView.vue')
+    component: () =>
+      import(/* webpackChunkName: "about" */ '../views/PageTemplateView.vue')
   },
   {
     path: '/about',
@@ -51,7 +55,8 @@ Vue.use(VueRouter)
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
+    component: () =>
+      import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
   },
   {
     path: '/mart',
@@ -59,7 +64,8 @@ Vue.use(VueRouter)
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/MartView.vue')
+    component: () =>
+      import(/* webpackChunkName: "about" */ '../views/MartView.vue')
   },
   {
     path: '/article/:id',
@@ -67,19 +73,26 @@ Vue.use(VueRouter)
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/ArticleTemplateView.vue')
+    component: () =>
+      import(/* webpackChunkName: "about" */ '../views/ArticleTemplateView.vue')
   },
-]
-
-
+  {
+    path: '/search',
+    name: 'Search',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () =>
+      import(/* webpackChunkName: "about" */ '../views/SearchResultView.vue')
+  }
+];
 
 const router = new VueRouter({
   mode: 'history',
   routes,
-  
-  scrollBehavior (to, from, savedPosition) {
+  scrollBehavior(to, from, savedPosition) {
     return { x: 0, y: 0 };
   }
-})
+});
 
-export default router
+export default router;

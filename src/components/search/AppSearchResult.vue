@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid no-gutters class="pa-0 mart">
+  <v-container fluid no-gutters class="pa-0 search">
     <searchBar />
     <div
       class="black-screen"
@@ -7,7 +7,7 @@
       v-show="menuShow || searchBarShow"
       v-bind:class="{ 'open-menu': menuShow, 'open-search': searchBarShow }"
     ></div>
-    <Menu class="menu-mart" />
+    <Menu class="menu-search" />
     <div
       no-gutters
       class="page-content height100"
@@ -20,7 +20,7 @@
       <v-row class="content">
         <v-row cols="12" class="filter" gutter>
           <v-col col="6" class="filter-title" gutter>
-            <span class="content-title">Mart</span>
+            <span class="content-title">Search</span>
             <span class="mart-items">{{ quantity }} items</span>
           </v-col>
           <v-col col="6" class="filter-options" gutter>
@@ -31,7 +31,8 @@
                 :items="allProducts"
                 label="All Products"
                 filled
-              ></v-select>
+              >
+              </v-select>
             </span>
           </v-col>
         </v-row>
@@ -49,10 +50,6 @@
                 <v-col cols="12" class="item-desc">
                   <div class="item-category">{{ item.category }}</div>
                   <div class="item-name">{{ item.itemName }}</div>
-                  <div class="item-option">
-                    <div class="item-price">PHP {{ item.price }}</div>
-                    <button type="button" class="buy-this-bt">Buy This</button>
-                  </div>
                 </v-col>
               </v-row>
             </li>
@@ -124,7 +121,7 @@ export default {
           price: 23000
         },
         {
-          category: 'Technology',
+          category: 'Fashion',
           itemImage: require('@/assets/images/buy-this-item.png'),
           itemName: 'Winter Set Clothes NY',
           price: 23000
@@ -142,7 +139,7 @@ export default {
           price: 23000
         },
         {
-          category: 'Technology',
+          category: 'Fashion',
           itemImage: require('@/assets/images/buy-this-item.png'),
           itemName: 'Winter Set Clothes NY',
           price: 23000
@@ -154,6 +151,12 @@ export default {
   mounted() {
     let vm = this;
     vm.eventPass();
+    eventBus.$on('searchSubmit', () => {
+      vm.searchBarShow = false;
+      vm.menuShow = false;
+      vm.isActive = false;
+      eventPass();
+    });
   },
   methods: {
     paginateSearch(pageNum) {
@@ -180,9 +183,9 @@ export default {
 };
 </script>
 <style lang="scss">
-.mart {
+.search {
   transition: 0.6 ease;
-  .menu-mart {
+  .menu-search {
     #burger-menu span {
       background: #000 !important;
     }
@@ -261,7 +264,7 @@ export default {
       top: 150px;
       clear: both;
       width: 100%;
-      margin-bottom: 200px;
+      margin-bottom: 130px;
       ul {
         padding: 0;
         margin: 0;
