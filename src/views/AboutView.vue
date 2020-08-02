@@ -1,15 +1,15 @@
 <template>
-  <div class="page-template">
-    <AboutUs />
+  <div class="about-template">
+    <AboutTemplate />
   </div>
 </template>
 <script>
 // @ is an alias to /src
-import AboutUs from '@/components/about/About.vue';
+import AboutTemplate from '@/components/about/AboutTemplate.vue';
 export default {
   name: 'About',
   components: {
-    AboutUs
+    AboutTemplate
   }
-}
+};
 </script>

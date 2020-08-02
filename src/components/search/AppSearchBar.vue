@@ -34,22 +34,25 @@ export default {
   name: 'search',
   components: {
     eventBus,
-    CursorFx
+    CursorFx,
   },
   data() {
     return {
       search: '',
       placeholder: 'Type to search',
       isSearchBarOpen: false,
-      searchIcon: require('@/assets/images/search-gray.png')
+      searchIcon: require('@/assets/images/search-gray.png'),
     };
   },
   mounted() {
     let vm = this;
-    eventBus.$on('isSearchBarOpen', val => {
+    eventBus.$on('isSearchBarOpen', (val) => {
       vm.isSearchBarOpen = val;
       if (vm.isSearchBarOpen) {
         vm.search = '';
+        document.querySelector('body').style.position = 'fixed';
+      } else {
+        document.querySelector('body').style.position = 'unset';
       }
     });
   },
@@ -60,8 +63,8 @@ export default {
       vm.isSearchBarOpen = false;
       eventBus.$emit('searchSubmit');
       router.push({ name: 'Search', query: { items: vm.search } });
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="scss">
