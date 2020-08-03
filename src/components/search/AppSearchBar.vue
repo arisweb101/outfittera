@@ -47,7 +47,6 @@ export default {
   mounted() {
     let vm = this;
     eventBus.$on('isSearchBarOpen', (val) => {
-      debugger;
       vm.isSearchBarOpen = val;
       if (vm.isSearchBarOpen) {
         vm.search = '';
