@@ -75,7 +75,7 @@ export default {
   mounted() {
     const vm = this;
     vm.eventPass();
-    document.querySelector('body').style.position = 'unset';
+    $('.v-application').css({ overflow: 'unset', height: 'unset' });
   },
   methods: {
     eventPass() {
@@ -90,6 +90,7 @@ export default {
       vm.menuShow = !vm.isActive;
       vm.isActive = !vm.isActive;
       eventBus.$emit('menuOpen', vm.menuShow);
+
       if (vm.menuShow) {
         var loop = 0;
         $('.v-list a').each(function() {
@@ -100,8 +101,8 @@ export default {
           loop = loop + 30;
         });
         //$('.menu-social').animate({bottom:'20'},{duration:300});
+        $('.v-application').css({ overflow: 'hidden', height: '100vh' });
         $('.menu-global-container').css({ position: 'fixed' });
-        document.querySelector('body').style.position = 'fixed';
       } else {
         $('.v-list a').each(function() {
           var $this = $(this);
@@ -112,7 +113,7 @@ export default {
         });
         // $('.menu-social').animate({bottom:'-300'},{duration:300});
         $('.menu-global-container').css({ position: 'fixed' });
-        document.querySelector('body').style.position = 'unset';
+        $('.v-application').css({ overflow: 'unset', height: 'unset' });
       }
     },
   },

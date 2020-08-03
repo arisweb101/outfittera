@@ -50,9 +50,9 @@ export default {
       vm.isSearchBarOpen = val;
       if (vm.isSearchBarOpen) {
         vm.search = '';
-        document.querySelector('body').style.position = 'fixed';
+        $('.v-application').css({ overflow: 'hidden', height: '100vh' });
       } else {
-        document.querySelector('body').style.position = 'unset';
+        $('.v-application').css({ overflow: 'unset', height: 'unset' });
       }
     });
   },
