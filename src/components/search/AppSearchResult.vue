@@ -97,7 +97,7 @@ export default {
     searchBar,
     Footer,
     eventBus,
-    ReadArticles
+    ReadArticles,
   },
   data() {
     return {
@@ -112,40 +112,40 @@ export default {
           category: 'Technology',
           itemImage: require('@/assets/images/buy-this-item.png'),
           itemName: 'Winter Set Clothes NY',
-          price: 23000
+          price: 23000,
         },
         {
           category: 'Technology',
           itemImage: require('@/assets/images/buy-this-item.png'),
           itemName: 'Winter Set Clothes NY',
-          price: 23000
+          price: 23000,
         },
         {
           category: 'Fashion',
           itemImage: require('@/assets/images/buy-this-item.png'),
           itemName: 'Winter Set Clothes NY',
-          price: 23000
+          price: 23000,
         },
         {
           category: 'Fashion',
           itemImage: require('@/assets/images/buy-this-item.png'),
           itemName: 'Winter Set Clothes NY',
-          price: 23000
+          price: 23000,
         },
         {
           category: 'Technology',
           itemImage: require('@/assets/images/buy-this-item.png'),
           itemName: 'Winter Set Clothes NY',
-          price: 23000
+          price: 23000,
         },
         {
           category: 'Fashion',
           itemImage: require('@/assets/images/buy-this-item.png'),
           itemName: 'Winter Set Clothes NY',
-          price: 23000
-        }
+          price: 23000,
+        },
       ],
-      quantity: 236
+      quantity: 236,
     };
   },
   mounted() {
@@ -164,10 +164,10 @@ export default {
     },
     eventPass() {
       const vm = this;
-      eventBus.$on('isSearchBarOpen', val => {
+      eventBus.$on('isSearchBarOpen', (val) => {
         vm.searchBarShow = val;
       });
-      eventBus.$on('menuOpen', val => {
+      eventBus.$on('menuOpen', (val) => {
         vm.menuShow = val;
         vm.isActive = val;
       });
@@ -178,8 +178,8 @@ export default {
       eventBus.$emit('isSearchBarOpen', false);
       vm.searchBarShow = false;
       vm.menuShow = false;
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="scss">
@@ -220,7 +220,7 @@ export default {
         top: 10px;
         font-family: 'Libre Baskerville', serif !important;
       }
-      .mart-items {
+      .search-items {
         color: #b6b6b6;
         position: relative;
         top: 4px;
@@ -449,12 +449,12 @@ export default {
 }
 
 @media screen and (max-width: 1080px) {
-  .mart .page-content .all-products ul li {
+  .search .page-content .all-products ul li {
     flex: 0 0 47%;
   }
 }
 @media screen and (max-width: 820px) {
-  .mart .page-content .all-products ul li {
+  .search .page-content .all-products ul li {
     flex: 0 0 100%;
   }
   .filter {
@@ -476,7 +476,7 @@ export default {
 }
 
 @media screen and (max-width: 480px) {
-  .mart .page-content .all-products ul li {
+  .search .page-content .all-products ul li {
     flex: 0 0 100%;
   }
   .read-articles .article .article-images .article-label {
