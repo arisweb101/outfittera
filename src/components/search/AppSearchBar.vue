@@ -47,16 +47,21 @@ export default {
   mounted() {
     let vm = this;
     eventBus.$on('isSearchBarOpen', (val) => {
+      debugger;
       vm.isSearchBarOpen = val;
       if (vm.isSearchBarOpen) {
         vm.search = '';
-        $('.v-application').css({ overflow: 'hidden', height: '100vh' });
-      } else {
-        $('.v-application').css({ overflow: 'unset', height: 'unset' });
       }
+      vm.enableMouseWheel();
     });
   },
   methods: {
+    enableMouseWheel() {
+      let vm = this;
+      $('body').bind('mousewheel', function() {
+        return !vm.isSearchBarOpen;
+      });
+    },
     searchSubmit(e) {
       e.preventDefault();
       const vm = this;
@@ -64,6 +69,9 @@ export default {
       eventBus.$emit('searchSubmit');
       router.push({ name: 'Search', query: { items: vm.search } });
     },
+  },
+  beforeDestroy() {
+    $('body').unbind('mousewheel');
   },
 };
 </script>
@@ -87,6 +95,9 @@ export default {
     opacity: 1;
     height: 60px;
     transition: 0.2s height;
+    position: fixed;
+    z-index: 999;
+    background: #fff;
   }
   .search-field {
     width: 100%;

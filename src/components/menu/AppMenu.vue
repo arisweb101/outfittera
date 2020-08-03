@@ -75,14 +75,25 @@ export default {
   mounted() {
     const vm = this;
     vm.eventPass();
-    $('.v-application').css({ overflow: 'unset', height: 'unset' });
+    eventBus.$on('menuOpen', (val) => {
+      vm.menuShow = val;
+      vm.isActive = val;
+    });
+    vm.enableMouseWheel();
   },
   methods: {
+    enableMouseWheel() {
+      const vm = this;
+      $('body').bind('mousewheel', function() {
+        return !vm.menuShow;
+      });
+    },
     eventPass() {
       const vm = this;
       eventBus.$on('menuOpen', (val) => {
         vm.menuShow = val;
         vm.isActive = val;
+        vm.mouseWheel = !val;
       });
     },
     isMenuOpen() {
@@ -90,9 +101,8 @@ export default {
       vm.menuShow = !vm.isActive;
       vm.isActive = !vm.isActive;
       eventBus.$emit('menuOpen', vm.menuShow);
-
       if (vm.menuShow) {
-        var loop = 0;
+        let loop = 0;
         $('.v-list a').each(function() {
           var $this = $(this);
           $this
@@ -100,22 +110,23 @@ export default {
             .animate({ top: '0', left: '0' }, { duration: loop });
           loop = loop + 30;
         });
-        //$('.menu-social').animate({bottom:'20'},{duration:300});
-        $('.v-application').css({ overflow: 'hidden', height: '100vh' });
         $('.menu-global-container').css({ position: 'fixed' });
       } else {
+        let loop = 0;
         $('.v-list a').each(function() {
-          var $this = $(this);
+          let $this = $(this);
           $this
             .delay(loop)
             .animate({ top: '1000', left: '-100' }, { duration: loop });
           loop = loop + 30;
         });
-        // $('.menu-social').animate({bottom:'-300'},{duration:300});
         $('.menu-global-container').css({ position: 'fixed' });
-        $('.v-application').css({ overflow: 'unset', height: 'unset' });
       }
+      vm.enableMouseWheel(vm.menuShow);
     },
+  },
+  beforeDestroy() {
+    $('body').unbind('mousewheel');
   },
 };
 </script>
