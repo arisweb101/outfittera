@@ -21,7 +21,7 @@
           class="items"
           data-aos="zoom-in-up"
         >
-          <router-link :to="'/article/' + item.id">
+          <router-link :to="'/'+articleType+'/'+item.slug">
             <div
               :class="item.id"
               :eager="forceImages"
@@ -29,7 +29,7 @@
             ></div>
             <div class="source">{{ item.source }}</div>
             <div class="title">{{ item.title }}</div>
-            <div class="desc">{{ item.description }}</div>
+            <div class="desc" v-html="item.description"></div>
           </router-link>
         </div>
       </div>
@@ -62,15 +62,30 @@ export default {
       pageTitle: 'Fashion Modes',
       mainBanner: require('@/assets/images/banner-image.png'),
       articles: [],
+      articleType: ''
     };
   },
   async mounted() {
     const vm = this;
+    this.articleType = this.$route.params.article_type
     vm.eventPass();
-    await vm.initialize();
+    await vm.getArticles();
+    // await vm.initialize();
     await vm.hoverEffects();
   },
   methods: {
+    getArticles() {
+      let url = 'articles?article_type='+this.articleType;
+      this.$http.plain.get(url)
+       .then(response => {
+         console.log(response.data)
+         this.articles = response.data.results
+         this.hoverEffects()
+       })
+       .catch(error => {
+         console.log(error.response);
+       })
+    },
     initialize() {
       let vm = this;
       vm.articles = [

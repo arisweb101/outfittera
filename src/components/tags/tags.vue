@@ -1,7 +1,7 @@
 <template>
   <div class="tags">
     <v-row>
-      <v-col cols="12" >
+      <v-col cols="12" v-if="tagItems.length > 0">
         <span class="tag-cat">Tags</span>
         <span class="tag-items" v-for="tag in tagItems">
         {{ tag }}
@@ -10,11 +10,11 @@
     </v-row>
     <v-row>
       <v-col cols="6" class="like">
-      <div class="heart" v-on:click="animateButton()" 
-        v-bind:class="{heartClick : isHeartClicked}">
-        <v-img :src="heart"></v-img>
+        <div class="heart" v-on:click="animateButton()"
+          v-bind:class="{heartClick : isHeartClicked}">
+          <v-img :src="heart"></v-img>
         </div>
-        <span class="like-quantity">{{ likeQuantity }}k Hearts</span>
+        <span class="like-quantity">{{ likeQuantity }} Hearts</span>
       </v-col>
       <v-col cols="6" class="tag-social">
         <socialMediaLogos/>
@@ -28,6 +28,7 @@ import '@luxdamore/vue-cursor-fx/dist/CursorFx.css';
 import socialMediaLogos from '@/components/socialMedia/socialMediaLogos.vue'
 export default {
   name: 'Tags',
+  props: ['tagItems', 'likeQuantity'],
   components: {
     socialMediaLogos,
     CursorFx
@@ -36,19 +37,19 @@ export default {
     return {
       isHeartClicked: false,
       heart: require('@/assets/images/heart.png'),
-      likeQuantity: 44,
+      // likeQuantity: 44,
       convertion: '',
-      tagItems: ['Fashion', 'Vestibulum', 'Libero', 'Congue', 'Nulla',]
+      // tagItems: ['Fashion', 'Vestibulum', 'Libero', 'Congue', 'Nulla',]
     }
   },
   mounted() {
-    
+
   },
   methods: {
     animateButton(el) {
       let vm = this;
       vm.isHeartClicked = true;
-      setTimeout(function () { 
+      setTimeout(function () {
         vm.isHeartClicked = false;
       },300)
     }
@@ -73,7 +74,7 @@ export default {
     margin-right:10px;
     text-transform:uppercase;
   }
-  .tag-items {  
+  .tag-items {
     display:inline-block;
     margin:7px;
     padding: 6px 12px;
@@ -82,7 +83,7 @@ export default {
     color:#fff;
     font-size:14px;
     background: #C4C4C4;
-    border-radius: 4px; 
+    border-radius: 4px;
     text-transform:uppercase;
 
     &:hover {
@@ -207,7 +208,7 @@ export default {
       width: 55%;
       margin: 16px auto 0;
     }
- 
+
   }
   .like-quantity {
       float:left;
@@ -230,8 +231,8 @@ export default {
       }
     }
   }
-  @media screen and (max-width:480px) { 
-    .tags { 
+  @media screen and (max-width:480px) {
+    .tags {
       .tag-items {
         padding:6px 8px;
       }

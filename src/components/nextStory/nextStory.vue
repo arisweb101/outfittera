@@ -1,13 +1,13 @@
 <template>
   <v-row class="next-story" no-gutters>
     <v-col cols="12">
-     <router-link :to="nextStory">
-      <v-img data-cursor-hover gradient="to top right, rgba(83, 18, 124, 0.20), rgba(201, 117, 255, 0.20)" class="next-story-bg" :src="nextStoryImg">
-        <div class="next-story-label">Next Story</div>
-        <div class="next-story-title">{{ nextStoryTitle }}</div>
-        <div class="next-story-category">{{ nextStoryCategory}}</div>
-      </v-img>
-      </router-link>
+      <router-link :to="{ name:'Article', params: { slug: nextArticle.slug, article_type: nextArticle.article_type_slug  } }">
+       <v-img data-cursor-hover gradient="to top right, rgba(83, 18, 124, 0.20), rgba(201, 117, 255, 0.20)" class="next-story-bg" :src="nextArticle.image">
+         <div class="next-story-label">Next Story</div>
+         <div class="next-story-title">{{ nextArticle.name }}</div>
+         <div class="next-story-category">{{ nextArticle.article_type_name }}</div>
+       </v-img>
+       </router-link>
     </v-col>
   </v-row>
 </template>
@@ -17,6 +17,7 @@ import '@luxdamore/vue-cursor-fx/dist/CursorFx.css';
 import socialMediaLogos from '@/components/socialMedia/socialMediaLogos.vue'
 export default {
   name: 'Tags',
+  props: ['nextArticle'],
   components: {
     CursorFx,
     socialMediaLogos
@@ -87,9 +88,9 @@ export default {
       left:0;
       right:0;
     }
-  }  
+  }
 }
-@media screen and (max-width:767px){ 
+@media screen and (max-width:767px){
   .next-story {
   .next-story-bg {
     .next-story-label {
@@ -112,7 +113,7 @@ export default {
       left:0;
       right:0;
     }
-  }  
+  }
 }
 }
 </style>

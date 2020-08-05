@@ -13,10 +13,8 @@
       class="page-content"
       v-bind:class="{ 'open-menu': menuShow, 'open-search': searchBarShow }"
     >
-      <Tinybox
-        v-model="contentBlock2.index"
-        :images="contentBlock2.imageList"
-      ></Tinybox>
+      <Tinybox v-model="imgIdx" :images="galleries"></Tinybox>
+
       <ArticleBanner
         :articleCategory="articleBanner.articleCategory"
         :articleTitle="articleBanner.articleTitle"
@@ -27,48 +25,47 @@
       />
       <SocialMediaLogos class="social-logos-float" />
       <div class="article-content">
-        <v-row class="block" v-scrollanimation>
-          <v-col cols="12" md="12">
-            <p class="initial">{{ contentBlock1.text }}</p>
-            <p>{{ contentBlock1.text }}</p>
-            <p>{{ contentBlock1.text }}</p>
+        <v-row class="block" v-for="(content_block, index) in content_blocks" v-scrollanimation>
+          <v-col cols="12" md="12" v-if="content_block.content_type == 'text'">
+            <div class="initial" v-html="content_block.content_data.copy"></div>
           </v-col>
-        </v-row>
-        <v-row class="block" v-scrollanimation>
-          <v-col cols="12" md="12">
-            <v-img :src="contentBlock2.image" class="main-image"></v-img>
-            <p class="block-title">{{ contentBlock2.title }}</p>
-            <p>{{ contentBlock2.text }}</p>
-            <p>{{ contentBlock2.text }}</p>
-            <div class="light-box">
-              <img
-                data-cursor-hover
-                v-for="(img, idx) in contentBlock2.imageList"
-                :src="img.src"
-                :alt="img.alt"
-                :caption="img.caption"
-                class="open-tinybox"
-                @click="contentBlock2.index = idx"
-              />
-            </div>
+
+          <v-col cols="12" md="12" v-if="content_block.content_type == 'poster_image'">
+              <v-img :src="getImageUrl(content_block.content_data.image_file, '_small')" class="main-image"></v-img>
+              <p class="block-title" v-if="content_block.content_data.title">{{ content_block.content_data.title }}</p>
+              <div v-html="content_block.content_data.copy"></div>
           </v-col>
-        </v-row>
-        <v-row class="block" v-scrollanimation>
-          <v-col cols="12" md="12">
-            <p class="block-title">{{ contentBlock3.title }}</p>
-            <p>{{ contentBlock3.text }}</p>
-            <p>{{ contentBlock3.text }}</p>
+
+          <v-col cols="12" md="12" v-if="content_block.content_type == 'text_with_title'">
+            <p class="block-title" v-if="content_block.content_data.title">{{ content_block.content_data.title }}</p>
+            <div v-html="content_block.content_data.copy"></div>
           </v-col>
-        </v-row>
+
+          <v-col cols="12" md="12" v-if="content_block.content_type == 'gallery'">
+              <div class="light-box">
+                    <img
+                       v-for="(img, idx) in content_block.content_data.galleries"
+                       data-cursor-hover
+                      :src="getImageUrl(img, '_small')"
+                      :alt="img.description"
+                      :caption="img.description"
+                      class="open-tinybox"
+                      @click="getGalleryImages(idx, content_block.content_data.galleries)"
+                    >
+              </div>
+          </v-col>
+
+        </v-row >
+
         <v-row>
           <v-col cols="12" md="12" v-scrollanimation>
             <buyThis />
-            <tags />
+            <tags :tagItems="tagItems" :likeQuantity="likeQuantity"/>
           </v-col>
         </v-row>
       </div>
     </div>
-    <NextStory />
+    <NextStory :nextArticle="nextArticle" v-if="nextArticle"/>
     <Footer />
   </v-container>
 </template>
@@ -111,68 +108,95 @@ export default {
         articleDateCreated: 'May 10, 2020',
         articleBannerImage: require('@/assets/images/banner-image.png')
       },
-      contentBlock1: {
-        text:
-          'Lorem Tortor sapien quis justo nunc et sed. Lacus, magna tortor urna, mi.' +
-          'quisque sed egestas magna nunc. Nibh pellentesque etiam felis cursus. Felis,' +
-          'praesent molestie nulla tincidunt. Feugiat mattis aliquam gravida egestas. Quam' +
-          'praesent molestie nulla tincidunt. Feugiat mattis aliquam gravida egestas. Quam' +
-          'interdum sociis tortor sapien. praesent molestie nulla tincidunt. Feugiat mattis'
-      },
-      contentBlock2: {
-        image: require('@/assets/images/content-image.png'),
-        title:
-          'Consequat vulputate tincidunt. Faucibus morbi neque, vulputate sed.',
-        text:
-          'Consequat et eu lectus egestas dolor urna, diam molestie nibh. Arcu nulla placerat massa at.' +
-          'Scelerisque consequat quam facilisis enim placerat luctus euismod. Dictum sit amet enim,' +
-          'congue augue. Odio facilisis ullamcorper pharetra, consequat tristique vitae mauris sodales' +
-          'urna. Libero pellentesque ipsum elit convallis massa, consequat. Gravida et vestibulum turpis' +
-          'placerat ipsum, malesuada ullamcorper donec. Vitae phasellus sodales turpis aliquet. Tortor leo' +
-          'aenean lacus diam. Massa facilisis vitae lectus convallis at convallis aliquam, et facilisis. Molestie' +
-          'vitae nulla volutpat, velit. Et enim maecenas vestibulum eget pretium viverra egestas.',
-        imageList: [
-          {
-            alt: 'Image 1',
-            caption: 'Image 1',
-            src: require('@/assets/images/content-image.png'),
-            thumbnail: require('@/assets/images/content-image.png')
-          },
-          {
-            alt: 'Image 2',
-            caption: 'Image 2',
-            src: require('@/assets/images/content-image.png'),
-            thumbnail: require('@/assets/images/content-image.png')
-          },
-          {
-            alt: 'Image 3',
-            caption: 'Image 3',
-            src: require('@/assets/images/content-image.png'),
-            thumbnail: require('@/assets/images/content-image.png')
-          }
-        ],
-        index: null
-      },
+
       imgs: '', // Img Url , string or Array
       visible: false,
       index: 0,
-      contentBlock3: {
-        title:
-          'Consequat vulputate tincidunt. Faucibus morbi neque, vulputate sed.',
-        text:
-          'Lorem Tortor sapien quis justo nunc et sed. Lacus, magna tortor urna, mi.' +
-          'quisque sed egestas magna nunc. Nibh pellentesque etiam felis cursus. Felis,' +
-          'praesent molestie nulla tincidunt. Feugiat mattis aliquam gravida egestas. Quam' +
-          'praesent molestie nulla tincidunt. Feugiat mattis aliquam gravida egestas. Quam' +
-          'interdum sociis tortor sapien. praesent molestie nulla tincidunt. Feugiat mattis'
-      }
+      content_blocks: [],
+      galleries: [],
+      imgIdx: null,
+      tagItems: [],
+      likeQuantity: 0,
+      slug: '',
+      article_type: '',
+      nextArticle: null
     };
+  },
+  watch: {
+    $route (to, from){
+      this.article_type = to.params.article_type
+      this.slug = to.params.slug
+      this.getArticle()
+    }
+  },
+  mounted() {
+    this.slug = this.$route.params.slug
+    this.article_type = this.$route.params.article_type
+    this.getArticle()
   },
   created() {
     const vm = this;
     vm.eventPass();
   },
   methods: {
+    getGalleryImages (idx, galleries){
+      this.imgIdx = idx
+      this.galleries = []
+      let i = 0;
+      for (i = 0; i < galleries.length; i++) {
+        this.galleries.push(
+          { alt: galleries[i].description, caption: galleries[i].description , src: this.getImageUrl(galleries[i], '_small'), thumbnail: this.getImageUrl(galleries[i], '') }
+        )
+      }
+    },
+    getImageUrl (img, imgType){
+      if(imgType == ''){
+        imgType = '_thumb';
+      }
+      if(img){
+        if (typeof img.result.path !== 'undefined') {
+          return 'http://irp.pww.mybluehost.me/' + img.result.path + img.result.name + imgType + img.result.extention + '?cb=' + img.result.created
+        }
+      }
+      return ''
+    },
+    getArticle() {
+      this.tagItems = []
+      this.likeQuantity = 0
+      this.nextArticle = null
+
+      let url = 'articles/'+this.article_type+'/'+this.slug;
+      console.log("url");
+      console.log(url);
+      this.$http.plain.get(url)
+       .then(response => {
+         console.log(response.data)
+         this.article = response.data
+         this.content_blocks = this.article.content_blocks
+         this.articleBanner.articleCategory = this.article.articleCategory
+         this.articleBanner.articleTitle = this.article.articleTitle
+         this.articleBanner.articleDateCreated = this.article.articleDateCreated
+         this.articleBanner.articleBannerImage = this.article.articleBannerImage
+         this.articleBanner.authorName = this.article.authorName
+
+         if(this.article.nextArticle){
+           this.nextArticle = this.article.nextArticle
+         }
+
+         if(this.article.tags.length > 0){
+           this.tagItems = this.article.tags.split(",")
+         }
+
+         if(this.article.hearts.length > 0){
+           this.likeQuantity = this.article.hearts
+         }
+
+
+       })
+       .catch(error => {
+         console.log(error.response);
+       })
+    },
     eventPass() {
       let vm = this;
       eventBus.$on('menuOpen', val => {
