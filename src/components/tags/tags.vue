@@ -28,7 +28,7 @@ import '@luxdamore/vue-cursor-fx/dist/CursorFx.css';
 import socialMediaLogos from '@/components/socialMedia/socialMediaLogos.vue'
 export default {
   name: 'Tags',
-  props: ['tagItems', 'likeQuantity'],
+  props: ['tagItems', 'likeQuantity', 'slug'],
   components: {
     socialMediaLogos,
     CursorFx
@@ -52,7 +52,10 @@ export default {
       setTimeout(function () {
         vm.isHeartClicked = false;
       },300)
+
+      this.$emit('updateHearts', this.slug)
     }
+
   },
   filters: {
     convertNumber: function(val) {

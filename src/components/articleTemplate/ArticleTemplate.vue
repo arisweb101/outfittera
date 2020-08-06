@@ -60,7 +60,7 @@
         <v-row>
           <v-col cols="12" md="12" v-scrollanimation>
             <buyThis />
-            <tags :tagItems="tagItems" :likeQuantity="likeQuantity"/>
+            <tags :tagItems="tagItems" :likeQuantity="likeQuantity" :slug="slug" @updateHearts="updateHearts"/>
           </v-col>
         </v-row>
       </div>
@@ -139,6 +139,22 @@ export default {
     vm.eventPass();
   },
   methods: {
+    updateHearts (){
+      this.$http.secured.post('articles/hearts/'+this.slug, '')
+        .then(response => {
+          this.likeQuantity = response.data.hearts
+        })
+        .catch(error => {
+          if (error.response) {
+            let errors = error.response.data.messages
+            let msg = []
+            Object.keys(errors).forEach(key => {
+              msg.push(errors[key])
+            })
+            console.log(msg.join(','))
+          }
+        })
+    },
     getGalleryImages (idx, galleries){
       this.imgIdx = idx
       this.galleries = []
