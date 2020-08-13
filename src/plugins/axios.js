@@ -6,6 +6,7 @@ import store from '../store'
 
 
 const API_URL = 'http://irp.pww.mybluehost.me/api/'
+// const API_URL = 'http://localhost:8081/api/'
 
 const plainAxiosInstance = axios.create({
   baseURL: API_URL

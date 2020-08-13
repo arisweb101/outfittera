@@ -1,11 +1,11 @@
 <template>
   <v-container fluid no-gutters class="pa-0 height100 home">
-    <div class="black-screen" @click="closeWindow" v-show="menuShow || 
+    <div class="black-screen" @click="closeWindow" v-show="menuShow ||
      searchBarShow" v-bind:class="{ 'open-menu': menuShow, 'open-search': searchBarShow }"></div>
      <searchBar/>
      <Menu class="menu"/>
      <v-row no-gutters class="page-content height100" v-bind:class="{ 'open-menu': menuShow, 'open-search': searchBarShow }">
-       <slideShows/>
+       <slideShows :spotlights="spotlights"/>
        <categories/>
     </v-row>
   </v-container>
@@ -34,13 +34,29 @@ import eventBus from '@/event_bus';
         isActive: '',
         menuShow: false,
         searchBarShow: false,
+        spotlights: []
         }
      },
      created() {
        const vm = this;
        vm.eventPass();
      },
-    methods: {
+     mounted() {
+       this.getHome()
+     },
+     methods: {
+      getHome (){
+        let url = 'home';
+        this.$http.plain.get(url)
+         .then(response => {
+           console.log("HOME");
+           console.log(response.data)
+           this.spotlights = response.data.spotlights
+         })
+         .catch(error => {
+           console.log(error.response);
+         })
+      },
       eventPass() {
         let vm = this;
         eventBus.$on('menuOpen', val => {
@@ -52,7 +68,7 @@ import eventBus from '@/event_bus';
       },
       closeWindow() {
         let vm = this;
-        eventBus.$emit('menuOpen', false) 
+        eventBus.$emit('menuOpen', false)
         eventBus.$emit('isSearchBarOpen', false)
         vm.searchBarShow = false;
         vm.menuShow = false;
@@ -144,8 +160,8 @@ import eventBus from '@/event_bus';
   .home {
     .menu {
       position: absolute !important;
-      
-    } 
+
+    }
     .height100 {
       height:auto !important;
     }

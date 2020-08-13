@@ -9,8 +9,9 @@
          <li><a href=""><v-img class="instagram" :src="instagramIcon"></v-img></a></v-img></li>
        </ul>
       </div>
+      
       <VueSlickCarousel v-bind="settings" class="height100">
-        <div class="slide-item-container" v-for="item in slideShows">
+        <div class="slide-item-container" v-for="item in spotlights">
           <v-img data-cursor-hover gradient="to top right, rgba(83, 18, 124, 0), rgba(83, 18, 124, 0.47)" class="slide-item" :src="item.image">
             <div class="slide-titles">
             <div class="slide-title">{{ item.title }}</div>
@@ -31,6 +32,7 @@ import eventBus from '@/event_bus';
 const vm = this;
 export default {
   name: 'Home',
+  props: ['spotlights'],
   components: {
     VueSlickCarousel,
     eventBus,
@@ -56,28 +58,6 @@ export default {
         useCSS: true,
         useTransform: true,
       },
-      slideShows: [
-        {
-          image: require('@/assets/images/slideshow1.png'),
-          title: "The Lifestyle",
-          subTitle: "feat. July Palafox"
-        },
-        {
-          image: require('@/assets/images/slideshow2.jpg'),
-          title: "The Lifestyle 2",
-          subTitle: "feat. July Palafox"
-        },
-        {
-          image: require('@/assets/images/slideshow3.jpg'),
-          title: "The Lifestyle 3",
-          subTitle: "feat. July Palafox"
-        },
-        {
-          image: require('@/assets/images/slideshow4.jpg'),
-          title: "The Lifestyle 4",
-          subTitle: "feat. July Palafox"
-        }
-      ],
       menuLogo: require('@/assets/images/logo-black.svg'),
       isActive: '',
       menuShow: false,
@@ -220,7 +200,7 @@ export default {
   opacity: 0;
 }
 
-#hp-burger-menu 
+#hp-burger-menu
 {
   width: 30px;
   height: 45px;
