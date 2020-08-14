@@ -6,7 +6,7 @@
      <Menu class="menu"/>
      <v-row no-gutters class="page-content height100" v-bind:class="{ 'open-menu': menuShow, 'open-search': searchBarShow }">
        <slideShows :spotlights="spotlights"/>
-       <categories/>
+       <categories :mainCategories="mainCategories"/>
     </v-row>
   </v-container>
 </template>
@@ -34,7 +34,8 @@ import eventBus from '@/event_bus';
         isActive: '',
         menuShow: false,
         searchBarShow: false,
-        spotlights: []
+        spotlights: [],
+        mainCategories: []
         }
      },
      created() {
@@ -46,12 +47,15 @@ import eventBus from '@/event_bus';
      },
      methods: {
       getHome (){
+        const vm = this;
         let url = 'home';
         this.$http.plain.get(url)
          .then(response => {
            console.log("HOME");
            console.log(response.data)
-           this.spotlights = response.data.spotlights
+           vm.spotlights = response.data.spotlights
+           vm.mainCategories = response.data
+           delete vm.mainCategories.spotlights
          })
          .catch(error => {
            console.log(error.response);

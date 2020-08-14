@@ -1,26 +1,15 @@
 <template>
   <v-col cols="6" sm="12" md="6" lg="6" class="categories" v-bind:class="{ open: isMenuOpen }" >
-    <v-row v-if="categories" v-for="(category, index) in categories" :key="index" no-gutters class="category">
-      <v-col cols="6" class="category-title" >
-        <div class="title">{{ category.categoryName }}</div>
-        <div :id="category.id"></div>
-      </v-col>
-      <v-col cols="6" class="category-actions">
-        <div class="actions">
-          <div class="next" v-if="category.previousId">
-          <a href="#" v-scroll-to="category.previousId">Previous: {{ category.previous }}
-          </a>
-          </div>
-          <div class="previous" v-if="category.nextId">
-            <a href="#" v-scroll-to="category.nextId">Next: {{ category.next }}</a></div>
-        </div>
-      </v-col>
+    <v-row v-if="mainCategories" v-for="(category, key, index) in mainCategories" :key="index" no-gutters class="category">
+    <v-col cols="6" class="category-title" >
+      <div class="title">{{ key }}</div>
+      <div :id="category.id"></div>
+    </v-col>
+     
       <v-col cols="12" no-gutters class="articles">
-        <div v-for="(item, index) in category.articles" data-aos="zoom-in-up" :key="index" class="items" >
-          <router-link :to="'/article/'+item.id">
-            <div :src="item.images" data-cursor-hover :class="item.id" 
-            class="article-image">
-            </div>
+        <div v-for="(item, index) in category" data-aos="zoom-in-up" :key="index" class="items" >
+          <router-link :to="'/article/'+item.id">				 
+            <div class="article-image" :class="item.id"></div>
             <div class="source">{{ item.source }}</div>
             <div class="title">{{ item.title }}</div>
             <span class="desc">
@@ -40,7 +29,8 @@ import '@luxdamore/vue-cursor-fx/dist/CursorFx.css';
 import VueScrollTo from 'vue-scrollto';
 import hoverEffect from 'hover-effect';
 export default {
-  name: 'FreshStories',
+  name: 'categories',
+  props: ['mainCategories'],
   components: {
     eventBus,
     VueScrollTo,
@@ -50,114 +40,58 @@ export default {
     return {
         isMenuOpen: false,
         showImages: true,
-        categories: []
+        hoy: {}
      }
    },
+   created(){
+     let vm = this;
+     vm.hoverEffect()
+   },
    async mounted() {
+     
      let vm = this;
      eventBus.$on('menuOpen', val => {
        vm.isMenuOpen = val;
      })
      await vm.initialize();
-     await vm.hoverEffects();
+     vm.hoverEffect()
+   },
+   watch: {
+     mainCategories: function (val) {
+       let vm = this;
+       setTimeout(() =>{
+         vm.hoverEffect()
+       },3000)
+        
+        debugger
+    },
    },
    methods: {
      initialize() {
-       let vm = this;
-       vm.categories = [ 
-          { 
-            id: "freshstories",
-            categoryName: "Fresh Stories",
-            previous: '',
-            next: 'Fashion Mode',
-            nextId: '#fashionmode',
-            articles : [
-              {
-                id: 'article-1',
-                images: require('@/assets/images/cat1.png'),
-                source: 'Lifestyle Markers',
-                title: 'Grand Ferdinand New Viennese Elegance',
-                description: "Aliquam velit imperdiet pellente tristique integer scelerisque purus scelerisque quis libero potenti pellentesque quam est dignissim",
-              },
-              {
-                id: 'article-2',
-                images: require('@/assets/images/cat3.png'),
-                source: 'Lifestyle Markers',
-                title: 'Grand Ferdinand New Viennese Elegance',
-                description: "Aliquam velit imperdiet pellente tristique integer scelerisque purus scelerisque quis libero potenti pellentesque quam est dignissim",
-              },
-              {
-                id: 'article-3',
-                images: require('@/assets/images/cat2.png'),
-                source: 'Lifestyle Markers',
-                title: 'Grand Ferdinand New Viennese Elegance',
-                description: "sa fasdsadfasd asdfasdfasdf adsfasdfasdfasdfasdfasfasdfasdfsad Aliquam velit imperdiet pellente tristique integer scelerisque purus scelerisque quis libero potenti pellentesque quam est dignissim",
-              },
-              {
-                id: 'article-4',
-                images: require('@/assets/images/cat4.png'),
-                source: 'Lifestyle Markers',
-                title: 'Grand Ferdinand New Viennese Elegance',
-                description: "Aliquam velit imperdiet pellente tristique integer scelerisque purus scelerisque quis libero potenti pellentesque quam est dignissim",
-              }
-            ]
-          },
-          { 
-            id: "fashionmode",
-            categoryName: "Fashion Mode",
-            previous: 'Fresh Stories',
-            previousId: '#freshstories',
-            next:'Technology & Machine',
-            nextId: '#technologyandmachine',
-            articles : [
-              {
-                id: 'article-5',
-                images: require('@/assets/images/cat5.png'),
-                source: 'Lifestyle Markers',
-                title: 'Grand Ferdinand New Viennese Elegance',
-                description: "Aliquam velit imperdiet pellente tristique integer scelerisque purus scelerisque quis libero potenti pellentesque quam est dignissim",
-              },
-              {id: 'article-6',
-                images: require('@/assets/images/cat6.png'),
-                source: 'Lifestyle Markers',
-                title: 'Grand Ferdinand New Viennese Elegance',
-                description: "Aliquam velit imperdiet pellente tristique integer scelerisque purus scelerisque quis libero potenti pellentesque quam est dignissim",
-              },
-              {
-                id: 'article-7',
-                images: require('@/assets/images/cat8.png'),
-                source: 'Lifestyle Markers',
-                title: 'Grand Ferdinand New Viennese Elegance',
-                description: " Aliquam velit imperdiet pellente tristique integer scelerisque purus scelerisque quis libero potenti pellentesque quam est dignissim",
-              },
-              {
-                id: 'article-8',
-                images: require('@/assets/images/cat7.png'),
-                source: 'Lifestyle Markers',
-                title: 'Grand Ferdinand New Viennese Elegance',
-                description: "Aliquam velit imperdiet pellente tristique integer scelerisque purus scelerisque quis libero potenti pellentesque quam est dignissim",
-              }
-            ]
-          },
-        ]
+       const vm = this;
      },
-     hoverEffects() {
-      let vm = this;
-        vm.categories.forEach((item) => {
-        for(let i = 0; i < item.articles.length; i++) {
-          let selector = '.' + item.articles[i].id;
-          new hoverEffect({
-              parent: document.querySelector(selector),
-              intensity: 0.3,
-              intensity1: 1,
-              intensity2: 2,
-              image1: item.articles[i].images,
-              image2: item.articles[i].images,
-              imagesRatio:0.6,
-              displacementImage: require('@/assets/images/displacement/4.png'),
-          });
-        }
-      })     
+     hoverEffect() {
+       const vm = this;
+      
+       Object.keys(vm.mainCategories).forEach((key, index) => {
+          for(let i = 0; i < vm.mainCategories[key].length; i++) {
+            let selector = vm.mainCategories[key][i] && vm.mainCategories[key][i].id ? 
+            '.' + vm.mainCategories[key][i].id : null;
+             let image1 = vm.mainCategories[key][i].images;
+             debugger
+             new hoverEffect({
+                parent: document.querySelector(selector),
+                intensity: 0.3,
+                intensity1: 1,
+                intensity2: 2,
+                imagesRatio:0.6,
+                image1: image1 ,
+                image2: image1,
+                displacementImage: 'https://uploads-ssl.webflow.com/5b367b755b093e453cec2141/5bc9486cdc837c82711dfb73_displacement-4.png?'
+            });
+          }
+        }) 
+        
      },
      scrollTo(refName) {
       var element = this.$refs[refName];
@@ -168,6 +102,52 @@ export default {
 }
 </script>
 <style lang="scss">
+.wrap {
+  
+  display: flex;
+  width: 20vw;
+  padding-top: 14vh;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.canvas {
+  position: relative;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 auto;
+  -ms-flex: 0 auto;
+  flex: 0 auto;
+}
+
+.inner-wrap {
+ 
+  display: flex;
+  width: 795px;
+  height: 529px;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  background-color: #161616;
+}
 .categories {
   position:relative;
   transition: 0.6s ease;
