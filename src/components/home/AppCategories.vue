@@ -271,6 +271,7 @@ export default {
   }
   .category-title {
     position: relative;
+    margin-bottom:50px;
     .title {
       font-family: 'Libre Baskerville', serif !important;
       font-weight: bold;
