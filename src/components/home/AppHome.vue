@@ -55,6 +55,7 @@ import eventBus from '@/event_bus';
            console.log(response.data)
            vm.spotlights = response.data.spotlights
            vm.mainCategories = response.data.objects
+           debugger
          })
          .catch(error => {
            console.log(error.response);
