@@ -2,7 +2,7 @@
   <v-col cols="6" sm="12" md="6" lg="6" class="categories" v-bind:class="{ open: isMenuOpen }" >
     <v-row v-if="mainCategories" v-for="(category, key, index) in mainCategories" :key="index" no-gutters class="category">
     <v-col cols="6" class="category-title" >
-      <div class="title">{{ key }}</div>
+      <div class="title">{{ key | textFormat}}</div>
       <div :id="category.id"></div>
     </v-col>
      
@@ -99,6 +99,11 @@ export default {
       window.scrollTo(0, top);
     }
    },
+   filters: {
+    textFormat: function (value) {
+      return value.replace('_', ' ')
+    }
+  }
 }
 </script>
 <style lang="scss">
@@ -164,6 +169,7 @@ export default {
       position:absolute;
       bottom:0;
       color:#53127C;
+      text-transform:capitalize;
     }
   }
   .actions {
