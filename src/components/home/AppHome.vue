@@ -54,8 +54,7 @@ import eventBus from '@/event_bus';
            console.log("HOME");
            console.log(response.data)
            vm.spotlights = response.data.spotlights
-           vm.mainCategories = response.data
-           delete vm.mainCategories.spotlights
+           vm.mainCategories = response.data.objects
          })
          .catch(error => {
            console.log(error.response);

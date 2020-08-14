@@ -88,56 +88,6 @@ export default {
     },
     initialize() {
       let vm = this;
-      vm.articles = [
-        {
-          id: 'article-1',
-          images: require('@/assets/images/cat1.png'),
-          source: 'Lifestyle Markers',
-          title: 'Grand Ferdinand New Viennese Elegance',
-          description:
-            'Aliquam velit imperdiet pellente tristique integer scelerisque purus scelerisque quis libero potenti pellentesque quam est dignissim',
-        },
-        {
-          id: 'article-2',
-          images: require('@/assets/images/cat2.png'),
-          source: 'Lifestyle Markers',
-          title: 'Grand Ferdinand New Viennese Elegance',
-          description:
-            'Aliquam velit imperdiet pellente tristique integer scelerisque purus scelerisque quis libero potenti pellentesque quam est dignissim',
-        },
-        {
-          id: 'article-3',
-          images: require('@/assets/images/cat3.png'),
-          source: 'Lifestyle Markers5',
-          title: 'Grand Ferdinand New Viennese Elegance',
-          description:
-            ' Aliquam velit imperdiet pellente tristique integer scelerisque purus scelerisque quis libero potenti pellentesque quam est dignissim',
-        },
-        {
-          id: 'article-4',
-          images: require('@/assets/images/cat4.png'),
-          source: 'Lifestyle Markers4 ',
-          title: 'Grand Ferdinand New Viennese Elegance',
-          description:
-            'Aliquam velit imperdiet pellente tristique integer scelerisque purus scelerisque quis libero potenti pellentesque quam est dignissim',
-        },
-        {
-          id: 'article-5',
-          images: require('@/assets/images/cat5.png'),
-          source: 'Lifestyle Markers3',
-          title: 'Grand Ferdinand New Viennese Elegance',
-          description:
-            ' Aliquam velit imperdiet pellente tristique integer scelerisque purus scelerisque quis libero potenti pellentesque quam est dignissim',
-        },
-        {
-          id: 'article-6',
-          images: require('@/assets/images/cat6.png'),
-          source: 'Lifestyle Markers 2',
-          title: 'Grand Ferdinand New Viennese Elegance',
-          description:
-            ' Aliquam velit imperdiet pellente tristique integer scelerisque purus scelerisque quis libero potenti pellentesque quam est dignissim',
-        },
-      ];
     },
     eventPass() {
       let vm = this;
@@ -148,7 +98,7 @@ export default {
         vm.searchBarShow = val;
       });
     },
-    hoverEffects() {
+    hoverEffect() {
       let vm = this;
       vm.articles.forEach((item, i) => {
         let selector = '.' + item.id;
@@ -170,6 +120,17 @@ export default {
       vm.menuShow = false;
     },
   },
+  watch: {
+     articles: function (val) {
+       debugger
+       let vm = this;
+       setTimeout(() =>{
+         debugger
+         vm.hoverEffect()
+       },300)
+       
+    },
+   },
 };
 </script>
 <style lang="scss">
@@ -189,14 +150,12 @@ export default {
 }
 .page-template {
   .articles-lists {
-    column-count: 3;
-    column-gap: 4em;
-    margin-top: 20px;
+    display:flex;
+    flex-wrap:wrap;
     width: 80%;
     margin: 0 auto;
     position: relative;
-    top: -80px;
-
+    top: -180px;
     .article-image {
       transition: 0.2s;
       width: 100%;
@@ -231,9 +190,9 @@ export default {
       padding: 15px 0;
     }
     .items {
-      display: inline-block;
-      margin: 30px 0;
-      width: 100%;
+      width:33%;
+      padding:0 20px;
+      margin:100px 0;
 
       .desc {
         font-family: 'Libre Baskerville', serif !important;

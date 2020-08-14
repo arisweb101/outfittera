@@ -1,13 +1,23 @@
 <template>
   <v-col cols="6" sm="12" md="6" lg="6" class="categories" v-bind:class="{ open: isMenuOpen }" >
-    <v-row v-if="mainCategories" v-for="(category, key, index) in mainCategories" :key="index" no-gutters class="category">
+    <v-row v-if="mainCategories" v-for="(category, index) in mainCategories" :key="index" no-gutters >
+   <v-row v-for="(cat, key) in category" cols="12" class="category">
     <v-col cols="6" class="category-title" >
       <div class="title">{{ key | textFormat}}</div>
-      <div :id="category.id"></div>
+      <div :id="key"></div>
     </v-col>
-     
+      <v-col cols="6" class="category-actions">
+        <div class="actions">
+          <div class="next" v-if="key">
+          <a href="#" v-scroll-to="mainCategories[index + 1]">Previous: {{ key | textFormat}}
+          </a>
+          </div>
+          <div class="previous" v-if="key">
+            <a href="#" v-scroll-to="mainCategories[index + 1]">Next: {{ key | textFormat }}</a></div>
+        </div>
+      </v-col>
       <v-col cols="12" no-gutters class="articles">
-        <div v-for="(item, index) in category" data-aos="zoom-in-up" :key="index" class="items" >
+        <div v-for="(item, index) in cat" data-aos="zoom-in-up" :key="index" class="items"  >
           <router-link :to="'/article/'+item.id">				 
             <div class="article-image" :class="item.id"></div>
             <div class="source">{{ item.source }}</div>
@@ -18,7 +28,9 @@
           </router-link>
         </div>
       </v-col>
+       </v-row>
     </v-row>
+   
   </v-col>
 </template>
 <script>
@@ -48,7 +60,6 @@ export default {
      vm.hoverEffect()
    },
    async mounted() {
-     
      let vm = this;
      eventBus.$on('menuOpen', val => {
        vm.isMenuOpen = val;
@@ -61,9 +72,8 @@ export default {
        let vm = this;
        setTimeout(() =>{
          vm.hoverEffect()
-       },3000)
-        
-        debugger
+       },300)
+       
     },
    },
    methods: {
@@ -72,26 +82,24 @@ export default {
      },
      hoverEffect() {
        const vm = this;
-      
-       Object.keys(vm.mainCategories).forEach((key, index) => {
-          for(let i = 0; i < vm.mainCategories[key].length; i++) {
-            let selector = vm.mainCategories[key][i] && vm.mainCategories[key][i].id ? 
-            '.' + vm.mainCategories[key][i].id : null;
-             let image1 = vm.mainCategories[key][i].images;
-             debugger
+       vm.mainCategories.forEach((category, index) => {
+         Object.keys(category).forEach((item, ind) => {
+            category[item].forEach((article) => {
+             let selector = '.' + article.id;
+             let image1 = article.images;
              new hoverEffect({
                 parent: document.querySelector(selector),
                 intensity: 0.3,
                 intensity1: 1,
                 intensity2: 2,
                 imagesRatio:0.6,
-                image1: image1 ,
+                image1: image1,
                 image2: image1,
                 displacementImage: 'https://uploads-ssl.webflow.com/5b367b755b093e453cec2141/5bc9486cdc837c82711dfb73_displacement-4.png?'
             });
-          }
+            })
+         })
         }) 
-        
      },
      scrollTo(refName) {
       var element = this.$refs[refName];
@@ -101,14 +109,13 @@ export default {
    },
    filters: {
     textFormat: function (value) {
-      return value.replace('_', ' ')
+      return value.split('_').join(" ")
     }
   }
 }
 </script>
 <style lang="scss">
 .wrap {
-  
   display: flex;
   width: 20vw;
   padding-top: 14vh;
@@ -157,9 +164,10 @@ export default {
   position:relative;
   transition: 0.6s ease;
   left:0;
-  padding:47px 60px !important;
+  padding:10px 60px !important;
   .category {
     position:relative;
+    margin-bottom:30px;
   }
   .category-title {
     position:relative;
@@ -167,7 +175,7 @@ export default {
       font-family: 'Libre Baskerville', serif !important;
       font-weight:bold;
       position:absolute;
-      bottom:0;
+      top:34px;
       color:#53127C;
       text-transform:capitalize;
     }
@@ -184,10 +192,12 @@ export default {
       position:relative;
       font-family: 'Poppins', sans-serif;
       font-weight:normal;
+      text-transform:capitalize;
       a {
         color:#000;
         text-decoration:none;
         font-family: 'Libre Baskerville', serif !important;
+        text-transform:capitalize;
         &:hover {
           opacity:0.8;
         }
@@ -209,9 +219,11 @@ export default {
       position:relative;
       font-family: 'Poppins', sans-serif;
       font-weight:normal;
+      text-transform:capitalize;
       a {
         color:#000;
         text-decoration:none;
+        text-transform:capitalize;
         &:hover {
           opacity:0.8;
         }
@@ -231,11 +243,8 @@ export default {
     }
   }
   .articles {
-    column-count: 2;
-    margin-top:20px;
-    column-gap: 40px;
-    width:100%;
-    height:50% !important;
+    display:flex;
+    flex-wrap:wrap;
     a {
       color:#000;
       text-decoration:none;
@@ -267,9 +276,9 @@ export default {
       font-family: 'Libre Baskerville', serif !important;
     }
     .items {
-      display: inline-block;
-      margin: 0 0 4em;
-      width:100%;
+      width:50%;
+      padding:0 20px;
+      margin:25px 0px;
 
       .desc {
          font-family: 'Libre Baskerville', serif !important;

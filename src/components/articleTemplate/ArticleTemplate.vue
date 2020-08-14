@@ -29,7 +29,7 @@
           <v-col cols="12" md="12" v-if="content_block.content_type == 'text'">
             <div class="initial" v-html="content_block.content_data.copy"></div>
           </v-col>
-
+        
           <v-col cols="12" md="12" v-if="content_block.content_type == 'poster_image'">
               <v-img :src="getImageUrl(content_block.content_data.image_file, '_small')" class="main-image"></v-img>
               <p class="block-title" v-if="content_block.content_data.title">{{ content_block.content_data.title }}</p>
