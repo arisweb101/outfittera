@@ -121,14 +121,20 @@ export default {
     },
   },
   watch: {
+    $route (to, from){
+      console.log(to);
+      console.log("to");
+      this.articleType = to.params.article_type
+      this.getArticles()
+    },
      articles: function (val) {
-       debugger
+       // debugger
        let vm = this;
        setTimeout(() =>{
-         debugger
+         // debugger
          vm.hoverEffect()
        },300)
-       
+
     },
    },
 };

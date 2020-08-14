@@ -18,19 +18,18 @@
       </v-col>
       <v-col cols="12" no-gutters class="articles">
         <div v-for="(item, index) in cat" data-aos="zoom-in-up" :key="index" class="items"  >
-          <router-link :to="'/article/'+item.id">				 
+          <router-link :to="'/'+item.article_type_slug+'/'+item.slug">
             <div class="article-image" :class="item.id"></div>
             <div class="source">{{ item.source }}</div>
             <div class="title">{{ item.title }}</div>
-            <span class="desc">
-              {{ item.description }}
-            </span>
+
+            <span class="desc" v-html="item.description"></span>
           </router-link>
         </div>
       </v-col>
        </v-row>
     </v-row>
-   
+
   </v-col>
 </template>
 <script>
@@ -73,7 +72,7 @@ export default {
        setTimeout(() =>{
          vm.hoverEffect()
        },300)
-       
+
     },
    },
    methods: {
@@ -99,7 +98,7 @@ export default {
             });
             })
          })
-        }) 
+        })
      },
      scrollTo(refName) {
       var element = this.$refs[refName];
@@ -146,7 +145,7 @@ export default {
 }
 
 .inner-wrap {
- 
+
   display: flex;
   width: 795px;
   height: 529px;
@@ -282,10 +281,10 @@ export default {
 
       .desc {
          font-family: 'Libre Baskerville', serif !important;
-         height: 100px; 
+         height: 100px;
          display:block;
          overflow: hidden;
-         text-overflow: ellipsis; 
+         text-overflow: ellipsis;
       }
     }
   }
@@ -294,7 +293,7 @@ export default {
 .before-enter {
   opacity:0;
   transform: translateY(100px);
-  transition:0.4s ease-in;  
+  transition:0.4s ease-in;
   overflow-x: hidden;
   @for $i from 0 through 2 {
     &:nth-child(#{$i + 1}) {
@@ -304,7 +303,7 @@ export default {
 }
 .enter {
   opacity:1;
-  transform:translateY(0px);  
+  transform:translateY(0px);
 }
 
 @media screen and (max-width:992px){
@@ -359,4 +358,3 @@ export default {
   }
 }
 </style>
-
