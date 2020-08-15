@@ -9,9 +9,9 @@
          <li><a href=""><v-img class="instagram" :src="instagramIcon"></v-img></a></v-img></li>
        </ul>
       </div>
-      <VueSlickCarousel v-if="spotlights !== undefined" v-bind="settings" class="height100">
+      <VueSlickCarousel v-if="spotlights && spotlights.length > 0" v-bind="settings" class="height100">
         <div  class="slide-item-container" v-for="item in spotlights" :key="item.id">
-          <v-img data-cursor-hover :src="item.image" gradient="to top right, rgba(83, 18, 124, 0), rgba(83, 18, 124, 0.47)" class="slide-item" >
+          <v-img data-cursor-hover gradient="to top right, rgba(83, 18, 124, 0), rgba(83, 18, 124, 0.47)" class="slide-item" :src="item.image">
             <div class="slide-titles">
             <div class="slide-title">{{ item.title }}</div>
             <div class="slide-sub-title">{{ item.subTitle }}</div>
