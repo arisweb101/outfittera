@@ -21,7 +21,7 @@
         <v-row cols="12" class="filter" gutter>
           <v-col col="6" class="filter-title" gutter>
             <span class="content-title">Search</span>
-            <span class="mart-items">{{ quantity }} items</span>
+            <span class="mart-items">{{ searchResultItems.length }} items</span>
           </v-col>
           <v-col col="6" class="filter-options" gutter>
             <span class="filter-by">
@@ -37,8 +37,23 @@
           </v-col>
         </v-row>
         <v-row class="all-products">
+          <div v-if="searchResultItems.length === 0">
+            <div class="no-result">
+              <v-icon>fas fa-search</v-icon>
+              <v-icon>fas fa-search</v-icon>
+  
+      <v-icon>fas fa-list</v-icon>
+  
+      <v-icon>fas fa-edit</v-icon>
+  
+      <v-icon>fas fa-tachometer-alt</v-icon>
+              <span>
+                No matching items found
+              </span>
+            </div>
+          </div>
           <ul>
-            <li v-for="item in items" v-scrollanimation>
+            <li v-for="item in searchResultItems" v-scrollanimation>
               <v-row>
                 <v-col cols="12">
                   <v-img
@@ -54,10 +69,10 @@
               </v-row>
             </li>
           </ul>
-          <div class="pagination">
+          <div v-if="searchResultItems.length > 0" class="pagination" >
             <paginate
-              :page-count="20"
-              :page-range="3"
+              :page-count="customPagination.total_records || 0"
+              :page-range="customPagination.per_page"
               :margin-pages="2"
               :click-handler="paginateSearch"
               :prev-class="'prevlink'"
@@ -107,55 +122,59 @@ export default {
       blackLogo: require('@/assets/images/logo-black.svg'),
       icon: require('@/assets/images/search-gray.png'),
       allProducts: ['Product A', 'Product B', 'Product C', 'Product D'],
-      items: [
-        {
-          category: 'Technology',
-          itemImage: require('@/assets/images/buy-this-item.png'),
-          itemName: 'Winter Set Clothes NY',
-          price: 23000,
-        },
-        {
-          category: 'Technology',
-          itemImage: require('@/assets/images/buy-this-item.png'),
-          itemName: 'Winter Set Clothes NY',
-          price: 23000,
-        },
-        {
-          category: 'Fashion',
-          itemImage: require('@/assets/images/buy-this-item.png'),
-          itemName: 'Winter Set Clothes NY',
-          price: 23000,
-        },
-        {
-          category: 'Fashion',
-          itemImage: require('@/assets/images/buy-this-item.png'),
-          itemName: 'Winter Set Clothes NY',
-          price: 23000,
-        },
-        {
-          category: 'Technology',
-          itemImage: require('@/assets/images/buy-this-item.png'),
-          itemName: 'Winter Set Clothes NY',
-          price: 23000,
-        },
-        {
-          category: 'Fashion',
-          itemImage: require('@/assets/images/buy-this-item.png'),
-          itemName: 'Winter Set Clothes NY',
-          price: 23000,
-        },
+      searchResultItems: [
+        // {
+        //   category: 'Technology',
+        //   itemImage: require('@/assets/images/buy-this-item.png'),
+        //   itemName: 'Winter Set Clothes NY',
+        //   price: 23000,
+        // },
+        // {
+        //   category: 'Technology',
+        //   itemImage: require('@/assets/images/buy-this-item.png'),
+        //   itemName: 'Winter Set Clothes NY',
+        //   price: 23000,
+        // },
+        // {
+        //   category: 'Fashion',
+        //   itemImage: require('@/assets/images/buy-this-item.png'),
+        //   itemName: 'Winter Set Clothes NY',
+        //   price: 23000,
+        // },
+        // {
+        //   category: 'Fashion',
+        //   itemImage: require('@/assets/images/buy-this-item.png'),
+        //   itemName: 'Winter Set Clothes NY',
+        //   price: 23000,
+        // },
+        // {
+        //   category: 'Technology',
+        //   itemImage: require('@/assets/images/buy-this-item.png'),
+        //   itemName: 'Winter Set Clothes NY',
+        //   price: 23000,
+        // },
+        // {
+        //   category: 'Fashion',
+        //   itemImage: require('@/assets/images/buy-this-item.png'),
+        //   itemName: 'Winter Set Clothes NY',
+        //   price: 23000,
+        // },
       ],
-      quantity: 236,
+        
+      customPagination:{},
     };
   },
   mounted() {
     let vm = this;
     vm.eventPass();
-    eventBus.$on('searchSubmit', () => {
+    eventBus.$on('searchSubmit', result => {
+      vm.searchResultItems = result.results;
+      vm.customPagination = result.pagination;
+      debugger
       vm.searchBarShow = false;
       vm.menuShow = false;
       vm.isActive = false;
-      eventPass();
+      vm.eventPass();
     });
   },
   methods: {
@@ -183,6 +202,17 @@ export default {
 };
 </script>
 <style lang="scss">
+.no-result {
+    margin:50px auto;
+    width:400px;
+    height:400px;
+    display:block;
+    position:absolute;
+    left:0;
+    right:0;
+    text-align:center;
+    font-size:36px;
+  }
 .search {
   transition: 0.6 ease;
   .menu-search {
@@ -190,6 +220,7 @@ export default {
       background: #000 !important;
     }
   }
+  
   .page-content {
     position: relative;
     min-height: 600px;

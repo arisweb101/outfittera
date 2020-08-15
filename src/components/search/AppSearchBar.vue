@@ -55,19 +55,32 @@ export default {
     });
   },
   methods: {
+    getSearchResult() {
+      const vm = this;
+      let url = 'search?q='+vm.search;
+      this.$http.plain.get(url)
+       .then(response => {
+         return this.searchResult = response.data
+       }).then(()=> {
+          eventBus.$emit('searchSubmit', vm.searchResult);
+          router.push({ name: 'Search', query: { items: vm.search } });
+       })
+       .catch(error => {
+         console.log(error.response);
+       })
+    },
     enableMouseWheel() {
       let vm = this;
       $('body').bind('mousewheel', function() {
         return !vm.isSearchBarOpen;
       });
     },
-    searchSubmit(e) {
+    async searchSubmit(e) {
       e.preventDefault();
       const vm = this;
       vm.isSearchBarOpen = false;
-      eventBus.$emit('searchSubmit');
-      router.push({ name: 'Search', query: { items: vm.search } });
-    },
+      vm.getSearchResult()
+    }
   },
   beforeDestroy() {
     $('body').unbind('mousewheel');
