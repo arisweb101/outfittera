@@ -39,14 +39,7 @@
         <v-row class="all-products">
           <div v-if="searchResultItems.length === 0">
             <div class="no-result">
-              <v-icon>fas fa-search</v-icon>
-              <v-icon>fas fa-search</v-icon>
-  
-      <v-icon>fas fa-list</v-icon>
-  
-      <v-icon>fas fa-edit</v-icon>
-  
-      <v-icon>fas fa-tachometer-alt</v-icon>
+              <v-icon>fa fa-search</v-icon>
               <span>
                 No matching items found
               </span>
