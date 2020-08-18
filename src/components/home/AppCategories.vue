@@ -326,6 +326,14 @@ export default {
         display: block;
         overflow: hidden;
         text-overflow: ellipsis;
+
+        p {
+          display: -webkit-box;
+          -webkit-line-clamp: 3;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
       }
     }
   }
