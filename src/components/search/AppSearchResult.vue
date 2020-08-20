@@ -13,11 +13,12 @@
       class="page-content height100"
       v-bind:class="{ 'open-menu': menuShow, 'open-search': searchBarShow }"
     >
+      <div class="preloader" v-if="loading"><img :src="preloader" /></div>
       <v-row class="header" gutter>
         <v-img :src="blackLogo" class="logo-center"></v-img>
         <searchIcon :icon="icon" class="search-icon" />
       </v-row>
-      <v-row class="content">
+      <v-row class="content" v-if="!loading">
         <v-row cols="12" class="filter" gutter>
           <v-col col="6" class="filter-title" gutter>
             <span class="content-title">Search</span>
@@ -40,9 +41,7 @@
           <div v-if="searchResultItems.length === 0">
             <div class="no-result">
               <v-icon>fa fa-search</v-icon>
-              <span>
-                No matching items found
-              </span>
+              <span> No "{{ searchItem }}" items found </span>
             </div>
           </div>
           <ul>
@@ -115,6 +114,9 @@ export default {
       blackLogo: require('@/assets/images/logo-black.svg'),
       icon: require('@/assets/images/search-gray.png'),
       allProducts: ['Product A', 'Product B', 'Product C', 'Product D'],
+      loading: false,
+      preloader: require('@/assets/images/preloader.gif'),
+      searchItem: '',
       searchResultItems: [
         // {
         //   category: 'Technology',
@@ -157,19 +159,39 @@ export default {
       customPagination: {},
     };
   },
+  watch: {
+    '$route.query.items'(newId, oldId) {
+      const vm = this;
+      vm.searchItem = newId;
+      vm.showResult();
+    },
+  },
   mounted() {
     let vm = this;
+    vm.searchItem = vm.$route.query.items;
     vm.eventPass();
-    eventBus.$on('searchSubmit', (result) => {
-      vm.searchResultItems = result.results;
-      vm.customPagination = result.pagination;
-      vm.searchBarShow = false;
-      vm.menuShow = false;
-      vm.isActive = false;
-      vm.eventPass();
-    });
   },
   methods: {
+    showResult() {
+      const vm = this;
+      vm.loading = true;
+      let url = 'search?q=' + vm.searchItem;
+
+      this.$http.plain
+        .get(url)
+        .then((response) => {
+          vm.searchResultItems = response.data.results;
+          vm.customPagination = response.data.pagination;
+          vm.searchBarShow = false;
+          vm.menuShow = false;
+          vm.isActive = false;
+          vm.loading = false;
+          vm.eventPass();
+        })
+        .catch((error) => {
+          console.log(error.response);
+        });
+    },
     paginateSearch(pageNum) {
       console.log(pageNum);
     },
@@ -204,6 +226,18 @@ export default {
   right: 0;
   text-align: center;
   font-size: 36px;
+}
+.preloader {
+  margin: 0 auto;
+  position: absolute;
+  top: 250px;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  width: 250px;
+  img {
+    width: 100%;
+  }
 }
 .search {
   transition: 0.6 ease;

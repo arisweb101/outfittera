@@ -15,6 +15,7 @@
     >
       <Banner :pageTitle="pageTitle" :mainBanner="mainBanner" />
       <div no-gutters class="articles-lists">
+        <div class="preloader" v-if="loading"><img :src="preloader" /></div>
         <div
           v-for="(item, index) in articles"
           :key="item.id"
@@ -33,7 +34,7 @@
           </router-link>
         </div>
       </div>
-      <div class="pagination">
+      <div class="pagination" v-if="!loading">
         <paginate
           :page-count="customPagination.total_records || 0"
           :page-range="customPagination.per_page"
@@ -72,12 +73,14 @@ export default {
   },
   data() {
     return {
+      loading: false,
       forceImages: true,
       menuShow: false,
       searchBarShow: false,
       menuLogo: require('@/assets/images/logo-black.svg'),
       pageTitle: 'Fashion Modes',
       mainBanner: require('@/assets/images/banner-image.png'),
+      preloader: require('@/assets/images/preloader.gif'),
       articles: [],
       articleType: '',
     };
@@ -87,20 +90,24 @@ export default {
     this.articleType = this.$route.params.article_type;
     vm.eventPass();
     await vm.getArticles();
-    await vm.hoverEffects();
+    await vm.hoverEffect();
   },
   methods: {
     getArticles() {
+      const vm = this;
+      vm.loading = true;
+      this.articles = [];
       let url = 'articles?article_type=' + this.articleType;
       this.$http.plain
         .get(url)
         .then((response) => {
           this.articles = response.data.results;
-          debugger;
           this.customPagination = response.data.pagination;
-          this.hoverEffects();
+          vm.hoverEffect();
+          vm.loading = false;
         })
         .catch((error) => {
+          vm.loading = false;
           console.log(error.response);
         });
     },
@@ -108,7 +115,33 @@ export default {
       let vm = this;
     },
     paginateSearch(pageNum) {
-      console.log(pageNum);
+      const vm = this;
+      vm.loading = true;
+      this.articles = [];
+      let url = '';
+      if (pageNum === 1) {
+        url = 'articles?article_type=' + this.articleType;
+      } else {
+        url =
+          'articles?article_type=' +
+          this.articleType +
+          '&per_page=6&page' +
+          pageNum;
+      }
+      this.$http.plain
+        .get(url)
+        .then((response) => {
+          vm.articles = response.data.results;
+          vm.customPagination = response.data.pagination;
+          vm.hoverEffect();
+          vm.loading = false;
+          document.body.scrollTop = 0;
+          document.documentElement.scrollTop = 0;
+        })
+        .catch((error) => {
+          vm.loading = false;
+          console.log(error.response);
+        });
     },
     eventPass() {
       let vm = this;
@@ -149,10 +182,8 @@ export default {
       this.getArticles();
     },
     articles: function(val) {
-      // debugger
       let vm = this;
       setTimeout(() => {
-        // debugger
         vm.hoverEffect();
       }, 300);
     },
@@ -172,6 +203,18 @@ export default {
   &.open-menu {
     transition: 0.6s ease;
     left: 300px;
+  }
+}
+.preloader {
+  margin: 0 auto;
+  position: absolute;
+  top: 250px;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  width: 250px;
+  img {
+    width: 100%;
   }
 }
 .pagination {

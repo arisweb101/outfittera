@@ -13,12 +13,14 @@
       class="page-content"
       v-bind:class="{ 'open-menu': menuShow, 'open-search': searchBarShow }"
     >
+      <div class="preloader" v-if="loading"><img :src="preloader" /></div>
       <AboutBanner
+        v-if="!loading"
         :aboutDescription="aboutBanner.aboutDescription"
         :aboutTitle="aboutBanner.aboutTitle"
         :aboutBannerImage="aboutBanner.aboutBannerImage"
       />
-      <div class="about-content">
+      <div class="about-content" v-if="!loading">
         <div class="about-content-title">Choose your own adventure</div>
         <div class="content-block1 content-block">
           <v-row class="block-full-width" v-scrollanimation>
@@ -211,7 +213,7 @@
         </div>
       </div>
     </div>
-    <Footer />
+    <Footer v-if="!loading" />
   </v-container>
 </template>
 <script>
@@ -353,6 +355,8 @@ export default {
           },
         ],
       },
+      loading: false,
+      preloader: require('@/assets/images/preloader.gif'),
       errorMessages: '',
       name: null,
       email: null,

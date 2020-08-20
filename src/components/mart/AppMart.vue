@@ -13,11 +13,12 @@
       class="page-content height100"
       v-bind:class="{ 'open-menu': menuShow, 'open-search': searchBarShow }"
     >
-      <v-row class="header" gutter>
+      <div class="preloader" v-if="loading"><img :src="preloader" /></div>
+      <v-row class="header" gutter v-if="!loading">
         <v-img :src="blackLogo" class="logo-center"></v-img>
         <searchIcon :icon="icon" class="search-icon" />
       </v-row>
-      <v-row class="content">
+      <v-row class="content" v-if="!loading">
         <v-row cols="12" class="filter" gutter>
           <v-col col="6" class="filter-title" gutter>
             <span class="content-title">Mart</span>
@@ -100,7 +101,7 @@ export default {
     searchBar,
     Footer,
     eventBus,
-    ReadArticles
+    ReadArticles,
   },
   data() {
     return {
@@ -110,45 +111,47 @@ export default {
       blackLogo: require('@/assets/images/logo-black.svg'),
       icon: require('@/assets/images/search-gray.png'),
       allProducts: ['Product A', 'Product B', 'Product C', 'Product D'],
+      loading: false,
+      preloader: require('@/assets/images/preloader.gif'),
       items: [
         {
           category: 'Technology',
           itemImage: require('@/assets/images/buy-this-item.png'),
           itemName: 'Winter Set Clothes NY',
-          price: 23000
+          price: 23000,
         },
         {
           category: 'Technology',
           itemImage: require('@/assets/images/buy-this-item.png'),
           itemName: 'Winter Set Clothes NY',
-          price: 23000
+          price: 23000,
         },
         {
           category: 'Technology',
           itemImage: require('@/assets/images/buy-this-item.png'),
           itemName: 'Winter Set Clothes NY',
-          price: 23000
+          price: 23000,
         },
         {
           category: 'Fashion',
           itemImage: require('@/assets/images/buy-this-item.png'),
           itemName: 'Winter Set Clothes NY',
-          price: 23000
+          price: 23000,
         },
         {
           category: 'Technology',
           itemImage: require('@/assets/images/buy-this-item.png'),
           itemName: 'Winter Set Clothes NY',
-          price: 23000
+          price: 23000,
         },
         {
           category: 'Technology',
           itemImage: require('@/assets/images/buy-this-item.png'),
           itemName: 'Winter Set Clothes NY',
-          price: 23000
-        }
+          price: 23000,
+        },
       ],
-      quantity: 236
+      quantity: 236,
     };
   },
   mounted() {
@@ -161,10 +164,10 @@ export default {
     },
     eventPass() {
       const vm = this;
-      eventBus.$on('isSearchBarOpen', val => {
+      eventBus.$on('isSearchBarOpen', (val) => {
         vm.searchBarShow = val;
       });
-      eventBus.$on('menuOpen', val => {
+      eventBus.$on('menuOpen', (val) => {
         vm.menuShow = val;
         vm.isActive = val;
       });
@@ -175,8 +178,8 @@ export default {
       eventBus.$emit('isSearchBarOpen', false);
       vm.searchBarShow = false;
       vm.menuShow = false;
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="scss">
@@ -185,6 +188,18 @@ export default {
   .menu-mart {
     #burger-menu span {
       background: #000 !important;
+    }
+  }
+  .preloader {
+    margin: 0 auto;
+    position: absolute;
+    top: 250px;
+    left: 0;
+    right: 0;
+    z-index: 2;
+    width: 250px;
+    img {
+      width: 100%;
     }
   }
   .page-content {

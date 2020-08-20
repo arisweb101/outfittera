@@ -13,9 +13,10 @@
       class="page-content"
       v-bind:class="{ 'open-menu': menuShow, 'open-search': searchBarShow }"
     >
+      <div class="preloader" v-if="loading"><img :src="preloader" /></div>
       <Tinybox v-model="imgIdx" :images="galleries"></Tinybox>
-
       <ArticleBanner
+        v-if="!loading"
         :articleCategory="articleBanner.articleCategory"
         :articleTitle="articleBanner.articleTitle"
         :authorName="articleBanner.authorName"
@@ -23,11 +24,12 @@
         :articleDateCreated="articleBanner.articleDateCreated"
         :articleBannerImage="articleBanner.articleBannerImage"
       />
-      <SocialMediaLogos class="social-logos-float" />
-      <div class="article-content">
+      <SocialMediaLogos v-if="!loading" class="social-logos-float" />
+      <div class="article-content" v-if="!loading">
         <v-row
           class="block"
           v-for="(content_block, index) in content_blocks"
+          :key="index"
           v-scrollanimation
         >
           <v-col cols="12" md="12" v-if="content_block.content_type == 'text'">
@@ -97,7 +99,7 @@
       </div>
     </div>
     <NextStory :nextArticle="nextArticle" v-if="nextArticle" />
-    <Footer />
+    <Footer v-if="!loading" />
   </v-container>
 </template>
 <script>
@@ -131,15 +133,9 @@ export default {
       menuShow: false,
       searchBarShow: false,
       menuLogo: require('@/assets/images/logo-black.svg'),
-      articleBanner: {
-        articleCategory: 'Lifestyle Markers',
-        articleTitle: 'The Lifestyle',
-        authorName: 'July Palafox',
-        authorThumbnail: require('@/assets/images/thumbnail.png'),
-        articleDateCreated: 'May 10, 2020',
-        articleBannerImage: require('@/assets/images/banner-image.png'),
-      },
-
+      articleBanner: {},
+      loading: false,
+      preloader: require('@/assets/images/preloader.gif'),
       imgs: '', // Img Url , string or Array
       visible: false,
       index: 0,
@@ -171,6 +167,7 @@ export default {
   },
   methods: {
     updateHearts() {
+      const vm = this;
       this.$http.secured
         .post('articles/hearts/' + this.slug, '')
         .then((response) => {
@@ -220,6 +217,8 @@ export default {
       return '';
     },
     getArticle() {
+      const vm = this;
+      vm.loading = true;
       this.tagItems = [];
       this.likeQuantity = 0;
       this.nextArticle = null;
@@ -250,8 +249,10 @@ export default {
           if (this.article.hearts.length > 0) {
             this.likeQuantity = this.article.hearts;
           }
+          vm.loading = false;
         })
         .catch((error) => {
+          vm.loading = false;
           console.log(error.response);
         });
     },
@@ -289,6 +290,18 @@ export default {
   &.open-menu {
     transition: 0.6s ease;
     left: 300px;
+  }
+}
+.preloader {
+  margin: 0 auto;
+  position: absolute;
+  top: 250px;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  width: 250px;
+  img {
+    width: 100%;
   }
 }
 .article-template {

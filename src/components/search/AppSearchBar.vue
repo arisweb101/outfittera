@@ -54,20 +54,14 @@ export default {
       vm.enableMouseWheel();
     });
   },
+
   methods: {
     getSearchResult() {
       const vm = this;
-      let url = 'search?q='+vm.search;
-      this.$http.plain.get(url)
-       .then(response => {
-         return this.searchResult = response.data
-       }).then(()=> {
-          eventBus.$emit('searchSubmit', vm.searchResult);
-          router.push({ name: 'Search', query: { items: vm.search } });
-       })
-       .catch(error => {
-         console.log(error.response);
-       })
+      router.push({
+        name: 'Search',
+        query: { items: vm.search },
+      });
     },
     enableMouseWheel() {
       let vm = this;
@@ -79,8 +73,8 @@ export default {
       e.preventDefault();
       const vm = this;
       vm.isSearchBarOpen = false;
-      vm.getSearchResult()
-    }
+      vm.getSearchResult();
+    },
   },
   beforeDestroy() {
     $('body').unbind('mousewheel');
