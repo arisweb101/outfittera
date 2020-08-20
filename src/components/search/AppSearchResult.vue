@@ -62,7 +62,7 @@
               </v-row>
             </li>
           </ul>
-          <div v-if="searchResultItems.length > 0" class="pagination" >
+          <div v-if="searchResultItems.length > 0" class="pagination">
             <paginate
               :page-count="customPagination.total_records || 0"
               :page-range="customPagination.per_page"
@@ -153,17 +153,16 @@ export default {
         //   price: 23000,
         // },
       ],
-        
-      customPagination:{},
+
+      customPagination: {},
     };
   },
   mounted() {
     let vm = this;
     vm.eventPass();
-    eventBus.$on('searchSubmit', result => {
+    eventBus.$on('searchSubmit', (result) => {
       vm.searchResultItems = result.results;
       vm.customPagination = result.pagination;
-      debugger
       vm.searchBarShow = false;
       vm.menuShow = false;
       vm.isActive = false;
@@ -196,16 +195,16 @@ export default {
 </script>
 <style lang="scss">
 .no-result {
-    margin:50px auto;
-    width:400px;
-    height:400px;
-    display:block;
-    position:absolute;
-    left:0;
-    right:0;
-    text-align:center;
-    font-size:36px;
-  }
+  margin: 50px auto;
+  width: 400px;
+  height: 400px;
+  display: block;
+  position: absolute;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 36px;
+}
 .search {
   transition: 0.6 ease;
   .menu-search {
@@ -213,7 +212,7 @@ export default {
       background: #000 !important;
     }
   }
-  
+
   .page-content {
     position: relative;
     min-height: 600px;

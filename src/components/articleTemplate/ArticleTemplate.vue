@@ -25,47 +25,78 @@
       />
       <SocialMediaLogos class="social-logos-float" />
       <div class="article-content">
-        <v-row class="block" v-for="(content_block, index) in content_blocks" v-scrollanimation>
+        <v-row
+          class="block"
+          v-for="(content_block, index) in content_blocks"
+          v-scrollanimation
+        >
           <v-col cols="12" md="12" v-if="content_block.content_type == 'text'">
             <div class="initial" v-html="content_block.content_data.copy"></div>
           </v-col>
-        
-          <v-col cols="12" md="12" v-if="content_block.content_type == 'poster_image'">
-              <v-img :src="getImageUrl(content_block.content_data.image_file, '_small')" class="main-image"></v-img>
-              <p class="block-title" v-if="content_block.content_data.title">{{ content_block.content_data.title }}</p>
-              <div v-html="content_block.content_data.copy"></div>
-          </v-col>
 
-          <v-col cols="12" md="12" v-if="content_block.content_type == 'text_with_title'">
-            <p class="block-title" v-if="content_block.content_data.title">{{ content_block.content_data.title }}</p>
+          <v-col
+            cols="12"
+            md="12"
+            v-if="content_block.content_type == 'poster_image'"
+          >
+            <v-img
+              :src="
+                getImageUrl(content_block.content_data.image_file, '_small')
+              "
+              class="main-image"
+            ></v-img>
+            <p class="block-title" v-if="content_block.content_data.title">
+              {{ content_block.content_data.title }}
+            </p>
             <div v-html="content_block.content_data.copy"></div>
           </v-col>
 
-          <v-col cols="12" md="12" v-if="content_block.content_type == 'gallery'">
-              <div class="light-box">
-                    <img
-                       v-for="(img, idx) in content_block.content_data.galleries"
-                       data-cursor-hover
-                      :src="getImageUrl(img, '_small')"
-                      :alt="img.description"
-                      :caption="img.description"
-                      class="open-tinybox"
-                      @click="getGalleryImages(idx, content_block.content_data.galleries)"
-                    >
-              </div>
+          <v-col
+            cols="12"
+            md="12"
+            v-if="content_block.content_type == 'text_with_title'"
+          >
+            <p class="block-title" v-if="content_block.content_data.title">
+              {{ content_block.content_data.title }}
+            </p>
+            <div v-html="content_block.content_data.copy"></div>
           </v-col>
 
-        </v-row >
+          <v-col
+            cols="12"
+            md="12"
+            v-if="content_block.content_type == 'gallery'"
+          >
+            <div class="light-box">
+              <img
+                v-for="(img, idx) in content_block.content_data.galleries"
+                data-cursor-hover
+                :src="getImageUrl(img, '_small')"
+                :alt="img.description"
+                :caption="img.description"
+                class="open-tinybox"
+                @click="
+                  getGalleryImages(idx, content_block.content_data.galleries)
+                "
+              />
+            </div>
+          </v-col>
+        </v-row>
 
         <v-row>
           <v-col cols="12" md="12" v-scrollanimation>
             <buyThis />
-            <tags :tagItems="tagItems" :likeQuantity="likeQuantity" :slug="slug" @updateHearts="updateHearts"/>
+            <tags
+              :tagItems="tagItems"
+              :likeQuantity="likeQuantity"
+              :slug="slug"
+              @updateHearts="updateHearts"
+            />
           </v-col>
         </v-row>
       </div>
     </div>
-    <NextStory :nextArticle="nextArticle" v-if="nextArticle"/>
+    <NextStory :nextArticle="nextArticle" v-if="nextArticle" />
     <Footer />
   </v-container>
 </template>
@@ -93,7 +124,7 @@ export default {
     BuyThis,
     Tags,
     Footer,
-    NextStory
+    NextStory,
   },
   data() {
     return {
@@ -106,7 +137,7 @@ export default {
         authorName: 'July Palafox',
         authorThumbnail: require('@/assets/images/thumbnail.png'),
         articleDateCreated: 'May 10, 2020',
-        articleBannerImage: require('@/assets/images/banner-image.png')
+        articleBannerImage: require('@/assets/images/banner-image.png'),
       },
 
       imgs: '', // Img Url , string or Array
@@ -119,106 +150,117 @@ export default {
       likeQuantity: 0,
       slug: '',
       article_type: '',
-      nextArticle: null
+      nextArticle: null,
     };
   },
   watch: {
-    $route (to, from){
-      this.article_type = to.params.article_type
-      this.slug = to.params.slug
-      this.getArticle()
-    }
+    $route(to, from) {
+      this.article_type = to.params.article_type;
+      this.slug = to.params.slug;
+      this.getArticle();
+    },
   },
   mounted() {
-    this.slug = this.$route.params.slug
-    this.article_type = this.$route.params.article_type
-    this.getArticle()
+    this.slug = this.$route.params.slug;
+    this.article_type = this.$route.params.article_type;
+    this.getArticle();
   },
   created() {
     const vm = this;
     vm.eventPass();
   },
   methods: {
-    updateHearts (){
-      this.$http.secured.post('articles/hearts/'+this.slug, '')
-        .then(response => {
-          this.likeQuantity = response.data.hearts
+    updateHearts() {
+      this.$http.secured
+        .post('articles/hearts/' + this.slug, '')
+        .then((response) => {
+          this.likeQuantity = response.data.hearts;
         })
-        .catch(error => {
+        .catch((error) => {
           if (error.response) {
-            let errors = error.response.data.messages
-            let msg = []
-            Object.keys(errors).forEach(key => {
-              msg.push(errors[key])
-            })
-            console.log(msg.join(','))
+            let errors = error.response.data.messages;
+            let msg = [];
+            Object.keys(errors).forEach((key) => {
+              msg.push(errors[key]);
+            });
+            console.log(msg.join(','));
           }
-        })
+        });
     },
-    getGalleryImages (idx, galleries){
-      this.imgIdx = idx
-      this.galleries = []
+    getGalleryImages(idx, galleries) {
+      this.imgIdx = idx;
+      this.galleries = [];
       let i = 0;
       for (i = 0; i < galleries.length; i++) {
-        this.galleries.push(
-          { alt: galleries[i].description, caption: galleries[i].description , src: this.getImageUrl(galleries[i], '_small'), thumbnail: this.getImageUrl(galleries[i], '') }
-        )
+        this.galleries.push({
+          alt: galleries[i].description,
+          caption: galleries[i].description,
+          src: this.getImageUrl(galleries[i], '_small'),
+          thumbnail: this.getImageUrl(galleries[i], ''),
+        });
       }
     },
-    getImageUrl (img, imgType){
-      if(imgType == ''){
+    getImageUrl(img, imgType) {
+      if (imgType == '') {
         imgType = '_thumb';
       }
-      if(img){
+      if (img) {
         if (typeof img.result.path !== 'undefined') {
-          return 'http://irp.pww.mybluehost.me/' + img.result.path + img.result.name + imgType + img.result.extention + '?cb=' + img.result.created
+          return (
+            'http://irp.pww.mybluehost.me/' +
+            img.result.path +
+            img.result.name +
+            imgType +
+            img.result.extention +
+            '?cb=' +
+            img.result.created
+          );
         }
       }
-      return ''
+      return '';
     },
     getArticle() {
-      this.tagItems = []
-      this.likeQuantity = 0
-      this.nextArticle = null
+      this.tagItems = [];
+      this.likeQuantity = 0;
+      this.nextArticle = null;
 
-      let url = 'articles/'+this.article_type+'/'+this.slug;
-      console.log("url");
+      let url = 'articles/' + this.article_type + '/' + this.slug;
+      console.log('url');
       console.log(url);
-      this.$http.plain.get(url)
-       .then(response => {
-         console.log(response.data)
-         this.article = response.data
-         this.content_blocks = this.article.content_blocks
-         this.articleBanner.articleCategory = this.article.articleCategory
-         this.articleBanner.articleTitle = this.article.articleTitle
-         this.articleBanner.articleDateCreated = this.article.articleDateCreated
-         this.articleBanner.articleBannerImage = this.article.articleBannerImage
-         this.articleBanner.authorName = this.article.authorName
+      this.$http.plain
+        .get(url)
+        .then((response) => {
+          console.log(response.data);
+          this.article = response.data;
+          this.content_blocks = this.article.content_blocks;
+          this.articleBanner.articleCategory = this.article.articleCategory;
+          this.articleBanner.articleTitle = this.article.articleTitle;
+          this.articleBanner.articleDateCreated = this.article.articleDateCreated;
+          this.articleBanner.articleBannerImage = this.article.articleBannerImage;
+          this.articleBanner.authorName = this.article.authorName;
 
-         if(this.article.nextArticle){
-           this.nextArticle = this.article.nextArticle
-         }
+          if (this.article.nextArticle) {
+            this.nextArticle = this.article.nextArticle;
+          }
 
-         if(this.article.tags.length > 0){
-           this.tagItems = this.article.tags.split(",")
-         }
+          if (this.article.tags.length > 0) {
+            this.tagItems = this.article.tags.split(',');
+          }
 
-         if(this.article.hearts.length > 0){
-           this.likeQuantity = this.article.hearts
-         }
-
-
-       })
-       .catch(error => {
-         console.log(error.response);
-       })
+          if (this.article.hearts.length > 0) {
+            this.likeQuantity = this.article.hearts;
+          }
+        })
+        .catch((error) => {
+          console.log(error.response);
+        });
     },
     eventPass() {
       let vm = this;
-      eventBus.$on('menuOpen', val => {
+      eventBus.$on('menuOpen', (val) => {
         vm.menuShow = val;
       });
-      eventBus.$on('isSearchBarOpen', val => {
+      eventBus.$on('isSearchBarOpen', (val) => {
         vm.searchBarShow = val;
       });
     },
@@ -228,8 +270,8 @@ export default {
       eventBus.$emit('isSearchBarOpen', false);
       vm.searchBarShow = false;
       vm.menuShow = false;
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="scss">

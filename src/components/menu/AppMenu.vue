@@ -17,7 +17,12 @@
     </transition>
     <div class="menu-list" v-show="menuShow">
       <v-list>
-        <v-list-item v-for="menu in menus" :key="menu.title" :to="menu.path">
+        <v-list-item
+          v-on:click="menuClick"
+          v-for="menu in menus"
+          :key="menu.title"
+          :to="menu.path"
+        >
           <v-list-item-content>
             <v-list-item-title>
               {{ menu.title }}
@@ -82,6 +87,10 @@ export default {
     vm.enableMouseWheel();
   },
   methods: {
+    menuClick() {
+      const vm = this;
+      vm.isMenuOpen();
+    },
     enableMouseWheel() {
       const vm = this;
       $('body').bind('mousewheel', function() {

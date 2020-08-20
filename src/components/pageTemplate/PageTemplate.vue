@@ -21,7 +21,7 @@
           class="items"
           data-aos="zoom-in-up"
         >
-          <router-link :to="'/'+articleType+'/'+item.slug">
+          <router-link :to="'/' + articleType + '/' + item.slug">
             <div
               :class="item.id"
               :eager="forceImages"
@@ -33,12 +33,28 @@
           </router-link>
         </div>
       </div>
+      <div class="pagination">
+        <paginate
+          :page-count="customPagination.total_records || 0"
+          :page-range="customPagination.per_page"
+          :margin-pages="2"
+          :click-handler="paginateSearch"
+          :prev-class="'prevlink'"
+          :next-class="'nextlink'"
+          :container-class="'pagination'"
+          :prev-text="'<'"
+          :next-text="'>'"
+          :page-class="'page-item'"
+        >
+        </paginate>
+      </div>
     </div>
     <Footer />
   </v-container>
 </template>
 <script>
 import Menu from '@/components/menu/AppMenu.vue';
+import Paginate from 'vuejs-paginate';
 import Banner from '@/components/pageTemplate/PageBanner.vue';
 import SearchBar from '@/components/search/AppSearchBar.vue';
 import Footer from '@/components/footer/AppFooter.vue';
@@ -47,6 +63,7 @@ import hoverEffect from 'hover-effect';
 export default {
   name: 'Template',
   components: {
+    Paginate,
     Banner,
     Menu,
     Footer,
@@ -62,32 +79,36 @@ export default {
       pageTitle: 'Fashion Modes',
       mainBanner: require('@/assets/images/banner-image.png'),
       articles: [],
-      articleType: ''
+      articleType: '',
     };
   },
   async mounted() {
     const vm = this;
-    this.articleType = this.$route.params.article_type
+    this.articleType = this.$route.params.article_type;
     vm.eventPass();
     await vm.getArticles();
-    // await vm.initialize();
     await vm.hoverEffects();
   },
   methods: {
     getArticles() {
-      let url = 'articles?article_type='+this.articleType;
-      this.$http.plain.get(url)
-       .then(response => {
-         console.log(response.data)
-         this.articles = response.data.results
-         this.hoverEffects()
-       })
-       .catch(error => {
-         console.log(error.response);
-       })
+      let url = 'articles?article_type=' + this.articleType;
+      this.$http.plain
+        .get(url)
+        .then((response) => {
+          this.articles = response.data.results;
+          debugger;
+          this.customPagination = response.data.pagination;
+          this.hoverEffects();
+        })
+        .catch((error) => {
+          console.log(error.response);
+        });
     },
     initialize() {
       let vm = this;
+    },
+    paginateSearch(pageNum) {
+      console.log(pageNum);
     },
     eventPass() {
       let vm = this;
@@ -121,22 +142,21 @@ export default {
     },
   },
   watch: {
-    $route (to, from){
+    $route(to, from) {
       console.log(to);
-      console.log("to");
-      this.articleType = to.params.article_type
-      this.getArticles()
+      console.log('to');
+      this.articleType = to.params.article_type;
+      this.getArticles();
     },
-     articles: function (val) {
-       // debugger
-       let vm = this;
-       setTimeout(() =>{
-         // debugger
-         vm.hoverEffect()
-       },300)
-
+    articles: function(val) {
+      // debugger
+      let vm = this;
+      setTimeout(() => {
+        // debugger
+        vm.hoverEffect();
+      }, 300);
     },
-   },
+  },
 };
 </script>
 <style lang="scss">
@@ -154,10 +174,54 @@ export default {
     left: 300px;
   }
 }
+.pagination {
+  margin: 20px auto 0;
+  width: 400px;
+  ul {
+    display: flex;
+    list-style: none;
+    li {
+      flex: 1;
+      color: #000;
+      font-size: 14px;
+      font-weight: bold;
+      list-style: none;
+
+      &.page-item.active {
+        a {
+          color: #53127c;
+        }
+      }
+
+      &.prevlink {
+        a {
+          font-size: 30px;
+          position: relative;
+          top: -14px;
+          font-weight: normal;
+        }
+      }
+      &.nextlink {
+        a {
+          font-size: 30px;
+          position: relative;
+          top: -14px;
+          font-weight: normal;
+        }
+      }
+
+      a {
+        color: #000;
+        outline: none;
+        border: none;
+      }
+    }
+  }
+}
 .page-template {
   .articles-lists {
-    display:flex;
-    flex-wrap:wrap;
+    display: flex;
+    flex-wrap: wrap;
     width: 80%;
     margin: 0 auto;
     position: relative;
@@ -196,9 +260,9 @@ export default {
       padding: 15px 0;
     }
     .items {
-      width:33%;
-      padding:0 20px;
-      margin:100px 0;
+      width: 33%;
+      padding: 0 20px;
+      margin: 100px 0;
 
       .desc {
         font-family: 'Libre Baskerville', serif !important;
