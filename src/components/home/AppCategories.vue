@@ -170,7 +170,7 @@ export default {
   position: absolute;
   right: 0;
   top: 30px;
-  z-index:10;
+  z-index: 10;
   .actions {
     font-size: 12px;
     text-align: right;
@@ -271,7 +271,7 @@ export default {
   }
   .category-title {
     position: relative;
-    margin-bottom:50px;
+    margin-bottom: 50px;
     .title {
       font-family: 'Libre Baskerville', serif !important;
       font-weight: bold;
@@ -356,6 +356,9 @@ export default {
 }
 
 @media screen and (max-width: 992px) {
+  .category-actions {
+    display: none;
+  }
   .categories {
     width: 100% !important;
     max-width: 100%;
@@ -374,6 +377,7 @@ export default {
         clear: both;
         margin: 10px 0;
         width: 100%;
+        left: 0;
       }
     }
     .articles {
@@ -385,6 +389,20 @@ export default {
   }
 }
 @media screen and (max-width: 767px) {
+  .actions {
+    .previous {
+      display: none;
+    }
+    .next {
+      display: none;
+    }
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .categories .articles .items {
+    width: 100%;
+  }
   .actions {
     .previous {
       display: none;

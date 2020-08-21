@@ -22,7 +22,11 @@
         <v-row cols="12" class="filter" gutter>
           <v-col col="6" class="filter-title" gutter>
             <span class="content-title">Mart</span>
-            <span class="mart-items">{{ quantity }} items</span>
+            <span class="mart-items"
+              >{{ martItems.length }}
+              <span v-if="martItems.length === 1">item</span>
+              <span v-if="martItems.length > 1">items</span></span
+            >
           </v-col>
           <v-col col="6" class="filter-options" gutter>
             <span class="filter-by">
@@ -38,35 +42,44 @@
         </v-row>
         <v-row class="all-products">
           <ul>
-            <li v-for="item in items" v-scrollanimation>
+            <li
+              v-for="(item, index) in martItems"
+              :key="index"
+              v-if="index < perPage"
+              v-scrollanimation
+            >
               <v-row>
-                <v-col cols="12">
-                  <v-img
-                    data-cursor-hover
-                    :src="item.itemImage"
-                    class="item-image"
-                  ></v-img>
-                </v-col>
-                <v-col cols="12" class="item-desc">
-                  <div class="item-category">{{ item.category }}</div>
-                  <div class="item-name">{{ item.itemName }}</div>
-                  <div class="item-option">
-                    <div class="item-price">PHP {{ item.price }}</div>
-                    <button type="button" class="buy-this-bt">Buy This</button>
-                  </div>
-                </v-col>
+                <router-link :to="item.link">
+                  <v-col cols="12">
+                    <v-img
+                      data-cursor-hover
+                      :src="item.itemImage"
+                      class="item-image"
+                    ></v-img>
+                  </v-col>
+                  <v-col cols="12" class="item-desc">
+                    <div class="item-category">{{ item.category }}</div>
+                    <div class="item-name">{{ item.itemName }}</div>
+                    <div class="item-option">
+                      <div class="item-price">PHP {{ item.price }}</div>
+                      <button type="button" class="buy-this-bt">
+                        Buy This
+                      </button>
+                    </div>
+                  </v-col>
+                </router-link>
               </v-row>
             </li>
           </ul>
-          <div class="pagination">
+        </v-row>
+        <v-row>
+          <div v-if="martItems.length > 0" class="pagination">
             <paginate
-              :page-count="20"
-              :page-range="3"
-              :margin-pages="2"
+              v-model="pageNumber"
+              :page-count="pageCount"
               :click-handler="paginateSearch"
               :prev-class="'prevlink'"
               :next-class="'nextlink'"
-              :container-class="'pagination'"
               :prev-text="'<'"
               :next-text="'>'"
               :page-class="'page-item'"
@@ -113,54 +126,54 @@ export default {
       allProducts: ['Product A', 'Product B', 'Product C', 'Product D'],
       loading: false,
       preloader: require('@/assets/images/preloader.gif'),
-      items: [
-        {
-          category: 'Technology',
-          itemImage: require('@/assets/images/buy-this-item.png'),
-          itemName: 'Winter Set Clothes NY',
-          price: 23000,
-        },
-        {
-          category: 'Technology',
-          itemImage: require('@/assets/images/buy-this-item.png'),
-          itemName: 'Winter Set Clothes NY',
-          price: 23000,
-        },
-        {
-          category: 'Technology',
-          itemImage: require('@/assets/images/buy-this-item.png'),
-          itemName: 'Winter Set Clothes NY',
-          price: 23000,
-        },
-        {
-          category: 'Fashion',
-          itemImage: require('@/assets/images/buy-this-item.png'),
-          itemName: 'Winter Set Clothes NY',
-          price: 23000,
-        },
-        {
-          category: 'Technology',
-          itemImage: require('@/assets/images/buy-this-item.png'),
-          itemName: 'Winter Set Clothes NY',
-          price: 23000,
-        },
-        {
-          category: 'Technology',
-          itemImage: require('@/assets/images/buy-this-item.png'),
-          itemName: 'Winter Set Clothes NY',
-          price: 23000,
-        },
-      ],
+      martItems: [],
       quantity: 236,
+      customPagination: {},
+      totalRecords: 0,
+      pageNumber: 1,
+      pageCount: 1,
+      perPage: 1,
     };
   },
   mounted() {
     let vm = this;
     vm.eventPass();
+    vm.getMart();
   },
   methods: {
+    getMart(page) {
+      const vm = this;
+      vm.pageNumber = page ? page : vm.pageNumber;
+      vm.loading = true;
+      let url =
+        'articles?article_type=mart&per_page=' +
+        vm.perPage +
+        '&page=' +
+        vm.pageNumber;
+      this.$http.plain
+        .get(url)
+        .then((response) => {
+          vm.martItems = response.data.results;
+          vm.customPagination = response.data.pagination;
+          vm.perPage = vm.customPagination.per_page;
+          vm.totalRecords = parseInt(vm.customPagination.total_records);
+          vm.pageCount = parseInt((vm.totalRecords / vm.perPage).toFixed());
+          vm.pageCount = vm.pageCount < 1 ? 1 : vm.pageCount;
+          vm.searchBarShow = false;
+          vm.menuShow = false;
+          vm.isActive = false;
+          vm.loading = false;
+          vm.eventPass();
+        })
+        .catch((error) => {
+          console.log(error.response);
+        });
+    },
     paginateSearch(pageNum) {
-      console.log(pageNum);
+      const vm = this;
+      vm.getMart(pageNum);
+      document.body.scrollTop = 0;
+      document.documentElement.scrollTop = 0;
     },
     eventPass() {
       const vm = this;
@@ -283,10 +296,12 @@ export default {
         list-style: none;
         display: flex;
         flex-wrap: wrap;
+        width: 100%;
         li {
-          flex: 0 0 31%;
+          flex-basis: 31%;
           list-style: none;
           margin: 10px;
+
           .item-image {
             width: 100%;
             transition: 0.2s;
@@ -296,6 +311,10 @@ export default {
               position: relative;
               opacity: 0.7;
             }
+          }
+          a {
+            color: #000;
+            text-decoration: none;
           }
           .item-desc {
             text-align: left;
@@ -369,45 +388,53 @@ export default {
           }
         }
       }
-      .pagination {
-        margin: 20px auto 0;
-        ul {
-          display: flex;
-          li {
-            flex: 1;
-            color: #000;
-            font-size: 14px;
-            font-weight: bold;
+    }
+  }
+  .pagination {
+    margin: 80px auto 0;
+    position: relative;
+    text-align: center;
+    left: 0;
+    right: 0;
+    width: 400px;
+    ul {
+      padding: 0;
+      margin: 0;
+      display: flex;
+      li {
+        flex: 1;
+        color: #000;
+        list-style: none;
+        font-size: 14px;
+        font-weight: bold;
 
-            &.page-item.active {
-              a {
-                color: #53127c;
-              }
-            }
-
-            &.prevlink {
-              a {
-                font-size: 30px;
-                position: relative;
-                top: -14px;
-                font-weight: normal;
-              }
-            }
-            &.nextlink {
-              a {
-                font-size: 30px;
-                position: relative;
-                top: -14px;
-                font-weight: normal;
-              }
-            }
-
-            a {
-              color: #000;
-              outline: none;
-              border: none;
-            }
+        &.page-item.active {
+          a {
+            color: #53127c;
           }
+        }
+
+        &.prevlink {
+          a {
+            font-size: 30px;
+            position: relative;
+            top: -14px;
+            font-weight: normal;
+          }
+        }
+        &.nextlink {
+          a {
+            font-size: 30px;
+            position: relative;
+            top: -14px;
+            font-weight: normal;
+          }
+        }
+
+        a {
+          color: #000;
+          outline: none;
+          border: none;
         }
       }
     }
@@ -466,8 +493,26 @@ export default {
   }
 }
 @media screen and (max-width: 820px) {
+  .mart {
+    .pagination {
+      width: 300px;
+      ul {
+        padding: 0;
+        margin: 0;
+        li {
+          font-size: 12px;
+          &.prevlink a,
+          &.nextlink a {
+            font-size: 20px;
+            top: -7px;
+          }
+        }
+      }
+    }
+  }
+
   .mart .page-content .all-products ul li {
-    flex: 0 0 100%;
+    flex: 0 0 46%;
   }
   .filter {
     margin: 0;
@@ -489,8 +534,13 @@ export default {
 
 @media screen and (max-width: 480px) {
   .mart .page-content .all-products ul li {
-    flex: 0 0 100%;
+    flex: 0 0 93%;
+    .item-desc {
+      padding-left: 12px;
+      width: 85%;
+    }
   }
+
   .read-articles .article .article-images .article-label {
     font-weight: bold;
     font-size: 30px;

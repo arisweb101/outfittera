@@ -22,7 +22,11 @@
         <v-row cols="12" class="filter" gutter>
           <v-col col="6" class="filter-title" gutter>
             <span class="content-title">Search</span>
-            <span class="mart-items">{{ searchResultItems.length }} items</span>
+            <span class="mart-items"
+              >{{ searchResultItems.length }}
+              <span v-if="searchResultItems.length === 1">item</span>
+              <span v-if="searchResultItems.length > 1">items</span>
+            </span>
           </v-col>
           <v-col col="6" class="filter-options" gutter>
             <span class="filter-by">
@@ -45,31 +49,38 @@
             </div>
           </div>
           <ul>
-            <li v-for="item in searchResultItems" v-scrollanimation>
+            <li
+              v-for="(item, index) in searchResultItems"
+              v-scrollanimation
+              :key="index"
+              v-if="index < perPage"
+            >
               <v-row>
-                <v-col cols="12">
-                  <v-img
-                    data-cursor-hover
-                    :src="item.itemImage"
-                    class="item-image"
-                  ></v-img>
-                </v-col>
-                <v-col cols="12" class="item-desc">
-                  <div class="item-category">{{ item.category }}</div>
-                  <div class="item-name">{{ item.itemName }}</div>
-                </v-col>
+                <router-link :to="item.link">
+                  <v-col cols="12">
+                    <v-img
+                      data-cursor-hover
+                      :src="item.itemImage"
+                      class="item-image"
+                    ></v-img>
+                  </v-col>
+                  <v-col cols="12" class="item-desc">
+                    <div class="item-category">{{ item.category }}</div>
+                    <div class="item-name">{{ item.itemName }}</div>
+                  </v-col>
+                </router-link>
               </v-row>
             </li>
           </ul>
+        </v-row>
+        <v-row>
           <div v-if="searchResultItems.length > 0" class="pagination">
             <paginate
-              :page-count="customPagination.total_records || 0"
-              :page-range="customPagination.per_page"
-              :margin-pages="2"
+              v-model="pageNumber"
+              :page-count="pageCount"
               :click-handler="paginateSearch"
               :prev-class="'prevlink'"
               :next-class="'nextlink'"
-              :container-class="'pagination'"
               :prev-text="'<'"
               :next-text="'>'"
               :page-class="'page-item'"
@@ -117,46 +128,12 @@ export default {
       loading: false,
       preloader: require('@/assets/images/preloader.gif'),
       searchItem: '',
-      searchResultItems: [
-        // {
-        //   category: 'Technology',
-        //   itemImage: require('@/assets/images/buy-this-item.png'),
-        //   itemName: 'Winter Set Clothes NY',
-        //   price: 23000,
-        // },
-        // {
-        //   category: 'Technology',
-        //   itemImage: require('@/assets/images/buy-this-item.png'),
-        //   itemName: 'Winter Set Clothes NY',
-        //   price: 23000,
-        // },
-        // {
-        //   category: 'Fashion',
-        //   itemImage: require('@/assets/images/buy-this-item.png'),
-        //   itemName: 'Winter Set Clothes NY',
-        //   price: 23000,
-        // },
-        // {
-        //   category: 'Fashion',
-        //   itemImage: require('@/assets/images/buy-this-item.png'),
-        //   itemName: 'Winter Set Clothes NY',
-        //   price: 23000,
-        // },
-        // {
-        //   category: 'Technology',
-        //   itemImage: require('@/assets/images/buy-this-item.png'),
-        //   itemName: 'Winter Set Clothes NY',
-        //   price: 23000,
-        // },
-        // {
-        //   category: 'Fashion',
-        //   itemImage: require('@/assets/images/buy-this-item.png'),
-        //   itemName: 'Winter Set Clothes NY',
-        //   price: 23000,
-        // },
-      ],
-
+      searchResultItems: [],
       customPagination: {},
+      totalRecords: 0,
+      pageNumber: 1,
+      pageCount: 1,
+      perPage: 1,
     };
   },
   watch: {
@@ -169,19 +146,24 @@ export default {
   mounted() {
     let vm = this;
     vm.searchItem = vm.$route.query.items;
+    vm.showResult();
     vm.eventPass();
   },
   methods: {
-    showResult() {
+    showResult(page) {
       const vm = this;
+      vm.pageNumber = page ? page : vm.pageNumber;
       vm.loading = true;
       let url = 'search?q=' + vm.searchItem;
-
       this.$http.plain
         .get(url)
         .then((response) => {
           vm.searchResultItems = response.data.results;
           vm.customPagination = response.data.pagination;
+          vm.perPage = vm.customPagination.per_page;
+          vm.totalRecords = parseInt(vm.customPagination.total_records);
+          vm.pageCount = parseInt((vm.totalRecords / vm.perPage).toFixed());
+          vm.pageCount = vm.pageCount < 1 ? 1 : vm.pageCount;
           vm.searchBarShow = false;
           vm.menuShow = false;
           vm.isActive = false;
@@ -193,7 +175,10 @@ export default {
         });
     },
     paginateSearch(pageNum) {
-      console.log(pageNum);
+      const vm = this;
+      vm.showResult(pageNum);
+      document.body.scrollTop = 0;
+      document.documentElement.scrollTop = 0;
     },
     eventPass() {
       const vm = this;
@@ -328,8 +313,9 @@ export default {
         list-style: none;
         display: flex;
         flex-wrap: wrap;
+        width: 100%;
         li {
-          flex: 0 0 31%;
+          flex-basis: 31%;
           list-style: none;
           margin: 10px;
           .item-image {
@@ -342,6 +328,11 @@ export default {
               opacity: 0.7;
             }
           }
+          a {
+            color: #000;
+            text-decoration: none;
+          }
+
           .item-desc {
             text-align: left;
             padding-left: 20px;
@@ -414,45 +405,53 @@ export default {
           }
         }
       }
-      .pagination {
-        margin: 20px auto 0;
-        ul {
-          display: flex;
-          li {
-            flex: 1;
-            color: #000;
-            font-size: 14px;
-            font-weight: bold;
+    }
+  }
+  .pagination {
+    margin: 80px auto 0;
+    position: relative;
+    text-align: center;
+    left: 0;
+    right: 0;
+    width: 400px;
+    ul {
+      padding: 0;
+      margin: 0;
+      display: flex;
+      li {
+        flex: 1;
+        color: #000;
+        list-style: none;
+        font-size: 14px;
+        font-weight: bold;
 
-            &.page-item.active {
-              a {
-                color: #53127c;
-              }
-            }
-
-            &.prevlink {
-              a {
-                font-size: 30px;
-                position: relative;
-                top: -14px;
-                font-weight: normal;
-              }
-            }
-            &.nextlink {
-              a {
-                font-size: 30px;
-                position: relative;
-                top: -14px;
-                font-weight: normal;
-              }
-            }
-
-            a {
-              color: #000;
-              outline: none;
-              border: none;
-            }
+        &.page-item.active {
+          a {
+            color: #53127c;
           }
+        }
+
+        &.prevlink {
+          a {
+            font-size: 30px;
+            position: relative;
+            top: -14px;
+            font-weight: normal;
+          }
+        }
+        &.nextlink {
+          a {
+            font-size: 30px;
+            position: relative;
+            top: -14px;
+            font-weight: normal;
+          }
+        }
+
+        a {
+          color: #000;
+          outline: none;
+          border: none;
         }
       }
     }
@@ -511,8 +510,25 @@ export default {
   }
 }
 @media screen and (max-width: 820px) {
+  .search {
+    .pagination {
+      width: 300px;
+      ul {
+        padding: 0;
+        margin: 0;
+        li {
+          font-size: 12px;
+          &.prevlink a,
+          &.nextlink a {
+            font-size: 20px;
+            top: -7px;
+          }
+        }
+      }
+    }
+  }
   .search .page-content .all-products ul li {
-    flex: 0 0 100%;
+    flex: 0 0 46%;
   }
   .filter {
     margin: 0;
@@ -534,8 +550,13 @@ export default {
 
 @media screen and (max-width: 480px) {
   .search .page-content .all-products ul li {
-    flex: 0 0 100%;
+    flex: 0 0 93%;
+    .item-desc {
+      padding-left: 12px;
+      width: 85%;
+    }
   }
+
   .read-articles .article .article-images .article-label {
     font-weight: bold;
     font-size: 30px;

@@ -4,34 +4,37 @@
       <v-col cols="12" v-if="tagItems.length > 0">
         <span class="tag-cat">Tags</span>
         <span class="tag-items" v-for="tag in tagItems">
-        {{ tag }}
+          {{ tag }}
         </span>
       </v-col>
     </v-row>
     <v-row>
       <v-col cols="6" class="like">
-        <div class="heart" v-on:click="animateButton()"
-          v-bind:class="{heartClick : isHeartClicked}">
+        <div
+          class="heart"
+          v-on:click="animateButton()"
+          v-bind:class="{ heartClick: isHeartClicked }"
+        >
           <v-img :src="heart"></v-img>
         </div>
         <span class="like-quantity">{{ likeQuantity }} Hearts</span>
       </v-col>
       <v-col cols="6" class="tag-social">
-        <socialMediaLogos/>
-        </v-col>
+        <socialMediaLogos />
+      </v-col>
     </v-row>
   </div>
 </template>
 <script>
 import { CursorFx } from '@luxdamore/vue-cursor-fx';
 import '@luxdamore/vue-cursor-fx/dist/CursorFx.css';
-import socialMediaLogos from '@/components/socialMedia/socialMediaLogos.vue'
+import socialMediaLogos from '@/components/socialMedia/socialMediaLogos.vue';
 export default {
   name: 'Tags',
   props: ['tagItems', 'likeQuantity', 'slug'],
   components: {
     socialMediaLogos,
-    CursorFx
+    CursorFx,
   },
   data() {
     return {
@@ -40,57 +43,54 @@ export default {
       // likeQuantity: 44,
       convertion: '',
       // tagItems: ['Fashion', 'Vestibulum', 'Libero', 'Congue', 'Nulla',]
-    }
+    };
   },
-  mounted() {
-
-  },
+  mounted() {},
   methods: {
     animateButton(el) {
       let vm = this;
       vm.isHeartClicked = true;
-      setTimeout(function () {
+      setTimeout(function() {
         vm.isHeartClicked = false;
-      },300)
+      }, 300);
 
-      this.$emit('updateHearts', this.slug)
-    }
-
+      this.$emit('updateHearts', this.slug);
+    },
   },
   filters: {
     convertNumber: function(val) {
-      if(val >= 1000) {
+      if (val >= 1000) {
         this.convertion = 'K';
-      }else if(val >= 1000000) {
-        this.convertion = 'M'
+      } else if (val >= 1000000) {
+        this.convertion = 'M';
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>
 <style lang="scss" scope>
 .tags {
-  display:inline-block;
-  justify-content:space-between;
+  display: inline-block;
+  justify-content: space-between;
   flex-direction: row;
   .tag-cat {
-    margin-right:10px;
-    text-transform:uppercase;
+    margin-right: 10px;
+    text-transform: uppercase;
   }
   .tag-items {
-    display:inline-block;
-    margin:7px;
+    display: inline-block;
+    margin: 7px;
     padding: 6px 12px;
-    line-height:12px;
+    line-height: 12px;
     height: 24px;
-    color:#fff;
-    font-size:14px;
-    background: #C4C4C4;
+    color: #fff;
+    font-size: 14px;
+    background: #c4c4c4;
     border-radius: 4px;
-    text-transform:uppercase;
+    text-transform: uppercase;
 
     &:hover {
-       background: #999;
+      background: #999;
     }
   }
 }
@@ -101,9 +101,9 @@ export default {
     border-radius: 50%;
     box-sizing: border-box;
     opacity: 1;
-    float:left;
-    margin-right:10px;
-    cursor:pointer;
+    float: left;
+    margin-right: 10px;
+    cursor: pointer;
     position: relative;
     display: inline-block;
     overflow: visible;
@@ -124,8 +124,8 @@ export default {
       pointer-events: none;
     }
     &:active {
-      transition:0.2s;
-      transform:scale(1.2);
+      transition: 0.2s;
+      transform: scale(1.2);
     }
     &:after {
       position: absolute;
@@ -139,12 +139,14 @@ export default {
       opacity: 0;
       pointer-events: none;
     }
-    &:after, &:before {
+    &:after,
+    &:before {
       opacity: 0;
-	    box-shadow: 0 0 0 2px rgba(96, 38,134, 1);
+      box-shadow: 0 0 0 2px rgba(96, 38, 134, 1);
     }
 
-    &:after {}
+    &:after {
+    }
 
     &.heartClick:before {
       -webkit-animation: anim-effect-ivana-1 0.5s forwards;
@@ -156,7 +158,7 @@ export default {
       animation: anim-effect-ivana-2 0.5s forwards;
     }
 
-   @-webkit-keyframes anim-effect-ivana-1 {
+    @-webkit-keyframes anim-effect-ivana-1 {
       0% {
         opacity: 1;
         -webkit-transform: scale3d(0.5, 0.5, 1);
@@ -188,7 +190,8 @@ export default {
         -webkit-transform: scale3d(0.5, 0.5, 1);
         transform: scale3d(0.5, 0.5, 1);
       }
-      50%, 100% {
+      50%,
+      100% {
         opacity: 0;
         -webkit-transform: scale3d(1.2, 1.2, 1);
         transform: scale3d(1.2, 1.2, 1);
@@ -201,7 +204,8 @@ export default {
         -webkit-transform: scale3d(0.5, 0.5, 1);
         transform: scale3d(0.5, 0.5, 1);
       }
-      50%, 100% {
+      50%,
+      100% {
         opacity: 0;
         -webkit-transform: scale3d(1.2, 1.2, 1);
         transform: scale3d(1.2, 1.2, 1);
@@ -211,59 +215,61 @@ export default {
       width: 55%;
       margin: 16px auto 0;
     }
-
   }
   .like-quantity {
-      float:left;
-      display:inline-block;
-      position:relative;
-      top:17px;
-    }
+    float: left;
+    display: inline-block;
+    position: relative;
+    top: 17px;
+  }
 }
 .tag-social {
-    .social-logos {
-      left:0 !important;
-      top:13px !important;
-      float:right;
-      width:auto !important;
-      ul {
-        li {
-          display:inline-block;
-          margin:0 5px;
-        }
+  .social-logos {
+    left: 0 !important;
+    top: 13px !important;
+    float: right;
+    width: auto !important;
+    ul {
+      li {
+        display: inline-block;
+        margin: 0 5px;
       }
     }
   }
-  @media screen and (max-width:480px) {
-    .tags {
-      .tag-items {
-        padding:6px 8px;
+}
+@media screen and (max-width: 480px) {
+  .tags {
+    .tag-items {
+      padding: 6px 8px;
+    }
+    .like {
+      flex: 0 0 100%;
+      max-width: 100%;
+      width: 100%;
+      text-align: center;
+      .heart {
+        float: none;
+        margin: 0 auto;
+        top: 24px;
+        position: relative;
+        left: -13px;
       }
-      .like {
-        flex: 0 0 100%;
-        max-width: 100%;
-        width:100%;
-        text-align:center;
-        .heart {
-          float:none;
-          margin:0 auto;
-        }
-        .like-quantity {
-          float:none;
-          margin:0 auto;
-        }
+      .like-quantity {
+        float: none;
+        margin: 0 auto;
       }
-      .tag-social {
-        width:100%;
-        flex: 0 0 100%;
-        max-width: 100%;
-        text-align:center;
+    }
+    .tag-social {
+      width: 100%;
+      flex: 0 0 100%;
+      max-width: 100%;
+      text-align: center;
 
-        .social-logos {
-          margin:0 auto;
-          float:none;
-        }
+      .social-logos {
+        margin: 0 auto;
+        float: none;
       }
     }
   }
+}
 </style>

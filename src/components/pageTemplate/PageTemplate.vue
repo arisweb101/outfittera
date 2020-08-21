@@ -13,7 +13,7 @@
       class="page-content height100"
       v-bind:class="{ 'open-menu': menuShow, 'open-search': searchBarShow }"
     >
-      <Banner :pageTitle="pageTitle" :mainBanner="mainBanner" />
+      <Banner :pageTitle="articleType" :mainBanner="mainBanner" />
       <div no-gutters class="articles-lists">
         <div class="preloader" v-if="loading"><img :src="preloader" /></div>
         <div
@@ -21,6 +21,7 @@
           :key="item.id"
           class="items"
           data-aos="zoom-in-up"
+          v-if="index < perPage"
         >
           <router-link :to="'/' + articleType + '/' + item.slug">
             <div
@@ -36,9 +37,8 @@
       </div>
       <div class="pagination" v-if="!loading">
         <paginate
-          :page-count="customPagination.total_records || 0"
-          :page-range="customPagination.per_page"
-          :margin-pages="2"
+          v-model="pageNumber"
+          :page-count="pageCount"
           :click-handler="paginateSearch"
           :prev-class="'prevlink'"
           :next-class="'nextlink'"
@@ -78,11 +78,16 @@ export default {
       menuShow: false,
       searchBarShow: false,
       menuLogo: require('@/assets/images/logo-black.svg'),
-      pageTitle: 'Fashion Modes',
+      pageTitle: '',
       mainBanner: require('@/assets/images/banner-image.png'),
       preloader: require('@/assets/images/preloader.gif'),
       articles: [],
       articleType: '',
+      customPagination: {},
+      totalRecords: 0,
+      pageNumber: 1,
+      pageCount: 1,
+      perPage: 1,
     };
   },
   async mounted() {
@@ -93,16 +98,22 @@ export default {
     await vm.hoverEffect();
   },
   methods: {
-    getArticles() {
+    getArticles(page) {
       const vm = this;
+      vm.pageNumber = page ? page : vm.pageNumber;
       vm.loading = true;
       this.articles = [];
       let url = 'articles?article_type=' + this.articleType;
       this.$http.plain
         .get(url)
         .then((response) => {
-          this.articles = response.data.results;
-          this.customPagination = response.data.pagination;
+          vm.articles = response.data.results;
+          vm.customPagination = response.data.pagination;
+          vm.perPage = vm.customPagination.per_page;
+          vm.totalRecords = parseInt(vm.customPagination.total_records);
+          vm.pageCount = parseInt((vm.totalRecords / vm.perPage).toFixed());
+          vm.pageCount = vm.pageCount < 1 ? 1 : vm.pageCount;
+          vm.pageCount = vm.pageCount < 1 ? 1 : vm.pageCount;
           vm.hoverEffect();
           vm.loading = false;
         })
@@ -116,32 +127,9 @@ export default {
     },
     paginateSearch(pageNum) {
       const vm = this;
-      vm.loading = true;
-      this.articles = [];
-      let url = '';
-      if (pageNum === 1) {
-        url = 'articles?article_type=' + this.articleType;
-      } else {
-        url =
-          'articles?article_type=' +
-          this.articleType +
-          '&per_page=6&page' +
-          pageNum;
-      }
-      this.$http.plain
-        .get(url)
-        .then((response) => {
-          vm.articles = response.data.results;
-          vm.customPagination = response.data.pagination;
-          vm.hoverEffect();
-          vm.loading = false;
-          document.body.scrollTop = 0;
-          document.documentElement.scrollTop = 0;
-        })
-        .catch((error) => {
-          vm.loading = false;
-          console.log(error.response);
-        });
+      vm.getArticles(pageNum);
+      document.body.scrollTop = 0;
+      document.documentElement.scrollTop = 0;
     },
     eventPass() {
       let vm = this;
@@ -220,6 +208,7 @@ export default {
 .pagination {
   margin: 20px auto 0;
   width: 400px;
+  text-align: center;
   ul {
     display: flex;
     list-style: none;
@@ -310,7 +299,14 @@ export default {
       .desc {
         font-family: 'Libre Baskerville', serif !important;
         padding-bottom: 2em;
-        height: 100px;
+
+        p {
+          display: -webkit-box;
+          -webkit-line-clamp: 6;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
       }
     }
   }
@@ -346,20 +342,43 @@ export default {
 @media screen and (max-width: 992px) {
   .page-template {
     .articles-lists {
-      column-count: 2 !important;
+      .items {
+        width: 50%;
+      }
     }
   }
 }
 
 @media screen and (max-width: 767px) {
   // Page Template
-
+  .pagination {
+    width: 300px;
+    ul {
+      padding: 0;
+      margin: 0;
+      li {
+        font-size: 12px;
+        &.prevlink a,
+        &.nextlink a {
+          font-size: 20px;
+          top: -7px;
+        }
+      }
+    }
+  }
   .page-template {
     .page-title {
-      font-size: 26px;
+      font-size: 20px;
     }
     .articles-lists {
-      column-count: 1 !important;
+      left: 0;
+      right: 0;
+      width: 100%;
+      top: -100px;
+      .items {
+        width: 80%;
+        margin: 0 auto;
+      }
     }
   }
 

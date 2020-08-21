@@ -337,4 +337,9 @@ export default {
   transform: translateX(0px);
   transform: translateY(0px);
 }
+@media screen and (max-width: 767px) {
+  .menu-social {
+    display: none;
+  }
+}
 </style>
