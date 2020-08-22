@@ -40,10 +40,11 @@
                 <li
                   data-aos="zoom-in-up"
                   v-for="(item, index) in contentBlock1.imageList"
+                  :key="index"
                 >
                   <img
                     data-cursor-hover
-                    :style="{ backgroundImage: `url(${item.img})` }"
+                    :style="{ backgroundImage: `url(${item.images})` }"
                   />
                 </li>
               </ul>
@@ -54,26 +55,25 @@
           <v-row class="block-full-width">
             <v-col cols="12" md="12" class="uneven-image-list">
               <ul>
-                <li
-                  data-aos="zoom-in-up"
-                  v-for="(item, key, index) in contentBlock2.content"
-                  :key="key"
-                >
-                  <div class="cat-title" v-if="item.blockTitle">
-                    {{ item.blockTitle }}
+                <li data-aos="zoom-in-up">
+                  <div class="cat-title" v-if="contentBlock2.blockTitle">
+                    {{ contentBlock2.blockTitle }}
                   </div>
-                  <div class="cat-desc" v-if="item.desc">
-                    {{ item.desc }}
+                  <div class="cat-desc" v-if="contentBlock2.desc">
+                    {{ contentBlock2.desc }}
                   </div>
-                  <div class="cat-link" v-if="item.link">
+                  <div class="cat-link" v-if="contentBlock2.blockLink">
                     <router-link :to="'/travel-miles'">
-                      {{ item.link }}
+                      {{ contentBlock2.blockLink }}
                     </router-link>
                   </div>
+                </li>
+                <li v-for="(img, index) in contentBlock2.imageList">
                   <img
-                    v-if="item.img"
+                    :key="index"
+                    v-if="img.images"
                     data-cursor-hover
-                    :style="{ backgroundImage: `url(${item.img})` }"
+                    :style="{ backgroundImage: `url(${img.images})` }"
                   />
                 </li>
               </ul>
@@ -98,10 +98,11 @@
                 <li
                   data-aos="zoom-in-up"
                   v-for="(item, index) in contentBlock3.imageList"
+                  :key="index"
                 >
                   <img
                     data-cursor-hover
-                    :style="{ backgroundImage: `url(${item.img})` }"
+                    :style="{ backgroundImage: `url(${item.images})` }"
                   />
                   <div class="image-title">{{ item.title }}</div>
                 </li>
@@ -114,25 +115,49 @@
             <v-col cols="12" md="12" class="uneven-image-list">
               <ul>
                 <li
-                  data-aos="zoom-in-up"
-                  v-for="(item, key, index) in contentBlock4.content"
-                  :key="key"
+                  v-for="(img, index) in contentBlock4.imageList"
+                  v-if="index === 0"
                 >
-                  <div class="cat-title" v-if="item.blockTitle">
-                    {{ item.blockTitle }}
+                  <img
+                    :key="index"
+                    v-if="img.images"
+                    data-cursor-hover
+                    :style="{ backgroundImage: `url(${img.images})` }"
+                  />
+                </li>
+                <li data-aos="zoom-in-up">
+                  <div class="cat-title" v-if="contentBlock4.blockTitle">
+                    {{ contentBlock4.blockTitle }}
                   </div>
-                  <div class="cat-desc" v-if="item.desc">
-                    {{ item.desc }}
+                  <div class="cat-desc" v-if="contentBlock4.desc">
+                    {{ contentBlock4.desc }}
                   </div>
-                  <div class="cat-link" v-if="item.link">
+                  <div class="cat-link" v-if="contentBlock4.blockLink">
                     <router-link :to="'/technology-and-machine'">
-                      {{ item.link }}
+                      {{ contentBlock4.blockLink }}
                     </router-link>
                   </div>
+                </li>
+                <li
+                  v-for="(img, index) in contentBlock4.imageList"
+                  v-if="index === 1"
+                >
                   <img
-                    v-if="item.img"
+                    :key="index"
+                    v-if="img.images"
                     data-cursor-hover
-                    :style="{ backgroundImage: `url(${item.img})` }"
+                    :style="{ backgroundImage: `url(${img.images})` }"
+                  />
+                </li>
+                <li
+                  v-for="(img, index) in contentBlock4.imageList"
+                  v-if="index === 2"
+                >
+                  <img
+                    :key="index"
+                    v-if="img.images"
+                    data-cursor-hover
+                    :style="{ backgroundImage: `url(${img.images})` }"
                   />
                 </li>
               </ul>
@@ -147,27 +172,13 @@
               </div>
               <div class="subtitle">Let’s by play it by ear for now.</div>
               <p class="block-full-width-p">
-                This site was loved and unloved; misunderstood; lost and
-                recovered. Upon recovery, by accident, it was given a new soul
-                by my daughter. How would you like to call it..
+                {{ contactInfo.text1 }}
               </p>
               <div class="contact-video">
                 <img :src="videoIcon" />
               </div>
               <div class="block-full-width-p">
-                Based from the film, The Social Network, Mark Zuckerberg once
-                said that, “Facebook is like fashion. It never ends.” I couldn’t
-                agree more. I would say tech+fashion is infinite. Fashion is not
-                cheap but combined with tech, it could be somehow configurable,
-                affordable, sustainable and for all we know, scalable.
-              </div>
-              <div class="block-full-width-p">
-                That Mood tab of thoughts, on events, of vibe, of taste is Mine.
-                For other things la Mode for fashion, Miles for travel, Makers
-                for Home and Lifestyle, Machine for tech, and Mart for shop 🙂
-              </div>
-              <div class="block-full-width-p">
-                Me, currently doing AI at tech with flair without fail.
+                {{ contactInfo.text2 }}
               </div>
               <div class="contact-form">
                 <v-row justify="center">
@@ -251,110 +262,35 @@ export default {
       videoIcon: require('@/assets/images/video-icon.png'),
       aboutBanner: {
         aboutTitle: 'About Outfittera',
-        aboutDescription:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec pulvinar lectus,' +
-          'euismod efficitur urna. Vivamus fringilla metus sit amet nibh sollicitudin ullamcorper.' +
-          'Praesent non ipsum ut velit finibus aliquam. Sed vitae dignissim ante, at sodales magna.' +
-          'Vivamus auctor faucibus lectus, in maximus neque aliquam eget. Suspendisse vel tincidunt' +
-          'neque. Cras convallis condimentum orci, a congue odio pretium non.',
+        aboutDescription: '',
         aboutBannerImage: require('@/assets/images/banner-image.png'),
       },
       contentBlock1: {
         blockTitle: 'Fashion',
-        desc:
-          'Lorem Tortor sapien quis justo nunc et sed. Lacus, magna tortor urna, mi.' +
-          'quisque sed egestas magna nunc. Nibh pellentesque etiam felis cursus. Felis,' +
-          'praesent molestie nulla tincidunt. Feugiat mattis aliquam gravida egestas. Quam' +
-          'praesent molestie nulla tincidunt. ',
+        desc: '',
         blockLink: 'Find More',
-        imageList: [
-          {
-            img: require('@/assets/images/fashion1.png'),
-          },
-          {
-            img: require('@/assets/images/fashion2.png'),
-          },
-          {
-            img: require('@/assets/images/fashion3.png'),
-          },
-          {
-            img: require('@/assets/images/fashion4.png'),
-          },
-        ],
+        imageList: [],
       },
       contentBlock2: {
-        content: [
-          {
-            blockTitle: 'Travel',
-            desc:
-              'Lorem Tortor sapien quis justo nunc et sed. Lacus, magna tortor urna, mi.' +
-              'quisque sed egestas magna nunc. Nibh pellentesque etiam felis cursus. Felis,' +
-              'praesent molestie nulla tincidunt. Feugiat mattis aliquam gravida egestas. Quam' +
-              'praesent molestie nulla tincidunt. ',
-            link: 'Explore More',
-          },
-          {
-            img: require('@/assets/images/travel1.png'),
-            title: 'Volutpat mollis sem sit quam',
-          },
-          {
-            img: require('@/assets/images/travel2.png'),
-            title: 'Sit quis venenatis nec',
-          },
-          {
-            img: require('@/assets/images/travel3.png'),
-            title: 'Turpis ut sed nisl pellentesque',
-          },
-        ],
+        blockTitle: 'Travel',
+        desc: '',
+        blockLink: 'Explore More',
+        imageList: [],
       },
       contentBlock3: {
         blockTitle: 'Lifestyle',
-        desc:
-          'Lorem Tortor sapien quis justo nunc et sed. Lacus, magna tortor urna, mi.' +
-          'quisque sed egestas magna nunc. Nibh pellentesque etiam felis cursus. Felis,' +
-          'praesent molestie nulla tincidunt. Feugiat mattis aliquam gravida egestas. Quam' +
-          'praesent molestie nulla tincidunt. ',
+        desc: '',
         blockLink: 'Learn More',
-        imageList: [
-          {
-            img: require('@/assets/images/lifestyle1.png'),
-            title: 'Volutpat mollis sem sit quam',
-          },
-          {
-            img: require('@/assets/images/lifestyle2.png'),
-            title: 'Sit quis venenatis nec',
-          },
-          {
-            img: require('@/assets/images/lifestyle3.png'),
-            title: 'Turpis ut sed nisl pellentesque',
-          },
-        ],
+        imageList: [],
       },
       contentBlock4: {
-        content: [
-          {
-            img: require('@/assets/images/tech1.png'),
-            title: 'Volutpat mollis sem sit quam',
-          },
-          {
-            blockTitle: 'Technology',
-            desc:
-              'Lorem Tortor sapien quis justo nunc et sed. Lacus, magna tortor urna, mi.' +
-              'quisque sed egestas magna nunc. Nibh pellentesque etiam felis cursus. Felis,' +
-              'praesent molestie nulla tincidunt. Feugiat mattis aliquam gravida egestas. Quam' +
-              'praesent molestie nulla tincidunt. ',
-            link: 'Find More',
-          },
-          {
-            img: require('@/assets/images/tech2.png'),
-            title: 'Sit quis venenatis nec',
-          },
-          {
-            img: require('@/assets/images/tech3.png'),
-            title: 'Turpis ut sed nisl pellentesque',
-          },
-        ],
+        blockTitle: 'Technology',
+        desc: '',
+        blockLink: 'Find More',
+        imageList: [],
       },
+      response: {},
+      contactInfo: {},
       loading: false,
       preloader: require('@/assets/images/preloader.gif'),
       errorMessages: '',
@@ -374,8 +310,62 @@ export default {
   mounted() {
     const vm = this;
     vm.eventPass();
+    vm.getAbout();
   },
   methods: {
+    getAbout() {
+      const vm = this;
+      vm.loading = true;
+      this.articles = [];
+      let url = '/about';
+      this.$http.plain
+        .get(url)
+        .then((response) => {
+          vm.response = response.data;
+          vm.aboutBanner.aboutDescription = vm.response.about_outfiterra;
+          vm.contentBlock1 = {
+            blockTitle: 'Fashion',
+            desc: vm.response.fashion.copy,
+            blockLink: 'Find More',
+            imageList: vm.response.fashion.articles,
+          };
+          vm.contentBlock2 = {
+            blockTitle: 'Travel',
+            desc: vm.response.travel.copy,
+            blockLink: 'Explore More',
+            imageList: vm.response.travel.articles,
+          };
+          vm.contentBlock3 = {
+            blockTitle: 'Lifestyle',
+            desc: vm.response.lifestyle.copy,
+            blockLink: 'Find More',
+            imageList: vm.response.lifestyle.articles,
+          };
+          vm.contentBlock4 = {
+            blockTitle: 'Technology',
+            desc: vm.response.technology.copy,
+            blockLink: 'Explore More',
+            imageList: vm.response.technology.articles,
+          };
+          vm.contactInfo = {
+            text1: vm.response.contact_me_one,
+            text2: vm.response.contact_me_two,
+          };
+          debugger;
+          vm.customPagination = response.data.pagination;
+          vm.perPage = vm.customPagination.per_page;
+          vm.totalRecords = parseInt(vm.customPagination.total_records);
+          vm.pageCount = parseInt((vm.totalRecords / vm.perPage).toFixed());
+          vm.pageCount = vm.pageCount < 1 ? 1 : vm.pageCount;
+          vm.pageCount = vm.pageCount < 1 ? 1 : vm.pageCount;
+          vm.hoverEffect();
+          vm.loading = false;
+        })
+        .catch((error) => {
+          vm.loading = false;
+          console.log(error.response);
+        });
+    },
     eventPass() {
       let vm = this;
       eventBus.$on('menuOpen', (val) => {
@@ -435,6 +425,63 @@ export default {
   &.open-menu {
     transition: 0.6s ease;
     left: 300px;
+  }
+}
+.preloader {
+  margin: 0 auto;
+  position: absolute;
+  top: 250px;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  width: 250px;
+  img {
+    width: 100%;
+  }
+}
+.pagination {
+  margin: 20px auto 0;
+  width: 400px;
+  text-align: center;
+  ul {
+    display: flex;
+    list-style: none;
+    li {
+      flex: 1;
+      color: #000;
+      font-size: 14px;
+      font-weight: bold;
+      list-style: none;
+
+      &.page-item.active {
+        a {
+          color: #53127c;
+        }
+      }
+
+      &.prevlink {
+        a {
+          font-size: 30px;
+          position: relative;
+          top: -14px;
+          font-weight: normal;
+        }
+      }
+      &.nextlink {
+        a {
+          font-size: 30px;
+          position: relative;
+          top: -14px;
+          font-weight: normal;
+        }
+      }
+
+      a {
+        color: #000;
+        outline: none;
+        border: none;
+      }
+    }
   }
 }
 .about-template {

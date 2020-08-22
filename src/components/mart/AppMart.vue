@@ -28,17 +28,6 @@
               <span v-if="martItems.length > 1">items</span></span
             >
           </v-col>
-          <v-col col="6" class="filter-options" gutter>
-            <span class="filter-by">
-              <span class="filter-label">Filter By</span>
-              <v-select
-                class="select-product"
-                :items="allProducts"
-                label="All Products"
-                filled
-              ></v-select>
-            </span>
-          </v-col>
         </v-row>
         <v-row class="all-products">
           <ul>
@@ -49,7 +38,7 @@
               v-scrollanimation
             >
               <v-row>
-                <router-link :to="item.link">
+                <router-link :to="item.link" target="_blank">
                   <v-col cols="12">
                     <v-img
                       data-cursor-hover

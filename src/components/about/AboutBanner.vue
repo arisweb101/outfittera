@@ -30,20 +30,20 @@ export default {
     'aboutTitle',
     'authorName',
     'authorThumbnail',
-    'aboutDateCreated'
+    'aboutDateCreated',
   ],
   name: 'AboutBanner',
   components: {
-    SearchIcon
+    SearchIcon,
   },
   data() {
     return {
       whiteLogo: require('@/assets/images/logo-white.svg'),
-      icon: require('@/assets/images/search.png')
+      icon: require('@/assets/images/search.png'),
     };
   },
   mounted() {},
-  methods: {}
+  methods: {},
 };
 </script>
 <style lang="scss" scope>

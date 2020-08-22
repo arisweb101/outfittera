@@ -28,18 +28,6 @@
               <span v-if="searchResultItems.length > 1">items</span>
             </span>
           </v-col>
-          <v-col col="6" class="filter-options" gutter>
-            <span class="filter-by">
-              <span class="filter-label">Filter By</span>
-              <v-select
-                class="select-product"
-                :items="allProducts"
-                label="All Products"
-                filled
-              >
-              </v-select>
-            </span>
-          </v-col>
         </v-row>
         <v-row class="all-products">
           <div v-if="searchResultItems.length === 0">
@@ -56,7 +44,7 @@
               v-if="index < perPage"
             >
               <v-row>
-                <router-link :to="item.link">
+                <router-link :to="item.link" target="_blank">
                   <v-col cols="12">
                     <v-img
                       data-cursor-hover
@@ -154,7 +142,13 @@ export default {
       const vm = this;
       vm.pageNumber = page ? page : vm.pageNumber;
       vm.loading = true;
-      let url = 'search?q=' + vm.searchItem;
+      let url =
+        'search?q=' +
+        vm.searchItem +
+        '&per_page=' +
+        vm.perPage +
+        '&page=' +
+        vm.pageNumber;
       this.$http.plain
         .get(url)
         .then((response) => {
@@ -203,7 +197,7 @@ export default {
 <style lang="scss">
 .no-result {
   margin: 50px auto;
-  width: 400px;
+  max-width: 400px;
   height: 400px;
   display: block;
   position: absolute;

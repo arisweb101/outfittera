@@ -34,6 +34,7 @@
         v-for="(cat, key) in category"
         v-if="key !== 'next' && key !== 'prev'"
         cols="12"
+        :key="key"
       >
         <v-col cols="6" class="category-title">
           <div class="title">{{ key | textFormat }}</div>
