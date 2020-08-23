@@ -47,6 +47,7 @@
               "
               class="main-image"
             ></v-img>
+            <span v-html="content_block.content_data.image_caption"></span>
             <p class="block-title" v-if="content_block.content_data.title">
               {{ content_block.content_data.title }}
             </p>
