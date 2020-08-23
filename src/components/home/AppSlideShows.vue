@@ -5,17 +5,17 @@
       <searchIcon class="search-icon" :icon="searchIcon"/>
       <div class="slide-social-icons">
        <ul>
-         <li><a href=""><v-img class="facebook" :src="facebookIcon"></v-img></a></li>
-         <li><a href=""><v-img class="instagram" :src="instagramIcon"></v-img></a></v-img></li>
+         <li><a :href="$store.getters.share('fb')" target="_blank"><v-img class="facebook" :src="facebookIcon"></v-img></a></li>
+         <li><a :href="$store.getters.share('instagram')" target="_blank"><v-img class="instagram" :src="instagramIcon"></v-img></a></v-img></li>
        </ul>
       </div>
       <VueSlickCarousel v-if="spotlights && spotlights.length > 0" v-bind="settings" class="height100">
         <div  class="slide-item-container" v-for="item in spotlights" :key="item.id">
           <v-img data-cursor-hover gradient="to top right, rgba(83, 18, 124, 0), rgba(83, 18, 124, 0.47)" class="slide-item" :src="item.image">
-            <div class="slide-titles">
-            <div class="slide-title">{{ item.title }}</div>
-            <div class="slide-sub-title">{{ item.subTitle }}</div>
-          </div>
+            <router-link :to="'/' + item.article_type_slug + '/' + item.slug" tag="div" class="slide-titles">
+              <div class="slide-title">{{ item.title }}</div>
+              <div class="slide-sub-title">{{ item.subTitle }}</div>
+            </router-link>
           </v-img>
         </div>
       </VueSlickCarousel>

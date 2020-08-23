@@ -51,6 +51,13 @@ export default {
       if (vm.isSearchBarOpen) {
         vm.search = '';
       }
+
+      setTimeout(function(){
+        $('.search-field .v-input__control .v-input__slot .v-text-field__slot input').focus();
+      }, 500);
+
+
+      // $('body').unbind('mousewheel');
       vm.enableMouseWheel();
     });
   },

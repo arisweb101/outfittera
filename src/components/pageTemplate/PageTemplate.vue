@@ -87,7 +87,7 @@ export default {
       totalRecords: 0,
       pageNumber: 1,
       pageCount: 1,
-      perPage: 1,
+      perPage: 9,
     };
   },
   async mounted() {
@@ -103,7 +103,11 @@ export default {
       vm.pageNumber = page ? page : vm.pageNumber;
       vm.loading = true;
       this.articles = [];
-      let url = 'articles?article_type=' + this.articleType;
+      let url = 'articles?article_type=' + this.articleType +
+                '&per_page=' +
+                vm.perPage +
+                '&page=' +
+                vm.pageNumber;
       this.$http.plain
         .get(url)
         .then((response) => {

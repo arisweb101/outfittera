@@ -26,11 +26,11 @@
           <v-row class="block-full-width" v-scrollanimation>
             <v-col cols="12" md="12">
               <div class="block-full-width-title">
-                {{ contentBlock1.blockTitle }}
+                {{ mode.title }}
               </div>
-              <p class="block-full-width-p">{{ contentBlock1.desc }}</p>
-              <router-link :to="'/fashion-mode'" class="block-sub-label">
-                {{ contentBlock1.blockLink }}
+              <p class="block-full-width-p" v-html="mode.copy"></p>
+              <router-link :to="'/' +mode.article_type_slug" class="block-sub-label">
+                {{ mode.link_label }}
               </router-link>
             </v-col>
           </v-row>
@@ -39,13 +39,16 @@
               <ul>
                 <li
                   data-aos="zoom-in-up"
-                  v-for="(item, index) in contentBlock1.imageList"
+                  v-for="(item, index) in mode.articles"
                   :key="index"
                 >
+                <router-link :to="'/' + item.article_type_slug + '/' + item.slug">
                   <img
                     data-cursor-hover
                     :style="{ backgroundImage: `url(${item.images})` }"
                   />
+                </router-link>
+
                 </li>
               </ul>
             </v-col>
@@ -56,25 +59,25 @@
             <v-col cols="12" md="12" class="uneven-image-list">
               <ul>
                 <li data-aos="zoom-in-up">
-                  <div class="cat-title" v-if="contentBlock2.blockTitle">
-                    {{ contentBlock2.blockTitle }}
+                  <div class="cat-title" v-if="miles.title">
+                    {{ miles.title }}
                   </div>
-                  <div class="cat-desc" v-if="contentBlock2.desc">
-                    {{ contentBlock2.desc }}
-                  </div>
-                  <div class="cat-link" v-if="contentBlock2.blockLink">
-                    <router-link :to="'/travel-miles'">
-                      {{ contentBlock2.blockLink }}
+
+                  <div class="cat-desc" v-if="miles.copy" v-html="miles.copy"></div>
+                  <div class="cat-link" v-if="miles.article_type_slug">
+                    <router-link :to="'/' +miles.article_type_slug">
+                      {{ miles.link_label }}
                     </router-link>
                   </div>
                 </li>
-                <li v-for="(img, index) in contentBlock2.imageList">
-                  <img
-                    :key="index"
-                    v-if="img.images"
-                    data-cursor-hover
-                    :style="{ backgroundImage: `url(${img.images})` }"
-                  />
+                <li v-for="(img, index) in miles.articles">
+                  <router-link :to="'/' + img.article_type_slug + '/' + img.slug" tag="img"
+                      :key="index"
+                      v-if="img.images"
+                      data-cursor-hover
+                      :style="{ backgroundImage: `url(${img.images})` }"
+                    >
+                  </router-link>
                 </li>
               </ul>
             </v-col>
@@ -84,11 +87,11 @@
           <v-row class="block-full-width">
             <v-col cols="12" md="12">
               <div class="block-full-width-title">
-                {{ contentBlock3.blockTitle }}
+                {{ makers.title }}
               </div>
-              <p class="block-full-width-p">{{ contentBlock3.desc }}</p>
-              <router-link :to="'/lifestyle-makers'" class="block-sub-label">
-                {{ contentBlock3.blockLink }}
+              <p class="block-full-width-p" v-html="makers.copy"></p>
+              <router-link :to="'/' +makers.article_type_slug" class="block-sub-label">
+                {{ makers.link_label }}
               </router-link>
             </v-col>
           </v-row>
@@ -97,14 +100,16 @@
               <ul>
                 <li
                   data-aos="zoom-in-up"
-                  v-for="(item, index) in contentBlock3.imageList"
+                  v-for="(item, index) in makers.articles"
                   :key="index"
                 >
-                  <img
-                    data-cursor-hover
-                    :style="{ backgroundImage: `url(${item.images})` }"
-                  />
-                  <div class="image-title">{{ item.title }}</div>
+                  <router-link :to="'/' + item.article_type_slug + '/' + item.slug">
+                    <img
+                      data-cursor-hover
+                      :style="{ backgroundImage: `url(${item.images})` }"
+                    />
+                    <div class="image-title">{{ item.title }}</div>
+                  </router-link>
                 </li>
               </ul>
             </v-col>
@@ -115,7 +120,7 @@
             <v-col cols="12" md="12" class="uneven-image-list">
               <ul>
                 <li
-                  v-for="(img, index) in contentBlock4.imageList"
+                  v-for="(img, index) in machine.articles"
                   v-if="index === 0"
                 >
                   <img
@@ -126,39 +131,42 @@
                   />
                 </li>
                 <li data-aos="zoom-in-up">
-                  <div class="cat-title" v-if="contentBlock4.blockTitle">
-                    {{ contentBlock4.blockTitle }}
+                  <div class="cat-title" v-if="machine.title">
+                    {{ machine.title }}
                   </div>
-                  <div class="cat-desc" v-if="contentBlock4.desc">
-                    {{ contentBlock4.desc }}
-                  </div>
-                  <div class="cat-link" v-if="contentBlock4.blockLink">
-                    <router-link :to="'/technology-and-machine'">
-                      {{ contentBlock4.blockLink }}
+                  <div class="cat-desc" v-if="machine.copy" v-html="machine.copy"></div>
+                  <div class="cat-link" v-if="machine.link_label">
+                    <router-link :to="'/' +machine.article_type_slug">
+                      {{ machine.link_label }}
                     </router-link>
                   </div>
                 </li>
                 <li
-                  v-for="(img, index) in contentBlock4.imageList"
+                  v-for="(img, index) in machine.articles"
                   v-if="index === 1"
                 >
-                  <img
+                  <router-link
+                    :to="'/' + img.article_type_slug + '/' + img.slug" tag="img"
                     :key="index"
                     v-if="img.images"
                     data-cursor-hover
                     :style="{ backgroundImage: `url(${img.images})` }"
                   />
+                  </router-link>
+
                 </li>
                 <li
-                  v-for="(img, index) in contentBlock4.imageList"
+                  v-for="(img, index) in machine.articles"
                   v-if="index === 2"
                 >
-                  <img
+                  <router-link
+                    :to="'/' + img.article_type_slug + '/' + img.slug" tag="img"
                     :key="index"
                     v-if="img.images"
                     data-cursor-hover
                     :style="{ backgroundImage: `url(${img.images})` }"
-                  />
+                  >
+                  </router-link>
                 </li>
               </ul>
             </v-col>
@@ -170,16 +178,14 @@
               <div class="block-full-width-title">
                 Contact Me
               </div>
-              <div class="subtitle">Let’s by play it by ear for now.</div>
-              <p class="block-full-width-p">
-                {{ contactInfo.text1 }}
-              </p>
+              <div class="block-full-width-p" v-html="contactInfo.text1"></div>
               <div class="contact-video">
-                <img :src="videoIcon" />
+                <audio id="myAudio">
+                  <source src="https://outfittera.com/wp-content/uploads/2019/06/Mexicali-6.mp3" type="audio/mpeg">
+                </audio>
+                <img :src="videoIcon" @click="playAudio()" />
               </div>
-              <div class="block-full-width-p">
-                {{ contactInfo.text2 }}
-              </div>
+              <div class="block-full-width-p" v-html="contactInfo.text2"></div>
               <div class="contact-form">
                 <v-row justify="center">
                   <v-col cols="12" sm="12" md="12" lg="12">
@@ -212,8 +218,8 @@
                         required
                         :rules="[() => !!message || 'This field is required']"
                       ></v-textarea>
-                      <button type="button" class="submit-bt" @click="submit">
-                        Submit
+                      <button type="button" class="submit-bt" @click="submit" :disabled="sending">
+                        {{ sending ? 'Sending' : 'Submit' }}
                       </button>
                     </v-form>
                   </v-col>
@@ -221,6 +227,47 @@
               </div>
             </v-col>
           </v-row>
+
+          <v-dialog v-model="successDialog.show" max-width="500px">
+            <v-card>
+              <v-card-title>
+                <span class="headline">{{ successDialog.title }}</span>
+              </v-card-title>
+
+              <v-card-text>
+                <v-container>
+                  <v-row>
+                    {{ successDialog.message }}
+                  </v-row>
+                </v-container>
+              </v-card-text>
+
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn color="blue darken-1" text @click="successDialog.show='false'">Ok</v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
+
+          <v-snackbar
+            v-model="snackbar"
+            :top="true"
+            :center="true"
+            :color="'error'"
+            :timeout="3000"
+          >
+            {{ snackbarText }}
+
+            <!-- <v-btn
+              color="pink"
+              text
+              v-bind="attrs"
+              @click="snackbar = false"
+            >
+              Close
+            </v-btn> -->
+          </v-snackbar>
+
         </div>
       </div>
     </div>
@@ -255,6 +302,13 @@ export default {
   },
   data() {
     return {
+      snackbar: false,
+      snackbarText: '',
+      successDialog: {
+        show: false,
+        title: '',
+        message: ''
+      },
       forceImages: true,
       menuShow: false,
       searchBarShow: false,
@@ -265,33 +319,14 @@ export default {
         aboutDescription: '',
         aboutBannerImage: require('@/assets/images/banner-image.png'),
       },
-      contentBlock1: {
-        blockTitle: 'Fashion',
-        desc: '',
-        blockLink: 'Find More',
-        imageList: [],
-      },
-      contentBlock2: {
-        blockTitle: 'Travel',
-        desc: '',
-        blockLink: 'Explore More',
-        imageList: [],
-      },
-      contentBlock3: {
-        blockTitle: 'Lifestyle',
-        desc: '',
-        blockLink: 'Learn More',
-        imageList: [],
-      },
-      contentBlock4: {
-        blockTitle: 'Technology',
-        desc: '',
-        blockLink: 'Find More',
-        imageList: [],
-      },
+      mode: {},
+      miles: {},
+      makers: {},
+      machine: {},
       response: {},
       contactInfo: {},
       loading: false,
+      sending: false,
       preloader: require('@/assets/images/preloader.gif'),
       errorMessages: '',
       name: null,
@@ -313,6 +348,10 @@ export default {
     vm.getAbout();
   },
   methods: {
+    playAudio (){
+      let audio = document.getElementById("myAudio");
+      audio.play();
+    },
     getAbout() {
       const vm = this;
       vm.loading = true;
@@ -323,41 +362,16 @@ export default {
         .then((response) => {
           vm.response = response.data;
           vm.aboutBanner.aboutDescription = vm.response.about_outfiterra;
-          vm.contentBlock1 = {
-            blockTitle: 'Fashion',
-            desc: vm.response.fashion.copy,
-            blockLink: 'Find More',
-            imageList: vm.response.fashion.articles,
-          };
-          vm.contentBlock2 = {
-            blockTitle: 'Travel',
-            desc: vm.response.travel.copy,
-            blockLink: 'Explore More',
-            imageList: vm.response.travel.articles,
-          };
-          vm.contentBlock3 = {
-            blockTitle: 'Lifestyle',
-            desc: vm.response.lifestyle.copy,
-            blockLink: 'Find More',
-            imageList: vm.response.lifestyle.articles,
-          };
-          vm.contentBlock4 = {
-            blockTitle: 'Technology',
-            desc: vm.response.technology.copy,
-            blockLink: 'Explore More',
-            imageList: vm.response.technology.articles,
-          };
+          vm.mode = vm.response.mode
+          vm.miles = vm.response.miles
+          vm.makers = vm.response.makers
+          vm.machine = vm.response.machine
+
           vm.contactInfo = {
             text1: vm.response.contact_me_one,
             text2: vm.response.contact_me_two,
           };
-          debugger;
-          vm.customPagination = response.data.pagination;
-          vm.perPage = vm.customPagination.per_page;
-          vm.totalRecords = parseInt(vm.customPagination.total_records);
-          vm.pageCount = parseInt((vm.totalRecords / vm.perPage).toFixed());
-          vm.pageCount = vm.pageCount < 1 ? 1 : vm.pageCount;
-          vm.pageCount = vm.pageCount < 1 ? 1 : vm.pageCount;
+
           vm.hoverEffect();
           vm.loading = false;
         })
@@ -389,7 +403,32 @@ export default {
         this.$refs[f].validate(true);
       });
       if (this.formHasErrors === false) {
-        // Form Submit Function
+        let self = this
+        this.sending = true
+
+        let data = {
+          message: this.message,
+          email: this.email,
+          name: this.name
+        }
+
+
+
+        this.$http.secured.post('contact', data)
+          .then(response => {
+            this.successDialog.show = true
+          })
+          .catch(error => {
+            if (error.response) {
+              this.snackbarText = error.response.data
+            }else{
+              this.snackbarText = "Something went wrong! Please try again."
+            }
+            this.snackbar = true
+          })
+          .then(function () {
+            self.sending = false
+          })
       }
     },
   },

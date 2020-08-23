@@ -24,7 +24,7 @@
         :articleDateCreated="articleBanner.articleDateCreated"
         :articleBannerImage="articleBanner.articleBannerImage"
       />
-      <SocialMediaLogos v-if="!loading" class="social-logos-float" />
+      <SocialMediaLogos v-if="!loading" class="social-logos-float" :title="articleBanner.articleTitle" />
       <div class="article-content" v-if="!loading">
         <v-row
           class="block"
@@ -87,7 +87,7 @@
 
         <v-row>
           <v-col cols="12" md="12" v-scrollanimation>
-            <buyThis />
+            <!-- <buyThis /> -->
             <tags
               :tagItems="tagItems"
               :likeQuantity="likeQuantity"
@@ -236,6 +236,10 @@ export default {
           this.articleBanner.articleTitle = this.article.articleTitle;
           this.articleBanner.articleDateCreated = this.article.articleDateCreated;
           this.articleBanner.articleBannerImage = this.article.articleBannerImage;
+          this.articleBanner.authorThumbnail = this.article.authorImg;
+
+
+
           this.articleBanner.authorName = this.article.authorName;
 
           if (this.article.nextArticle) {
@@ -276,6 +280,7 @@ export default {
 };
 </script>
 <style lang="scss">
+
 #cursor-fx {
   z-index: 999999px;
 }

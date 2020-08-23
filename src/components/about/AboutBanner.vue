@@ -12,7 +12,7 @@
     <v-row class="banner-desc" no-gutters>
       <v-col class="about" cols="7" md="7" lg="7" sm="10" center>
         <div class="about-title">{{ aboutTitle }}</div>
-        <div class="about-description">{{ aboutDescription }}</div>
+        <div class="about-description" v-html="aboutDescription"></div>
       </v-col>
     </v-row>
   </v-layout>

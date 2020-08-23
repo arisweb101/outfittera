@@ -3,13 +3,13 @@
   <div class="page-title">{{ title }}</div>
    <v-row cols="6" md="6" class="">
      <v-col col="2" md="6" class="article" v-for="article in articles" :key="article.id">
-     <v-list-item  :to="article.path">
-     <v-list-item-content v-scrollanimation>
-      <v-img data-cursor-hover :src="article.image" class="article-images"> 
-        <div class="article-title">{{ article.label1 }}</div>
-        <div class="article-label">{{ article.label1 }}</div>
-      </v-img>
-      </v-list-item-content>
+     <v-list-item  :to="'/' + article.article_type_slug + '/' + article.slug">
+       <v-list-item-content v-scrollanimation>
+        <v-img data-cursor-hover :src="article.image" class="article-images">
+          <div class="article-title">{{ article.category }}</div>
+          <div class="article-label">{{ article.title }}</div>
+        </v-img>
+        </v-list-item-content>
       </v-list-item>
      </v-col>
    </v-row>
@@ -26,38 +26,24 @@ export default {
     data() {
       return{
         title: "Read Articles",
-        articles: [
-          { 
-            id:1,
-            image: require('@/assets/images/art-1.png'),
-            label1:"Fashion",
-            label2:"Mode",
-            path: '/fashion-mode'
-          },
-          {  
-            id:2,
-            image: require('@/assets/images/art-2.png'),
-            label1:"Travel",
-            label2:"Miles",
-            path: '/travel-miles'
-          },
-          {  
-            id:3,
-            image: require('@/assets/images/art-3.png'),
-            label1:"Lifestyle",
-            label2:"Makers",
-            path: '/lifestyle-makers'
-          },
-          {  
-            id:4,
-            image: require('@/assets/images/art-4.png'),
-            label1:"Technology",
-            label2:"Machine",
-            path: '/technology-and-machine'
-          },
-        ]
+        articles: []
      }
-    }
+   },
+   methods: {
+     getArticles (){
+       this.$http.plain
+         .get('articles/mart')
+         .then((response) => {
+           this.articles = response.data
+         })
+         .catch((error) => {
+           console.log(error.response);
+         });
+     }
+   },
+   mounted() {
+     this.getArticles()
+   }
 }
 </script>
 <style lang="scss">
@@ -87,7 +73,7 @@ export default {
         right:0;
         margin:0 auto;
         padding:2px 10px;
-        
+
       }
       .article-label {
         font-weight:bold;
@@ -106,9 +92,9 @@ export default {
         opacity:.7;
       }
     }
-    
+
   }
-  
+
 }
 .before-enter {
   opacity:0;

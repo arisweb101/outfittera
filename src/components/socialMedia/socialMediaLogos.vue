@@ -1,28 +1,29 @@
 <template>
     <div class="social-logos">
        <ul>
-        <li><router-link :to="facebook" target="_blank"><v-img class="s-logo" :src="facebook"></v-img></router-link></li>
-        <li><router-link :to="twitter" target="_blank"><v-img class="s-logo" :src="twitter"></v-img></router-link></li>
-        <li><router-link :to="web" target="_blank"><v-img class="s-logo" :src="web"></v-img></router-link></li>
+        <li><a :href="$store.getters.share('fb', '')" target="_blank"><v-img class="s-logo" :src="facebook"></v-img></a></li>
+        <li><a :href="$store.getters.share('twitter', title)" target="_blank"><v-img class="s-logo" :src="twitter"></v-img></a></li>
+        <li><a :href="$store.getters.share('pinterest')" target="_blank"><v-img class="s-logo" :src="pinterest"></v-img></a></li>
        </ul>
     </div>
 </template>
 <script>
   export default {
     name: 'SocialLogos',
+    props: ['title'],
     components: {
-     
+
     },
     data() {
       return{
         facebook: require('@/assets/images/fb-circle.png'),
         twitter: require('@/assets/images/twitter-circle.png'),
-        web: require('@/assets/images/web-circle.png'),
+        pinterest: require('@/assets/images/web-circle.png'),
       }
      },
       methods: {
         isMenuOpen() {
-         
+
         }
       }
   }
@@ -49,7 +50,7 @@
           transform: scale(1.2);
         }
       }
-     
+
     }
   }
 }

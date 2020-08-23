@@ -38,7 +38,7 @@
               v-scrollanimation
             >
               <v-row>
-                <router-link :to="item.link" target="_blank">
+                <a :href="item.link" target="_blank">
                   <v-col cols="12">
                     <v-img
                       data-cursor-hover
@@ -56,7 +56,7 @@
                       </button>
                     </div>
                   </v-col>
-                </router-link>
+                </a>
               </v-row>
             </li>
           </ul>
