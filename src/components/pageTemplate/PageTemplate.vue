@@ -79,7 +79,7 @@ export default {
       searchBarShow: false,
       menuLogo: require('@/assets/images/logo-black.svg'),
       pageTitle: '',
-      mainBanner: require('@/assets/images/banner-image.png'),
+      mainBanner: require('@/assets/images/machine.jpg'),
       preloader: require('@/assets/images/preloader.gif'),
       articles: [],
       articleType: '',
@@ -93,12 +93,14 @@ export default {
   async mounted() {
     const vm = this;
     this.articleType = this.$route.params.article_type;
+
     vm.eventPass();
     await vm.getArticles();
     await vm.hoverEffect();
   },
   methods: {
     getArticles(page) {
+      this.mainBanner = require('@/assets/images/'+this.articleType+'.jpg')
       const vm = this;
       vm.pageNumber = page ? page : vm.pageNumber;
       vm.loading = true;

@@ -121,7 +121,7 @@ export default {
       totalRecords: 0,
       pageNumber: 1,
       pageCount: 1,
-      perPage: 1,
+      perPage: 9,
     };
   },
   watch: {

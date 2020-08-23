@@ -65,6 +65,7 @@ export default {
   methods: {
     getSearchResult() {
       const vm = this;
+
       router.push({
         name: 'Search',
         query: { items: vm.search },

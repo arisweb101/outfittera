@@ -50,7 +50,7 @@
                     <div class="item-category">{{ item.category }}</div>
                     <div class="item-name">{{ item.itemName }}</div>
                     <div class="item-option">
-                      <div class="item-price">PHP {{ item.price }}</div>
+                      <div class="item-price">PHP {{ new Intl.NumberFormat().format(item.price) }}</div>
                       <button type="button" class="buy-this-bt">
                         Buy This
                       </button>
@@ -121,7 +121,7 @@ export default {
       totalRecords: 0,
       pageNumber: 1,
       pageCount: 1,
-      perPage: 1,
+      perPage: 9,
     };
   },
   mounted() {

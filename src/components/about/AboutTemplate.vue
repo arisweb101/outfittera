@@ -317,7 +317,7 @@ export default {
       aboutBanner: {
         aboutTitle: 'About Outfittera',
         aboutDescription: '',
-        aboutBannerImage: require('@/assets/images/banner-image.png'),
+        aboutBannerImage: require('@/assets/images/about.jpg'),
       },
       mode: {},
       miles: {},

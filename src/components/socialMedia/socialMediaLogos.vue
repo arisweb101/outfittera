@@ -3,7 +3,7 @@
        <ul>
         <li><a :href="$store.getters.share('fb', '')" target="_blank"><v-img class="s-logo" :src="facebook"></v-img></a></li>
         <li><a :href="$store.getters.share('twitter', title)" target="_blank"><v-img class="s-logo" :src="twitter"></v-img></a></li>
-        <li><a :href="$store.getters.share('pinterest')" target="_blank"><v-img class="s-logo" :src="pinterest"></v-img></a></li>
+        <li><a :href="$store.getters.share('pinterest', title)" target="_blank"><v-img class="s-logo" :src="pinterest"></v-img></a></li>
        </ul>
     </div>
 </template>
