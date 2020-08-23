@@ -14,7 +14,7 @@
       v-bind:class="{ 'open-menu': menuShow, 'open-search': searchBarShow }"
     >
       <div class="preloader" v-if="loading"><img :src="preloader" /></div>
-      <slideShows :spotlights="spotlights" v-if="!loading" />
+      <slideShows :spotlights="spotlights" :social="social" v-if="!loading" />
       <categories :mainCategories="mainCategories" v-if="!loading" />
     </v-row>
   </v-container>
@@ -44,6 +44,7 @@ export default {
       menuShow: false,
       searchBarShow: false,
       spotlights: [],
+      social: {},
       mainCategories: [],
       loading: false,
       preloader: require('@/assets/images/preloader.gif'),
@@ -68,6 +69,7 @@ export default {
           console.log(response.data);
           vm.spotlights = response.data.spotlights;
           vm.mainCategories = response.data.objects;
+          vm.social = response.data.social;
           vm.loading = false;
         })
         .catch((error) => {
