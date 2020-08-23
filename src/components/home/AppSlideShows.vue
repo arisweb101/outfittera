@@ -5,8 +5,8 @@
       <searchIcon class="search-icon" :icon="searchIcon"/>
       <div class="slide-social-icons">
        <ul>
-         <li><a :href="$store.getters.share('fb')" target="_blank"><v-img class="facebook" :src="facebookIcon"></v-img></a></li>
-         <li><a :href="$store.getters.share('instagram')" target="_blank"><v-img class="instagram" :src="instagramIcon"></v-img></a></v-img></li>
+         <li><a :href="social.fb_page" target="_blank"><v-img class="facebook" :src="facebookIcon"></v-img></a></li>
+         <li><a :href="social.instagram" target="_blank"><v-img class="instagram" :src="instagramIcon"></v-img></a></v-img></li>
        </ul>
       </div>
       <VueSlickCarousel v-if="spotlights && spotlights.length > 0" v-bind="settings" class="height100">
@@ -31,7 +31,7 @@ import eventBus from '@/event_bus';
 const vm = this;
 export default {
   name: 'Home',
-  props: ['spotlights'],
+  props: ['spotlights', 'social'],
   components: {
     VueSlickCarousel,
     eventBus,
