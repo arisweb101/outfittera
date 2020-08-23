@@ -16,9 +16,9 @@
     },
     data() {
       return{
-        facebook: require('@/assets/images/fb-circle.png'),
-        twitter: require('@/assets/images/twitter-circle.png'),
-        pinterest: require('@/assets/images/pinterest-cirlce.png'),
+        facebook: require('@/assets/images/fb-circle.svg'),
+        twitter: require('@/assets/images/twitter-circle.svg'),
+        pinterest: require('@/assets/images/pinterest-circle.svg'),
       }
      },
       methods: {

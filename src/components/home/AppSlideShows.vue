@@ -168,6 +168,8 @@ export default {
     margin:0;
     font-family: 'Libre Baskerville', serif;
     z-index:9;
+    cursor:pointer;
+
     .slide-title {
       font-size:40px;
       font-weight:bold;

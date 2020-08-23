@@ -207,7 +207,7 @@
                         :error-messages="errorMessages"
                         placeholder=""
                         required
-                        :rules="[emailRules.required, emailRules.validate]"
+                        :rules="emailRules"
                       ></v-text-field>
                       <v-textarea
                         ref="message"
@@ -332,13 +332,10 @@ export default {
       name: null,
       email: null,
       message: null,
-      emailRules: {
-        required: (value) => !!value || 'This field is required.',
-        validate: (value) => {
-          const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-          return pattern.test(value) || 'Invalid e-mail.';
-        },
-      },
+      emailRules: [
+        v => !!v || 'E-mail is required',
+        v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
+      ],
       formHasErrors: false,
     };
   },
@@ -398,11 +395,8 @@ export default {
     },
     submit() {
       this.formHasErrors = false;
-      Object.keys(this.form).forEach((f) => {
-        if (!this.form[f]) this.formHasErrors = true;
-        this.$refs[f].validate(true);
-      });
-      if (this.formHasErrors === false) {
+      this.formHasErrors = this.$refs.form.validate();
+      if (!this.formHasErrors === false) {
         let self = this
         this.sending = true
 
@@ -411,9 +405,6 @@ export default {
           email: this.email,
           name: this.name
         }
-
-
-
         this.$http.secured.post('contact', data)
           .then(response => {
             this.successDialog.show = true
@@ -607,6 +598,9 @@ export default {
           margin: 20px 10px;
           text-align: center;
 
+          img {
+              cursor:pointer;
+            }
           &:nth-child(3),
           &:nth-child(4) {
             height: 60vh;
@@ -948,6 +942,7 @@ export default {
         ul {
           li {
             height: 90vh !important;
+            
           }
         }
       }
