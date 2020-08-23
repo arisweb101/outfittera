@@ -18,7 +18,7 @@
       return{
         facebook: require('@/assets/images/fb-circle.png'),
         twitter: require('@/assets/images/twitter-circle.png'),
-        pinterest: require('@/assets/images/web-circle.png'),
+        pinterest: require('@/assets/images/pinterest-cirlce.svg'),
       }
      },
       methods: {
