@@ -444,6 +444,11 @@ export default {
 #cursor-fx {
   z-index: 999999px;
 }
+#myAudio {
+  img {
+    cursor:pointer;
+  }
+}
 .page-content {
   position: relative;
   min-height: 600px;
@@ -709,6 +714,7 @@ export default {
         margin: 20px auto;
         width: 200px;
         img {
+          cursor:pointer;
           width: 100%;
           display: block;
         }
