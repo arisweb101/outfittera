@@ -407,6 +407,8 @@ export default {
         }
         this.$http.secured.post('contact', data)
           .then(response => {
+            this.successDialog.title = 'Sent'
+            this.successDialog.message = response.data
             this.successDialog.show = true
           })
           .catch(error => {
@@ -951,7 +953,7 @@ export default {
         ul {
           li {
             height: 90vh !important;
-            
+
           }
         }
       }

@@ -34,10 +34,10 @@
         <span class="connect">Connect To</span>
         <ul>
           <li>
-            <a href=""><v-img :src="fbGrayIcon"></v-img> </a>
+            <a :href="socialPage.fb_page" target="_blank"><v-img :src="fbGrayIcon"></v-img> </a>
           </li>
           <li>
-            <a href=""><v-img :src="igGrayIcon"></v-img> </a>
+            <a :href="socialPage.instagram" target="_blank"><v-img :src="igGrayIcon"></v-img> </a>
           </li>
         </ul>
       </div>
@@ -66,6 +66,7 @@ export default {
       igGrayIcon: require('@/assets/images/ig-gray.svg'),
       isActive: '',
       menuShow: false,
+      socialPage: {},
       menus: [
         { title: 'Main', path: '/' },
         { title: 'Mode', path: '/mode' },
@@ -80,6 +81,7 @@ export default {
   mounted() {
     const vm = this;
     vm.eventPass();
+    this.getSocial();
     eventBus.$on('menuOpen', (val) => {
       vm.menuShow = val;
       vm.isActive = val;
@@ -87,6 +89,14 @@ export default {
     vm.enableMouseWheel();
   },
   methods: {
+    getSocial() {
+      let url = 'social';
+      this.$http.plain
+        .get(url)
+        .then((response) => {
+          this.socialPage = response.data.social;
+        });
+    },
     menuClick() {
       const vm = this;
       vm.isMenuOpen();
