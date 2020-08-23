@@ -677,7 +677,10 @@ export default {
             justify-content: space-between;
             height: 60vh;
             margin: 0 10px;
-
+            a {
+              color:#000;
+              text-decoration:none;
+            }
             img {
               width: 100%;
               height: 100%;
