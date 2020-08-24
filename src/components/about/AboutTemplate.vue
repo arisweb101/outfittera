@@ -244,7 +244,7 @@
 
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="blue darken-1" text @click="successDialog.show='false'">Ok</v-btn>
+                <v-btn color="blue darken-1" text @click="successDialog.show=false">Ok</v-btn>
               </v-card-actions>
             </v-card>
           </v-dialog>
