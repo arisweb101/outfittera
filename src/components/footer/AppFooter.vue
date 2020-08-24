@@ -85,7 +85,7 @@ export default {
         font-size:14px;
          
         a {
-          color:#fff;
+          color:#fff !important;
           text-transform:uppercase;
           text-decoration:none;
           transition: 0.2s;

@@ -237,9 +237,6 @@ export default {
           this.articleBanner.articleDateCreated = this.article.articleDateCreated;
           this.articleBanner.articleBannerImage = this.article.articleBannerImage;
           this.articleBanner.authorThumbnail = this.article.authorImg;
-
-
-
           this.articleBanner.authorName = this.article.authorName;
 
           if (this.article.nextArticle) {
@@ -385,6 +382,7 @@ export default {
     list-style: none;
     display: flex;
     flex-wrap:wrap;
+    cursor:pointer;
     img {
       cursor:pointer;
     }
@@ -462,7 +460,7 @@ export default {
       width: fit-content !important;
       position: relative;
       left: 0 !important;
-      top: 345px !important;
+      top: 372px !important;
       text-align: center;
       right: 0;
       margin: 0 auto;
@@ -486,10 +484,11 @@ export default {
         width: fit-content;
         right: 0;
         position: relative;
+        height:400px;
       }
       .author {
         position: absolute;
-        bottom: 70px !important;
+        bottom: 33px !important;
         color: #000;
         left: 0;
         width: 100px;
@@ -549,11 +548,22 @@ export default {
     }
   }
 }
+
 @media screen and (max-width: 480px) {
   // Article
   .article-template {
     .banner {
       height: auto;
+    }
+    .article-content {
+      top:450px !important;
+    }
+    
+    .artitle-title {
+      font-size:22px !important;
+    }
+    .social-logos-float { 
+      top:400px !important;
     }
   }
 }

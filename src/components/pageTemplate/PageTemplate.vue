@@ -311,7 +311,7 @@ export default {
 
         p {
           display: -webkit-box;
-          -webkit-line-clamp: 6;
+          -webkit-line-clamp: 4;
           -webkit-box-orient: vertical;
           overflow: hidden;
           text-overflow: ellipsis;
@@ -386,7 +386,7 @@ export default {
       top: -100px;
       .items {
         width: 80%;
-        margin: 0 auto;
+        margin: 50px auto 0;
       }
     }
   }

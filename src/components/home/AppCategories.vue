@@ -35,13 +35,14 @@
         v-if="key !== 'next' && key !== 'prev'"
         cols="12"
         :key="key"
+        class="category-items"
       >
         <v-col cols="6" class="category-title">
           <div class="title">{{ key | textFormat }}</div>
           <div :id="key"></div>
         </v-col>
-        <v-col
-          cols="12"
+        <div
+          
           no-gutters
           class="articles"
           v-if="key !== 'next' && key !== 'prev'"
@@ -61,7 +62,7 @@
               <span class="desc" v-html="item.description"></span>
             </router-link>
           </div>
-        </v-col>
+        </div>
       </v-row>
     </v-row>
   </v-col>
@@ -165,7 +166,9 @@ export default {
   -ms-flex-align: center;
   align-items: center;
 }
-
+.category-items {
+  width:100%;
+}
 .category-actions {
   position: absolute;
   right: 0;
@@ -268,6 +271,7 @@ export default {
   .category {
     position: relative;
     margin-bottom: 30px;
+    width:100%;
   }
   .category-title {
     position: relative;
@@ -377,7 +381,6 @@ export default {
     flex: 0 0 100% !important;
     padding: 20px !important;
     text-align: center;
-    margin-top: 70px;
 
     .category-title {
       width: 100% !important;
@@ -392,6 +395,7 @@ export default {
     }
     .articles {
       column-count: 1 !important;
+      width:100%;
     }
     .previous {
       top: -6px;
