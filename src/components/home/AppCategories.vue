@@ -83,7 +83,7 @@ export default {
     return {
       isMenuOpen: false,
       showImages: true,
-      hoy: {},
+      forceImages:true
     };
   },
   created() {

@@ -47,7 +47,6 @@
               "
               class="main-image"
             ></v-img>
-            <span v-html="content_block.content_data.image_caption"></span>
             <p class="block-title" v-if="content_block.content_data.title">
               {{ content_block.content_data.title }}
             </p>
@@ -386,6 +385,9 @@ export default {
     list-style: none;
     display: flex;
     flex-wrap:wrap;
+    img {
+      cursor:pointer;
+    }
     .open-tinybox {
       width: 30%;
       text-align: center;

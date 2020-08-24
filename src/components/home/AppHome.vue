@@ -62,7 +62,7 @@ export default {
       const vm = this;
       vm.loading = true;
       let url = 'home';
-      this.$http.plain
+      this.$http.secured
         .get(url)
         .then((response) => {
           console.log('HOME');
