@@ -53,7 +53,9 @@
             class="items"
           >
             <router-link :to="'/' + item.article_type_slug + '/' + item.slug">
-              <div class="article-image" :class="item.id"></div>
+              <!-- <div class="article-image" :class="item.id"></div> -->
+               
+              <img :style="{ backgroundImage: `url(${item.images})` }" class="article-image">
               <div class="source">{{ item.source }}</div>
               <div class="title">{{ item.title }}</div>
               <span class="desc" v-html="item.description"></span>
@@ -86,23 +88,20 @@ export default {
       forceImages:true
     };
   },
-  created() {
-    let vm = this;
-    vm.hoverEffect();
-  },
+ 
   async mounted() {
     let vm = this;
     eventBus.$on('menuOpen', (val) => {
       vm.isMenuOpen = val;
     });
     await vm.initialize();
-    vm.hoverEffect();
+    await vm.hoverStyle();
   },
   watch: {
     mainCategories: function(val) {
       let vm = this;
       setTimeout(() => {
-        vm.hoverEffect();
+        vm.hoverStyle();
       }, 300);
     },
   },
@@ -110,14 +109,14 @@ export default {
     initialize() {
       const vm = this;
     },
-    hoverEffect() {
+    hoverStyle() {
       const vm = this;
       vm.mainCategories.forEach((category, index) => {
         Object.keys(category).forEach((item, ind) => {
           if (item !== 'next' && item !== 'prev') {
             category[item].forEach((article) => {
               let selector = '.' + article.id;
-              let image1 = article.images;
+              let image1 = 'http://irp.pww.mybluehost.me/uploads/articles/148/test_thumb.jpg?cb=1598198906'
               new hoverEffect({
                 parent: document.querySelector(selector),
                 intensity: 0.3,
@@ -295,11 +294,11 @@ export default {
       transition: 0.2s;
       width: 100%;
       height: 300px;
+      background-size: cover;
+      background-position: center center;
       &:hover {
-        transition: 0.2s;
-        transform: translate3d(0, -6px, 0);
-        position: relative;
-        opacity: 0.7;
+        transform: scale(1.02, 1.02);
+	      z-index: 9;
       }
     }
     .source {

@@ -93,7 +93,6 @@ export default {
   async mounted() {
     const vm = this;
     this.articleType = this.$route.params.article_type;
-
     vm.eventPass();
     await vm.getArticles();
     await vm.hoverEffect();
@@ -300,7 +299,7 @@ export default {
     .items {
       width: 33%;
       padding: 0 20px;
-      margin: 100px 0;
+      margin: 50px 0 0;
 
       .desc {
         font-family: 'Libre Baskerville', serif !important;
