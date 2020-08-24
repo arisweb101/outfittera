@@ -43,9 +43,10 @@
                   :key="index"
                 >
                 <router-link :to="'/' + item.article_type_slug + '/' + item.slug">
-                  <img
+                  <v-img
                     data-cursor-hover
-                    :style="{ backgroundImage: `url(${item.images})` }"
+                    :src="item.images"
+                    class="article-image"
                   />
                 </router-link>
 
@@ -568,11 +569,16 @@ export default {
             justify-content: space-between;
             height: 60vh;
             margin: 0 10px;
-
+            .article-image {
+              background-size: cover;
+              background-position:center;
+              height:100%;
+            }
             img {
               width: 100%;
               height: 100%;
               background-size: cover;
+              background-position:center;
             }
 
             &:first-child,
