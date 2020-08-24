@@ -182,6 +182,17 @@ export default {
       }, 300);
     },
   },
+  beforeDestroy() {
+    const vm = this;
+    const dataToBeDestroy = ['article', 'customPagination', 'perPage', 'totalRecords', 'pageCount'];
+    dataToBeDestroy.forEach(data => {
+      vm[data] = null;
+      delete vm[data];
+    });
+  },
+  destroyed() {
+    this.$destroy();
+  }
 };
 </script>
 <style lang="scss">

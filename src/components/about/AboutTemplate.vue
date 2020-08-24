@@ -364,12 +364,10 @@ export default {
           vm.miles = vm.response.miles
           vm.makers = vm.response.makers
           vm.machine = vm.response.machine
-
           vm.contactInfo = {
             text1: vm.response.contact_me_one,
             text2: vm.response.contact_me_two,
           };
-
           vm.hoverEffect();
           vm.loading = false;
         })
@@ -441,6 +439,19 @@ export default {
       this.errorMessages = '';
     },
   },
+  beforeDestroy() {
+    const vm = this;
+    const dataToBeDestroy = ['aboutBanner', 'mode',
+    'miles', 'makers', 'machine', 'contactInfo',
+     'successDialog', 'snackbarText'];
+    dataToBeDestroy.forEach(data => {
+      vm[data] = null;
+      delete vm[data];
+    });
+  },
+  destroyed() {
+    this.$destroy();
+  }
 };
 </script>
 <style lang="scss">

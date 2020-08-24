@@ -21,7 +21,7 @@ Vue.use(hoverEffect);
 Vue.use(Tinybox);
 Vue.use(VueScrollTo);
 Vue.directive('scrollanimation', ScrollAnimation);
-// Vue.use(VueAxios, axios);
+
 
 Vue.config.productionTip = false;
 

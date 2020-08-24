@@ -94,6 +94,17 @@ export default {
       vm.menuShow = false;
     },
   },
+  beforeDestroy() {
+    const vm = this;
+    const dataToBeDestroy = ['spotlights', 'mainCategories'];
+    dataToBeDestroy.forEach(data => {
+      vm[data] = null;
+      delete vm[data];
+    });
+  },
+  destroyed() {
+    this.$destroy();
+  }
 };
 </script>
 <style lang="scss">
