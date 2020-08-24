@@ -22,7 +22,7 @@
         <div class="artitle-titles">
           <div class="artitle-category">{{ articleCategory }}</div>
           <div class="artitle-title">{{ articleTitle }}</div>
-          <div class="artitle-author">feat. {{ authorName }}</div>
+          <!-- <div class="artitle-author">feat. {{ authorName }}</div> -->
         </div>
         <div class="author">
           <v-avatar>
