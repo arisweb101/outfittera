@@ -384,12 +384,13 @@ export default {
     margin: 30px 0;
     list-style: none;
     display: flex;
-    justify-content: space-between;
+    flex-wrap:wrap;
     .open-tinybox {
-      width: 32%;
+      width: 30%;
       text-align: center;
       line-height: 75px;
       font-size: 30px;
+      margin: 8px;
     }
   }
 }
