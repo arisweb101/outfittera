@@ -54,7 +54,7 @@
           >
             <router-link :to="'/' + item.article_type_slug + '/' + item.slug">
               <!-- <div class="article-image" :class="item.id"></div> -->
-               
+                
               <img :style="{ backgroundImage: `url(${item.images})` }" class="article-image">
               <div class="source">{{ item.source }}</div>
               <div class="title">{{ item.title }}</div>
@@ -296,6 +296,8 @@ export default {
       height: 300px;
       background-size: cover;
       background-position: center center;
+      border:none;
+      outline:none;
       &:hover {
         transform: scale(1.02, 1.02);
 	      z-index: 9;

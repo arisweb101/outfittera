@@ -73,7 +73,7 @@
               <img
                 v-for="(img, idx) in content_block.content_data.galleries"
                 data-cursor-hover
-                :src="getImageUrl(img, '_small')"
+                :style="{ backgroundImage: `url(${getImageUrl(img, '_small')})` }"
                 :alt="img.description"
                 :caption="img.description"
                 class="open-tinybox"
@@ -392,8 +392,12 @@ export default {
       width: 30%;
       text-align: center;
       line-height: 75px;
+      height: 200px;
       font-size: 30px;
+      background-size: cover;
       margin: 8px;
+      background-position: center;
+     
     }
   }
 }

@@ -24,11 +24,12 @@
           v-if="index < perPage"
         >
           <router-link :to="'/' + articleType + '/' + item.slug">
-            <div
+           <!-- <div
               :class="item.id"
               :eager="forceImages"
               class="article-image"
-            ></div>
+            ></div> -->
+             <img :style="{ backgroundImage: `url(${item.images})` }" class="article-image">
             <div class="source">{{ item.source }}</div>
             <div class="title">{{ item.title }}</div>
             <div class="desc" v-html="item.description"></div>
@@ -267,16 +268,19 @@ export default {
       transition: 0.2s;
       width: 100%;
       height: 300px;
+      background-size: cover;
+      background-position: center center;
+      border:none;
+      outline:none;
+      &:hover {
+        transform: scale(1.02, 1.02);
+	      z-index: 9;
+      }
       canvas {
         position: absolute;
         background-color: #fff;
       }
-      &:hover {
-        transition: 0.2s;
-        transform: translate3d(0, -6px, 0);
-        position: relative;
-        opacity: 0.9;
-      }
+      
     }
     a {
       color: #000;
