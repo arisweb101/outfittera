@@ -22,7 +22,7 @@
         <v-row cols="12" class="filter" gutter>
           <v-col col="6" class="filter-title" gutter>
             <span class="content-title">Search</span>
-            <span class="mart-items"
+            <span class="mart-items" v-if="searchResultItems.length !== 0"
               >{{ searchResultItems.length }}
               <span v-if="searchResultItems.length === 1">item</span>
               <span v-if="searchResultItems.length > 1">items</span>
@@ -32,8 +32,10 @@
         <v-row class="all-products">
           <div v-if="searchResultItems.length === 0">
             <div class="no-result">
-              <v-icon>fa fa-search</v-icon>
-              <span> No "{{ searchItem }}" items found </span>
+              <div class="search"><img :src="noresult"></div>
+              <div class="label1">Oops, item not found</div>
+              <div class="label2">We cannot find the item you are searching for. <br>
+              Please try again.</div>
             </div>
           </div>
           <ul>
@@ -112,6 +114,7 @@ export default {
       searchBarShow: false,
       blackLogo: require('@/assets/images/logo-black.svg'),
       icon: require('@/assets/images/search-gray.png'),
+      noresult: require('@/assets/images/no-result.png'),
       allProducts: ['Product A', 'Product B', 'Product C', 'Product D'],
       loading: false,
       preloader: require('@/assets/images/preloader.gif'),
@@ -196,8 +199,8 @@ export default {
 </script>
 <style lang="scss">
 .no-result {
-  margin: 50px auto;
-  max-width: 400px;
+  margin: 0px auto;
+  max-width: 700px;
   height: 400px;
   display: block;
   position: absolute;
@@ -205,6 +208,24 @@ export default {
   right: 0;
   text-align: center;
   font-size: 36px;
+  .search {
+    width:200px;
+    margin:0 auto;
+    img {
+      width:100%;
+    }
+    
+  }
+  .label1 {
+    color: #53127c;
+    font-size:40px;
+    margin:10px 0 20px;
+    font-weight:bold;
+  }
+  .label2 {
+    font-size:18px;
+    color:#5c5c3c;
+  }
 }
 .preloader {
   margin: 0 auto;
