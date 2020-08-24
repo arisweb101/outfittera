@@ -55,7 +55,7 @@
             <router-link :to="'/' + item.article_type_slug + '/' + item.slug">
               <!-- <div class="article-image" :class="item.id"></div> -->
                 
-              <img :style="{ backgroundImage: `url(${item.images})` }" class="article-image">
+              <v-img :src="item.images" class="article-image"></v-img>
               <div class="source">{{ item.source }}</div>
               <div class="title">{{ item.title }}</div>
               <span class="desc" v-html="item.description"></span>
@@ -288,6 +288,10 @@ export default {
     a {
       color: #000;
       text-decoration: none;
+
+      &:focus {
+        outline:none;
+      }
     }
 
     .article-image {
@@ -298,6 +302,10 @@ export default {
       background-position: center center;
       border:none;
       outline:none;
+      &:focus {
+        border:none;
+      outline:none;
+      }
       &:hover {
         transform: scale(1.02, 1.02);
 	      z-index: 9;

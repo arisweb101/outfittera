@@ -29,7 +29,7 @@
               :eager="forceImages"
               class="article-image"
             ></div> -->
-             <img :style="{ backgroundImage: `url(${item.images})` }" class="article-image">
+             <v-img :src="item.images" class="article-image"></v-img>
             <div class="source">{{ item.source }}</div>
             <div class="title">{{ item.title }}</div>
             <div class="desc" v-html="item.description"></div>

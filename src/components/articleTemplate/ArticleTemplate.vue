@@ -70,17 +70,17 @@
             v-if="content_block.content_type == 'gallery'"
           >
             <div class="light-box">
-              <img
+              <v-img
                 v-for="(img, idx) in content_block.content_data.galleries"
                 data-cursor-hover
-                :style="{ backgroundImage: `url(${getImageUrl(img, '_small')})` }"
+                :src="getImageUrl(img, '_small')"
                 :alt="img.description"
                 :caption="img.description"
                 class="open-tinybox"
                 @click="
                   getGalleryImages(idx, content_block.content_data.galleries)
                 "
-              />
+              /></v-img>
             </div>
           </v-col>
         </v-row>
