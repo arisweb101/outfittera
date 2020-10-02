@@ -117,6 +117,15 @@ import eventBus from '@/event_bus';
 import '@luxdamore/vue-cursor-fx/dist/CursorFx.css';
 export default {
   name: 'Template',
+  metaInfo () {
+    return {
+      title: this.meta.title,
+      meta: [
+        { name: 'description', content: this.meta.description },
+        { name: 'keywords', content: this.meta.keywords }
+      ],
+    }
+  },
   components: {
     Menu,
     ArticleBanner,
@@ -130,6 +139,11 @@ export default {
   },
   data() {
     return {
+      meta: {
+        title: '',
+        description: '',
+        keywords: ''
+      },
       menuShow: false,
       searchBarShow: false,
       menuLogo: require('@/assets/images/logo-black.svg'),
@@ -231,6 +245,7 @@ export default {
         .then((response) => {
           console.log(response.data);
           this.article = response.data;
+          vm.meta = response.data.meta;
           this.content_blocks = this.article.content_blocks;
           this.articleBanner.articleCategory = this.article.articleCategory;
           this.articleBanner.articleTitle = this.article.articleTitle;
@@ -406,7 +421,7 @@ export default {
       background-size: cover;
       margin: 8px;
       background-position: center;
-     
+
     }
   }
 }
@@ -569,11 +584,11 @@ export default {
     .article-content {
       top:450px !important;
     }
-    
+
     .artitle-title {
       font-size:22px !important;
     }
-    .social-logos-float { 
+    .social-logos-float {
       top:400px !important;
     }
   }

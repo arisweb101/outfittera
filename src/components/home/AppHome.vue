@@ -28,6 +28,15 @@ import searchIcon from '@/components/search/searchIcon.vue';
 import eventBus from '@/event_bus';
 export default {
   name: 'Home',
+  metaInfo () {
+    return {
+      title: this.meta.title,
+      meta: [
+        { name: 'description', content: this.meta.description },
+        { name: 'keywords', content: this.meta.keywords }
+      ],
+    }
+  },
   components: {
     searchBar,
     searchIcon,
@@ -38,6 +47,11 @@ export default {
   },
   data() {
     return {
+      meta: {
+        title: '',
+        description: '',
+        keywords: ''
+      },
       searchIcon: require('@/assets/images/search.png'),
       menuLogo: require('@/assets/images/logo-black.svg'),
       isActive: '',
@@ -67,6 +81,7 @@ export default {
         .then((response) => {
           console.log('HOME');
           console.log(response.data);
+          vm.meta = response.data.meta;
           vm.spotlights = response.data.spotlights;
           vm.mainCategories = response.data.objects;
           vm.social = response.data.social;

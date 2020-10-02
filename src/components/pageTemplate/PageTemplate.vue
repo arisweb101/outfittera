@@ -64,6 +64,15 @@ import eventBus from '@/event_bus';
 import hoverEffect from 'hover-effect';
 export default {
   name: 'Template',
+  metaInfo () {
+    return {
+      title: this.meta.title,
+      meta: [
+        { name: 'description', content: this.meta.description },
+        { name: 'keywords', content: this.meta.keywords }
+      ],
+    }
+  },
   components: {
     Paginate,
     Banner,
@@ -74,6 +83,11 @@ export default {
   },
   data() {
     return {
+      meta: {
+        title: '',
+        description: '',
+        keywords: ''
+      },
       loading: false,
       forceImages: true,
       menuShow: false,
@@ -114,6 +128,7 @@ export default {
         .get(url)
         .then((response) => {
           vm.articles = response.data.results;
+          vm.meta = response.data.meta;
           vm.customPagination = response.data.pagination;
           vm.perPage = vm.customPagination.per_page;
           vm.totalRecords = parseInt(vm.customPagination.total_records);
@@ -291,7 +306,7 @@ export default {
         position: absolute;
         background-color: #fff;
       }
-      
+
     }
     a {
       color: #000;

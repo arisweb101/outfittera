@@ -5,8 +5,8 @@ import store from '../store'
 // import router from '../router'
 
 
-const API_URL = 'http://irp.pww.mybluehost.me/api/'
-// const API_URL = 'http://localhost:8081/api/'
+const API_URL = 'https://outfittera.com/api/'
+// const API_URL = 'http://localhost:8080/api/'
 
 const plainAxiosInstance = axios.create({
   baseURL: API_URL
@@ -33,7 +33,7 @@ securedAxiosInstance.interceptors.response.use(null, error => {
   if (error.response && error.response.config && error.response.status === 401) {
     store.commit('unsetCurrentUser')
     // router.push({ name: 'signin' })
-    window.location.href = '/dev.alisifirststep/login'
+    // window.location.href = '/login'
   } else {
     return Promise.reject(error)
   }
@@ -43,7 +43,7 @@ plainAxiosInstance.interceptors.response.use(null, error => {
   if (error.response && error.response.config && error.response.status === 401) {
     store.commit('unsetCurrentUser')
     // router.push({ name: 'signin' })
-    window.location.href = '/dev.alisifirststep/login'
+    // window.location.href = '/login'
   } else {
     return Promise.reject(error)
   }

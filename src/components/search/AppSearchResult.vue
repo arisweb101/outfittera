@@ -97,6 +97,15 @@ import { CursorFx } from '@luxdamore/vue-cursor-fx';
 import '@luxdamore/vue-cursor-fx/dist/CursorFx.css';
 export default {
   name: 'Template',
+  metaInfo () {
+    return {
+      title: this.meta.title,
+      meta: [
+        { name: 'description', content: this.meta.description },
+        { name: 'keywords', content: this.meta.keywords }
+      ],
+    }
+  },
   components: {
     Paginate,
     CursorFx,
@@ -109,6 +118,11 @@ export default {
   },
   data() {
     return {
+      meta: {
+        title: 'Search',
+        description: '',
+        keywords: ''
+      },
       dense: true,
       menuShow: false,
       searchBarShow: false,
@@ -225,7 +239,7 @@ export default {
     img {
       width:100%;
     }
-    
+
   }
   .label1 {
     color: #53127c;

@@ -6,6 +6,7 @@ import './registerServiceWorker';
 import vuetify from './plugins/vuetify';
 // import axios from 'axios';
 import './plugins/axios'
+import './plugins/vuemeta'
 // import VueAxios from 'vue-axios';
 import Tinybox from 'vue-tinybox';
 import ScrollAnimation from '@/assets/js/scrollAnimation';

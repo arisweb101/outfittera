@@ -14,8 +14,8 @@
         <div class="get-in-touch">
           <ul>
             <li>Get In Touch</li>
-            <li><v-img :src="facebook"></v-img></li>
-            <li><v-img :src="instagram"></v-img></li>
+            <li><a :href="socialPage.fb_page" target="_blank"><v-img :src="facebook"></v-img></a></li>
+            <li><a :href="socialPage.instagram" target="_blank"><v-img :src="instagram"></v-img></a></li>
           </ul>
         </div>
       </v-col>
@@ -29,6 +29,7 @@ export default {
   },
   data() {
     return {
+      socialPage: {},
       footerLogo: require('@/assets/images/logo-white.svg'),
       facebook: require('@/assets/images/fb-white.png'),
       instagram: require('@/assets/images/ig-white.png'),
@@ -37,18 +38,37 @@ export default {
   },
   mounted() {
     this.initialize()
+    this.getSocial();
   },
   methods: {
+    getSocial() {
+      let url = 'social';
+      this.$http.plain
+        .get(url)
+        .then((response) => {
+          this.socialPage = response.data.social;
+        });
+    },
     initialize() {
       this.menus = [
-      { title: 'Home', path: '/' },
-      { title: 'Fashion Mode', path: '/fashion-mode' },
-      { title: 'Travel Miles', path: '/travel-miles'},
-      { title: 'Lifestyle Makers', path: '/lifestyle-makers' },
-      { title: 'Technology & Machine', path: '/technology-and-machine' },
-      { title: 'Mart', path: '/mart' },
-      { title: 'About', path: '/about' },
-    ]
+        { title: 'Main', path: '/' },
+        { title: 'Mode', path: '/mode' },
+        { title: 'Miles', path: '/miles' },
+        { title: 'Makers', path: '/makers' },
+        { title: 'Machine', path: '/machine' },
+        { title: 'Mart', path: '/mart' },
+        { title: 'Meet Us', path: '/meet-us' },
+      ]
+
+    //   this.menus = [
+    //   { title: 'Home', path: '/' },
+    //   { title: 'Fashion Mode', path: '/fashion-mode' },
+    //   { title: 'Travel Miles', path: '/travel-miles'},
+    //   { title: 'Lifestyle Makers', path: '/lifestyle-makers' },
+    //   { title: 'Technology & Machine', path: '/technology-and-machine' },
+    //   { title: 'Mart', path: '/mart' },
+    //   { title: 'About', path: '/about' },
+    // ]
     }
   },
 }
@@ -83,7 +103,7 @@ export default {
         text-transform:uppercase;
         margin:0 0px 0 30px;
         font-size:14px;
-         
+
         a {
           color:#fff !important;
           text-transform:uppercase;
@@ -101,7 +121,7 @@ export default {
       }
     }
     }
-    
+
     .get-in-touch {
       position:relative;
       top:50px;
@@ -172,10 +192,10 @@ export default {
         width: fit-content;
       }
     }
-  } 
+  }
 }
 
-@media screen and (max-width:767px){ 
+@media screen and (max-width:767px){
   .footer {
     .footer-container {
       .footer-menu {

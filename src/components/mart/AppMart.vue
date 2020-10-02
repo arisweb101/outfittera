@@ -50,7 +50,7 @@
                     <div class="item-category">{{ item.category }}</div>
                     <div class="item-name">{{ item.itemName }}</div>
                     <div class="item-option">
-                      <div class="item-price">PHP {{ new Intl.NumberFormat().format(item.price) }}</div>
+                      <div class="item-price" v-show="item.price">PHP {{ new Intl.NumberFormat().format(item.price) }}</div>
                       <button type="button" class="buy-this-bt">
                         Buy This
                       </button>
@@ -95,6 +95,15 @@ import { CursorFx } from '@luxdamore/vue-cursor-fx';
 import '@luxdamore/vue-cursor-fx/dist/CursorFx.css';
 export default {
   name: 'Template',
+  metaInfo () {
+    return {
+      title: this.meta.title,
+      meta: [
+        { name: 'description', content: this.meta.description },
+        { name: 'keywords', content: this.meta.keywords }
+      ],
+    }
+  },
   components: {
     Paginate,
     CursorFx,
@@ -107,6 +116,11 @@ export default {
   },
   data() {
     return {
+      meta: {
+        title: '',
+        description: '',
+        keywords: ''
+      },
       dense: true,
       menuShow: false,
       searchBarShow: false,
@@ -143,6 +157,7 @@ export default {
         .get(url)
         .then((response) => {
           vm.martItems = response.data.results;
+          vm.meta = response.data.meta;
           vm.customPagination = response.data.pagination;
           vm.perPage = vm.customPagination.per_page;
           vm.totalRecords = parseInt(vm.customPagination.total_records);

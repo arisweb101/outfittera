@@ -219,6 +219,7 @@
                         required
                         :rules="[() => !!message || 'This field is required']"
                       ></v-textarea>
+
                       <button type="button" class="submit-bt" @click="submit" :disabled="sending">
                         {{ sending ? 'Sending' : 'Submit' }}
                       </button>
@@ -290,6 +291,15 @@ import eventBus from '@/event_bus';
 import '@luxdamore/vue-cursor-fx/dist/CursorFx.css';
 export default {
   name: 'Template',
+  metaInfo () {
+    return {
+      title: this.meta.title,
+      meta: [
+        { name: 'description', content: this.meta.description },
+        { name: 'keywords', content: this.meta.keywords }
+      ],
+    }
+  },
   components: {
     Menu,
     AboutBanner,
@@ -303,6 +313,11 @@ export default {
   },
   data() {
     return {
+      meta: {
+        title: '',
+        description: '',
+        keywords: ''
+      },
       snackbar: false,
       snackbarText: '',
       successDialog: {
@@ -359,6 +374,7 @@ export default {
         .get(url)
         .then((response) => {
           vm.response = response.data;
+          vm.meta = response.data.meta;
           vm.aboutBanner.aboutDescription = vm.response.about_outfiterra;
           vm.mode = vm.response.mode
           vm.miles = vm.response.miles
@@ -409,10 +425,18 @@ export default {
             this.successDialog.title = 'Sent'
             this.successDialog.message = response.data
             this.successDialog.show = true
+            this.message = ''
+            this.email = ''
+            this.name = ''
           })
           .catch(error => {
             if (error.response) {
-              this.snackbarText = error.response.data
+              let errors = error.response.data.messages
+              let msg = []
+              Object.keys(errors).forEach(key => {
+                msg.push(errors[key])
+              })
+              this.snackbarText = msg.join(',')
             }else{
               this.snackbarText = "Something went wrong! Please try again."
             }
