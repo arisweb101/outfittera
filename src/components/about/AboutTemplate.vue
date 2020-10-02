@@ -425,9 +425,7 @@ export default {
             this.successDialog.title = 'Sent'
             this.successDialog.message = response.data
             this.successDialog.show = true
-            this.message = ''
-            this.email = ''
-            this.name = ''
+            this.$refs.form.reset()
           })
           .catch(error => {
             if (error.response) {
